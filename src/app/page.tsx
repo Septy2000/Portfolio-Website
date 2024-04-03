@@ -2,7 +2,7 @@ import Paper from "@/components/Paper";
 import { Header, Text } from "@/components/typography/Typography";
 export default function AboutMePage() {
     return (
-        <Paper>
+        <Paper elevation={100}>
             <Header size="large" color="secondary">
                 About Me
             </Header>

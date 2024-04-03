@@ -19,6 +19,14 @@ const theme = {
         large: "24px",
         xlarge: "32px",
     },
+
+    mrgin: {
+        small: "8px",
+        medium: "16px",
+        large: "24px",
+        xlarge: "32px",
+    },
+
     screen: {
         small: "600px",
         medium: "768px",
