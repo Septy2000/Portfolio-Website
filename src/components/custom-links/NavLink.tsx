@@ -2,14 +2,14 @@ import React from "react";
 import Link from "next/link";
 
 type NavLinkProps = {
-    children: string;
+    children: React.ReactNode;
     href: string;
 };
 
 export default function NavLink({ children, href }: NavLinkProps) {
     return (
-        <Link href={`/${href.toLowerCase()}`}>
-            <h3>{children.toUpperCase()}</h3>
+        <Link href={href}>
+            <h3>{children}</h3>
         </Link>
     );
 }

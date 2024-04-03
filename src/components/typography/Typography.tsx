@@ -12,7 +12,7 @@ type HeaderProps = {
 };
 type TextProps = {
     color: Color;
-    children: string;
+    children: React.ReactNode;
 };
 
 export function Header({ children, size, color }: HeaderProps) {
