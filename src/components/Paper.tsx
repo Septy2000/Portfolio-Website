@@ -1,14 +1,21 @@
 "use client";
 import React from "react";
-import { StyledPaper } from "@/styles/Paper.styled";
+import { PaperStyled } from "@/styles/Paper.styled";
 
-interface PaperProps {
+type Size = "small" | "medium" | "large";
+
+type PaperProps = {
     elevation?: number;
+    size: Size;
     children: React.ReactNode;
-}
+};
 
-function Paper({ children, elevation }: PaperProps) {
-    return <StyledPaper elevation={elevation}>{children}</StyledPaper>;
+function Paper({ children, elevation, size }: PaperProps) {
+    return (
+        <PaperStyled elevation={elevation} size={size}>
+            {children}
+        </PaperStyled>
+    );
 }
 
 export default Paper;

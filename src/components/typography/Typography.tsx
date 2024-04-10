@@ -1,14 +1,19 @@
 // Header.tsx
 "use client";
 import React from "react";
-import { HeaderSmallStyle, HeaderMediumStyle, HeaderLargeStyle, TextStyle } from "@/styles/Typography.styled";
+import {
+    HeaderSmallStyled,
+    HeaderMediumStyled,
+    HeaderLargeStyled,
+    TextStyle,
+} from "@/styles/Typography.styled";
 
 type Size = "small" | "medium" | "large";
 type Color = "primary" | "secondary" | "tertiary" | string;
 type HeaderProps = {
     size: Size;
     color: Color;
-    children: Color;
+    children: React.ReactNode;
 };
 type TextProps = {
     color: Color;
@@ -19,11 +24,13 @@ export function Header({ children, size, color }: HeaderProps) {
     return (
         <React.Fragment>
             {size === "small" ? (
-                <HeaderSmallStyle color={color}>{children}</HeaderSmallStyle>
+                <HeaderSmallStyled color={color}>{children}</HeaderSmallStyled>
             ) : size === "medium" ? (
-                <HeaderMediumStyle color={color}>{children}</HeaderMediumStyle>
+                <HeaderMediumStyled color={color}>
+                    {children}
+                </HeaderMediumStyled>
             ) : (
-                <HeaderLargeStyle color={color}>{children}</HeaderLargeStyle>
+                <HeaderLargeStyled color={color}>{children}</HeaderLargeStyled>
             )}
         </React.Fragment>
     );

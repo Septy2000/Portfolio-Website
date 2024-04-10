@@ -14,15 +14,15 @@ function determineColor(color: string, theme: DefaultTheme) {
     }
 }
 
-export const HeaderLargeStyle = styled.h1<{ color: string }>`
+export const HeaderLargeStyled = styled.h1<{ color: string }>`
     color: ${({ theme, color }) => determineColor(color, theme)};
 `;
 
-export const HeaderMediumStyle = styled.h2<{ color: string }>`
+export const HeaderMediumStyled = styled.h2<{ color: string }>`
     color: ${({ theme, color }) => determineColor(color, theme)};
 `;
 
-export const HeaderSmallStyle = styled.h3<{ color: string }>`
+export const HeaderSmallStyled = styled.h3<{ color: string }>`
     color: ${({ theme, color }) => determineColor(color, theme)};
 `;
 

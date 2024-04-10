@@ -1,10 +1,27 @@
 "use client";
 import styled from "styled-components";
 
-export const StyledPaper = styled.div<{ elevation?: number }>`
+function calculateSize(size: string): string {
+    switch (size) {
+        case "small":
+            return "20%";
+        case "medium":
+            return "40%";
+        case "large":
+            return "80%";
+        default:
+            return "40%";
+    }
+}
+
+export const PaperStyled = styled.div<{ elevation?: number; size: string }>`
     background-color: ${({ theme }) => theme.colors.surface.secondary};
-    box-shadow: ${({ elevation }) => (elevation ? `${elevation}px ${elevation}px ${elevation}px` : "2px 2px 2px")};
+    box-shadow: ${({ elevation }) =>
+        elevation
+            ? `${elevation}px ${elevation}px ${elevation}px`
+            : "2px 2px 2px"};
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     padding: ${({ theme }) => theme.padding.large};
-    margin: ${({ theme }) => theme.margin.large};
+    width: ${({ size }) => calculateSize(size)};
+    height: ${({ size }) => calculateSize(size)};
 `;

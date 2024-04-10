@@ -8,7 +8,7 @@ const pages = ["About", "Projects"];
 export default function NavBar() {
     return (
         <Header>
-            <h1>Septimiu</h1>
+            <h1>Name</h1>
             <Nav>
                 {pages.map((page, id) => (
                     <NavLink key={id} href={page}>
