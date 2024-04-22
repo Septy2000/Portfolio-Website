@@ -14,28 +14,38 @@ type HeaderProps = {
     size: Size;
     color: Color;
     children: React.ReactNode;
+    m: string;
 };
 type TextProps = {
     color: Color;
     children: React.ReactNode;
+    m: string;
 };
 
-export function Header({ children, size, color }: HeaderProps) {
+export function Header({ children, size, color, m }: HeaderProps) {
     return (
         <React.Fragment>
             {size === "small" ? (
-                <HeaderSmallStyled color={color}>{children}</HeaderSmallStyled>
+                <HeaderSmallStyled color={color} margin={m}>
+                    {children}
+                </HeaderSmallStyled>
             ) : size === "medium" ? (
-                <HeaderMediumStyled color={color}>
+                <HeaderMediumStyled color={color} margin={m}>
                     {children}
                 </HeaderMediumStyled>
             ) : (
-                <HeaderLargeStyled color={color}>{children}</HeaderLargeStyled>
+                <HeaderLargeStyled color={color} margin={m}>
+                    {children}
+                </HeaderLargeStyled>
             )}
         </React.Fragment>
     );
 }
 
-export function Text({ children, color }: TextProps) {
-    return <TextStyle color={color}>{children}</TextStyle>;
+export function Text({ children, color, m }: TextProps) {
+    return (
+        <TextStyle color={color} margin={m}>
+            {children}
+        </TextStyle>
+    );
 }

@@ -14,7 +14,7 @@ function calculateSize(size: string): string {
     }
 }
 
-export const PaperStyled = styled.div<{ elevation?: number; size: string }>`
+export const PaperStyled = styled.div<{ elevation?: number}>`
     background-color: ${({ theme }) => theme.colors.surface.secondary};
     box-shadow: ${({ elevation }) =>
         elevation
@@ -22,6 +22,4 @@ export const PaperStyled = styled.div<{ elevation?: number; size: string }>`
             : "2px 2px 2px"};
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     padding: ${({ theme }) => theme.padding.large};
-    width: ${({ size }) => calculateSize(size)};
-    height: ${({ size }) => calculateSize(size)};
 `;

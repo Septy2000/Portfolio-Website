@@ -1,5 +1,5 @@
 import React from "react";
-import { WrapperNoDecoration } from "@/styles/WrapperNoDecoration";
+import { WrapperNoDecoration } from "@/styles/WrapperNoDecoration.styled";
 import Link from "next/link";
 
 type PlainLinkProps = {

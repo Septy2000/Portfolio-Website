@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
 
     body {
         background: ${theme.colors.surface.primary};
-        color: ${theme.colors.text};
+        color: ${theme.colors.text.primary};
     }
 `;
 

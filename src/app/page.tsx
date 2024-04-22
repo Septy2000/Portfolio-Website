@@ -1,8 +1,10 @@
 "use client";
 import PaperLink from "@/components/custom-links/PaperLink";
 import { Header, Text } from "@/components/typography/Typography";
-import { FlexCenterContainer } from "@/styles/Container.styled";
+import { CardsContainer } from "@/styles/Containers.styled";
 import { usePathname } from "next/navigation";
+import Card from "@/components/containers/Card";
+import PlainLink from "@/components/custom-links/PlainLink";
 
 export default function AboutMePage() {
     const pathname = usePathname();
@@ -10,33 +12,29 @@ export default function AboutMePage() {
         {
             title: "Fractals Explorer",
             slug: "fractals-explorer",
+            imagePath: "public/mandelbrot_thumbnail.png",
             description:
                 "Explore the Mandelbrot set and experiment with Perlin noise art",
         },
         {
             title: "A* Algorithm Visualiser",
             slug: "a-star-algorithm-visualiser",
+            imgagePath: "public/mandelbrot_thumbnail.png",
             description: "Visualise the A* algorithm in action",
         },
     ];
-    console.log(`${pathname}/${projects[0].slug}`);
 
     return (
-        <FlexCenterContainer ml="28px" mr="28px">
+        <CardsContainer mh="28px">
             {projects.map((project, id) => (
-                <PaperLink
-                    key={id}
-                    elevation={3}
-                    size="small"
-                    href={`${pathname}${project.slug}`}
-                >
-                    <Header size="medium" color="secondary">
-                        {project.title}
-                    </Header>
-
-                    <Text color="secondary">{project.description}</Text>
-                </PaperLink>
+                <PlainLink key={id} href={`${pathname}${projects[0].slug}`}>
+                    <Card
+                        imagePath="/public/mandelbrot_thumbnail.png"
+                        title={project.title}
+                        description={project.description}
+                    ></Card>
+                </PlainLink>
             ))}
-        </FlexCenterContainer>
+        </CardsContainer>
     );
 }
