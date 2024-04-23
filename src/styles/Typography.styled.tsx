@@ -14,22 +14,22 @@ function determineColor(color: string, theme: DefaultTheme) {
     }
 }
 
-export const HeaderLargeStyled = styled.h1<{ color: string; margin: string }>`
+export const HeaderLargeStyled = styled.h1<{ color: string; $margin: string }>`
     color: ${({ theme, color }) => determineColor(color, theme)};
-    margin: ${({ margin }) => margin};
+    margin: ${({ $margin }) => $margin};
 `;
 
-export const HeaderMediumStyled = styled.h2<{ color: string; margin: string }>`
+export const HeaderMediumStyled = styled.h2<{ color: string; $margin: string }>`
     color: ${({ theme, color }) => determineColor(color, theme)};
-    margin: ${({ margin }) => margin};
+    margin: ${({ $margin }) => $margin};
 `;
 
-export const HeaderSmallStyled = styled.h3<{ color: string; margin: string }>`
+export const HeaderSmallStyled = styled.h3<{ color: string; $margin: string }>`
     color: ${({ theme, color }) => determineColor(color, theme)};
-    margin: ${({ margin }) => margin};
+    margin: ${({ $margin }) => $margin};
 `;
 
-export const TextStyle = styled.p<{ color: string; margin: string }>`
+export const TextStyle = styled.p<{ color: string; $margin: string }>`
     color: ${({ theme, color }) => determineColor(color, theme)};
-    margin: ${({ margin }) => margin};
+    margin: ${({ $margin }) => $margin};
 `;

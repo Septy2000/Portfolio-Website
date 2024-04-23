@@ -26,15 +26,15 @@ export function Header({ children, size, color, m }: HeaderProps) {
     return (
         <React.Fragment>
             {size === "small" ? (
-                <HeaderSmallStyled color={color} margin={m}>
+                <HeaderSmallStyled color={color} $margin={m}>
                     {children}
                 </HeaderSmallStyled>
             ) : size === "medium" ? (
-                <HeaderMediumStyled color={color} margin={m}>
+                <HeaderMediumStyled color={color} $margin={m}>
                     {children}
                 </HeaderMediumStyled>
             ) : (
-                <HeaderLargeStyled color={color} margin={m}>
+                <HeaderLargeStyled color={color} $margin={m}>
                     {children}
                 </HeaderLargeStyled>
             )}
@@ -44,7 +44,7 @@ export function Header({ children, size, color, m }: HeaderProps) {
 
 export function Text({ children, color, m }: TextProps) {
     return (
-        <TextStyle color={color} margin={m}>
+        <TextStyle color={color} $margin={m}>
             {children}
         </TextStyle>
     );

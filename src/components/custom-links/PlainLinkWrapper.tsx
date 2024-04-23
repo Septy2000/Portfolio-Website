@@ -2,12 +2,15 @@ import React from "react";
 import { WrapperNoDecoration } from "@/styles/WrapperNoDecoration.styled";
 import Link from "next/link";
 
-type PlainLinkProps = {
+type PlainLinkWrapperProps = {
     children: React.ReactNode;
     href: string;
 };
 
-export default function PlainLink({ children, href }: PlainLinkProps) {
+export default function PlainLinkWrapper({
+    children,
+    href,
+}: PlainLinkWrapperProps) {
     return (
         <WrapperNoDecoration>
             <Link href={href}>{children}</Link>

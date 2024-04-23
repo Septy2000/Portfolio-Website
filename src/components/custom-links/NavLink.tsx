@@ -1,5 +1,5 @@
 import React from "react";
-import PlainLink from "./PlainLink";
+import PlainLink from "./PlainLinkWrapper";
 
 type NavLinkProps = {
     children: React.ReactNode;

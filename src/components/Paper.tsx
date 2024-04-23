@@ -10,7 +10,7 @@ type PaperProps = {
 };
 
 function Paper({ children, elevation }: PaperProps) {
-    return <PaperStyled elevation={elevation}>{children}</PaperStyled>;
+    return <PaperStyled $elevation={elevation}>{children}</PaperStyled>;
 }
 
 export default Paper;
