@@ -11,6 +11,18 @@ export const CardsContainer = styled.div<{
 }>`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    @media ((min-width: ${({ theme }) => theme.screen.medium}) and (max-width: ${({ theme }) => theme.screen.large})) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.screen.large}) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
     gap: ${({ theme }) => theme.padding.xlarge};
     column-gap: ${({ theme }) => theme.padding.xlarge};
     grid-auto-rows: auto;

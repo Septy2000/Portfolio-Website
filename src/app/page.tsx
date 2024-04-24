@@ -3,7 +3,10 @@ import { CardsContainer } from "@/styles/Containers.styled";
 import { usePathname } from "next/navigation";
 import Card from "@/components/containers/Card";
 import PlainLinkWrapper from "@/components/custom-links/PlainLinkWrapper";
-import { mandelbrot_thumbnail_image } from "@/components/Images";
+import {
+    image_missing_image,
+    mandelbrot_thumbnail_image,
+} from "@/components/Images";
 
 export default function AboutMePage() {
     const pathname = usePathname();
@@ -66,7 +69,7 @@ export default function AboutMePage() {
                     href={`${pathname}${projects[0].slug}`}
                 >
                     <Card
-                        imagePath={project.imagePath}
+                        imagePath={project.imagePath ?? image_missing_image}
                         title={project.title}
                         description={project.description}
                     ></Card>

@@ -11,6 +11,11 @@ const CardStyled = styled.div`
     margin: ${({ theme }) => theme.margin.small};
     background-color: ${({ theme }) => theme.colors.surface.secondary};
     height: 100%;
+    transition: box-shadow 0.2s, transform 0.2s; /* Add transition for both box-shadow and transform */
+    &:hover {
+        transform: scale(1.03);
+        box-shadow: 0px 15px 12px #999;
+    }
 `;
 
 const CardImageStyled = styled(Image)`
@@ -31,7 +36,7 @@ export default function Card({ imagePath, title, description }: CardProps) {
         <CardStyled>
             <CardImageStyled
                 src={imagePath}
-                alt="Mandelbrot iamge"
+                alt="Image could not load"
                 width={300}
                 height={300}
             />
