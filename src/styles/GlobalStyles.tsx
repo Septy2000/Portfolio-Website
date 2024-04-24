@@ -15,7 +15,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        background: linear-gradient(180deg, #3d3a3a, #dbdbdb); /* Diagonal gradient */
+        background: #fff9f0
     }
 `;
 export default GlobalStyles;

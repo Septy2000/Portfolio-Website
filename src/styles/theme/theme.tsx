@@ -2,12 +2,12 @@
 const theme = {
     colors: {
         surface: {
-            primary: "#FFF6E9",
+            primary: "#fff9f0",
             secondary: "#1A1B25",
         },
         text: {
             primary: "#1A1B25",
-            secondary: "#FFF6E9",
+            secondary: "#fff9f0",
             tertiary: "#BBE2EC",
         },
         green: "#0D9276",

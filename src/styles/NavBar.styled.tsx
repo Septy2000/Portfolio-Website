@@ -15,4 +15,5 @@ export const Header = styled.header`
 export const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
+    color: ${({ theme }) => theme.colors.text.primary};
 `;

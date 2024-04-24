@@ -10,12 +10,13 @@ export const CardsContainer = styled.div<{
     $m?: string;
 }>`
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         grid-template-columns: repeat(1, 1fr);
     }
 
-    @media ((min-width: ${({ theme }) => theme.screen.medium}) and (max-width: ${({ theme }) => theme.screen.large})) {
+    /* prettier-ignore */
+    @media ((min-width: ${({ theme }) => theme.screen.medium}) and 
+            (max-width: ${({ theme }) => theme.screen.large})) {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -24,8 +25,7 @@ export const CardsContainer = styled.div<{
     }
 
     gap: ${({ theme }) => theme.padding.xlarge};
-    column-gap: ${({ theme }) => theme.padding.xlarge};
-    grid-auto-rows: auto;
+    grid-auto-rows: 1fr;
     padding: ${({ $p }) => ($p ? $p : "none")};
     padding-left: ${({ $ph }) => ($ph ? $ph : "none")};
     padding-right: ${({ $ph }) => ($ph ? $ph : "none")};
@@ -36,4 +36,21 @@ export const CardsContainer = styled.div<{
     margin-left: ${({ $mh }) => ($mh ? $mh : "none")};
     margin-bottom: ${({ $mv }) => ($mv ? $mv : "none")};
     margin-right: ${({ $mh }) => ($mh ? $mh : "none")};
+`;
+
+export const MainInformationContainer = styled.div`
+    display: grid;
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template: repeat(2, 1fr);
+    }
+    @media (min-width: ${({ theme }) => theme.screen.medium}) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+    }
+    gap: ${({ theme }) => theme.padding.xlarge};
+`;
+
+export const AboutContainer = styled.div`
+    align-items: start;
 `;
