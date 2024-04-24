@@ -6,13 +6,16 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: "Roboto", sans-serif, Arial;
+        font-family: "Helvetica", sans-serif, Arial;
+    }
+
+    html, body {
+        margin: 0;
+        height: 100%;
     }
 
     body {
-        background: ${theme.colors.surface.primary};
-        color: ${theme.colors.text.primary};
+        background: linear-gradient(180deg, #3d3a3a, #dbdbdb); /* Diagonal gradient */
     }
 `;
-
 export default GlobalStyles;

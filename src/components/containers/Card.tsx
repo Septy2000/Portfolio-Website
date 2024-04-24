@@ -3,26 +3,29 @@ import styled from "styled-components";
 import { Header, Text } from "@/components/typography/Typography";
 import Image from "next/image";
 const CardStyled = styled.div`
-    width: auto;
-    border-radius: ${({ theme }) => theme.borderRadius.medium};
-    box-shadow: 0px 10px 8px #999;
+    width: 100%;
+    border-radius: ${({ theme }) => theme.borderRadius.xlarge};
     display: flex;
     flex-direction: column;
     margin: ${({ theme }) => theme.margin.small};
     background-color: ${({ theme }) => theme.colors.surface.secondary};
     height: 100%;
-    transition: box-shadow 0.2s, transform 0.2s; /* Add transition for both box-shadow and transform */
+    transition: transform 0.2s;
     &:hover {
         transform: scale(1.03);
-        box-shadow: 0px 15px 12px #999;
     }
 `;
 
 const CardImageStyled = styled(Image)`
     border-radius: ${({ theme }) =>
-        `${theme.borderRadius.medium} ${theme.borderRadius.medium} 0 0`};
+        `${theme.borderRadius.xlarge} ${theme.borderRadius.xlarge} 0 0`};
     width: 100%;
-    height: auto;
+    height: 70%;
+    transition: filter 0.2s;
+    filter: blur(2px);
+    ${CardStyled}:hover & {
+        filter: none;
+    }
 `;
 
 type CardProps = {

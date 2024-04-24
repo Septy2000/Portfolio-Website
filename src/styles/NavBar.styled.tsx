@@ -9,6 +9,7 @@ export const Header = styled.header`
     justify-content: space-between;
     align-items: center;
     padding: ${({ theme }) => theme.padding.medium};
+    background-color: transparent;
 `;
 
 export const Nav = styled.nav`

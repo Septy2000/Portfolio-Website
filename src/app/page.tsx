@@ -6,6 +6,7 @@ import PlainLinkWrapper from "@/components/custom-links/PlainLinkWrapper";
 import {
     image_missing_image,
     mandelbrot_thumbnail_image,
+    a_star_algorithm_image,
 } from "@/components/Images";
 
 export default function AboutMePage() {
@@ -18,18 +19,12 @@ export default function AboutMePage() {
             description:
                 "Explore the Mandelbrot set and experiment with Perlin noise art",
         },
+
         {
             title: "A* Algorithm Visualiser",
-            slug: "a-star-algorithm-visualiser",
-            imgagePath: mandelbrot_thumbnail_image,
-            description: "Visualise the A* algorithm in action",
-        },
-        {
-            title: "Fractals Explorer",
             slug: "fractals-explorer",
-            imagePath: mandelbrot_thumbnail_image,
-            description:
-                "Explore the Mandelbrot set and experiment with Perlin noise art",
+            imagePath: a_star_algorithm_image,
+            description: "Visualise and experiment with the A* algorithm",
         },
         {
             title: "Fractals Explorer",
@@ -64,10 +59,7 @@ export default function AboutMePage() {
     return (
         <CardsContainer $mh="28px">
             {projects.map((project, id) => (
-                <PlainLinkWrapper
-                    key={id}
-                    href={`${pathname}${projects[0].slug}`}
-                >
+                <PlainLinkWrapper key={id} href={`${pathname}${project.slug}`}>
                     <Card
                         imagePath={project.imagePath ?? image_missing_image}
                         title={project.title}

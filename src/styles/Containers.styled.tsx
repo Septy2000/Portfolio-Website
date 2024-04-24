@@ -26,7 +26,6 @@ export const CardsContainer = styled.div<{
     gap: ${({ theme }) => theme.padding.xlarge};
     column-gap: ${({ theme }) => theme.padding.xlarge};
     grid-auto-rows: auto;
-    background-color: ${({ theme }) => theme.colors.surface.primary};
     padding: ${({ $p }) => ($p ? $p : "none")};
     padding-left: ${({ $ph }) => ($ph ? $ph : "none")};
     padding-right: ${({ $ph }) => ($ph ? $ph : "none")};
