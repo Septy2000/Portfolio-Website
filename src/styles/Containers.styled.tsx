@@ -11,8 +11,9 @@ export const CardsContainer = styled.div<{
 }>`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
+    gap: ${({ theme }) => theme.padding.xlarge};
+    column-gap: ${({ theme }) => theme.padding.xlarge};
+    grid-auto-rows: auto;
     background-color: ${({ theme }) => theme.colors.surface.primary};
     padding: ${({ $p }) => ($p ? $p : "none")};
     padding-left: ${({ $ph }) => ($ph ? $ph : "none")};

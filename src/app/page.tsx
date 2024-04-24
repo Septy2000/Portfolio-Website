@@ -1,10 +1,9 @@
 "use client";
-import PaperLink from "@/components/custom-links/PaperLink";
-import { Header, Text } from "@/components/typography/Typography";
 import { CardsContainer } from "@/styles/Containers.styled";
 import { usePathname } from "next/navigation";
 import Card from "@/components/containers/Card";
 import PlainLinkWrapper from "@/components/custom-links/PlainLinkWrapper";
+import { mandelbrot_thumbnail_image } from "@/components/Images";
 
 export default function AboutMePage() {
     const pathname = usePathname();
@@ -12,15 +11,50 @@ export default function AboutMePage() {
         {
             title: "Fractals Explorer",
             slug: "fractals-explorer",
-            imagePath: "public/mandelbrot_thumbnail.png",
+            imagePath: mandelbrot_thumbnail_image,
             description:
                 "Explore the Mandelbrot set and experiment with Perlin noise art",
         },
         {
             title: "A* Algorithm Visualiser",
             slug: "a-star-algorithm-visualiser",
-            imgagePath: "public/mandelbrot_thumbnail.png",
+            imgagePath: mandelbrot_thumbnail_image,
             description: "Visualise the A* algorithm in action",
+        },
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
+        },
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
+        },
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
+        },
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
+        },
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
         },
     ];
 
@@ -32,7 +66,7 @@ export default function AboutMePage() {
                     href={`${pathname}${projects[0].slug}`}
                 >
                     <Card
-                        imagePath="/public/mandelbrot_thumbnail.png"
+                        imagePath={project.imagePath}
                         title={project.title}
                         description={project.description}
                     ></Card>

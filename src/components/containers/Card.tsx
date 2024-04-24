@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Header, Text } from "@/components/typography/Typography";
 import Image from "next/image";
-import mandelbrot_thumbnail from "../../../public/mandelbrot_thumbnail.png";
 const CardStyled = styled.div`
-    width: 20rem;
+    width: auto;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     box-shadow: 0px 10px 8px #999;
     display: flex;
@@ -14,9 +13,11 @@ const CardStyled = styled.div`
     height: 100%;
 `;
 
-const CardImageStyled = styled.img`
+const CardImageStyled = styled(Image)`
     border-radius: ${({ theme }) =>
         `${theme.borderRadius.medium} ${theme.borderRadius.medium} 0 0`};
+    width: 100%;
+    height: auto;
 `;
 
 type CardProps = {
@@ -29,8 +30,10 @@ export default function Card({ imagePath, title, description }: CardProps) {
     return (
         <CardStyled>
             <CardImageStyled
-                src={mandelbrot_thumbnail.src}
+                src={imagePath}
                 alt="Mandelbrot iamge"
+                width={300}
+                height={300}
             />
             <Header size="medium" color="secondary" m="0.5rem">
                 {title}
