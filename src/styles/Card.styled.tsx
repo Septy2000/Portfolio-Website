@@ -3,12 +3,13 @@ import Image from "next/image";
 
 const CardStyled = styled.div`
     width: 100%;
-    border-radius: ${({ theme }) => theme.borderRadius.small};
+    max-width: 500px;
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
     display: flex;
     flex-direction: column;
-    margin: ${({ theme }) => theme.margin.small};
     background-color: ${({ theme }) => theme.colors.surface.secondary};
     height: 100%;
+    padding: ${({ theme }) => theme.padding.small};
     transition: transform 0.2s;
     &:hover {
         transform: scale(1.03);
@@ -17,10 +18,10 @@ const CardStyled = styled.div`
 
 const CardImageStyled = styled(Image)`
     border-radius: ${({ theme }) => theme.borderRadius.small};
+    margin-bottom: ${({ theme }) => theme.margin.small};
     width: 100%;
     height: 70%;
     transition: filter 0.2s;
-    padding: ${({ theme }) => theme.padding.large};
 `;
 
 export { CardStyled, CardImageStyled };

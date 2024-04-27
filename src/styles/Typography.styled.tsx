@@ -1,5 +1,9 @@
 "use client";
 import styled, { DefaultTheme } from "styled-components";
+import {
+    CustomStylingProps,
+    customPropertiesMixin,
+} from "@/styles/custom-properties/CustomProperties";
 
 function determineColor(color: string, theme: DefaultTheme) {
     switch (color) {
@@ -14,22 +18,28 @@ function determineColor(color: string, theme: DefaultTheme) {
     }
 }
 
-export const HeaderLargeStyled = styled.h1<{ color: string; $margin: string }>`
+export const HeaderLargeStyled = styled.h1<
+    { color: string } & CustomStylingProps
+>`
     color: ${({ theme, color }) => determineColor(color, theme)};
-    margin: ${({ $margin }) => $margin};
+    ${customPropertiesMixin}
 `;
 
-export const HeaderMediumStyled = styled.h2<{ color: string; $margin: string }>`
+export const HeaderMediumStyled = styled.h2<
+    { color: string } & CustomStylingProps
+>`
     color: ${({ theme, color }) => determineColor(color, theme)};
-    margin: ${({ $margin }) => $margin};
+    ${customPropertiesMixin}
 `;
 
-export const HeaderSmallStyled = styled.h3<{ color: string; $margin: string }>`
+export const HeaderSmallStyled = styled.h3<
+    { color: string } & CustomStylingProps
+>`
     color: ${({ theme, color }) => determineColor(color, theme)};
-    margin: ${({ $margin }) => $margin};
+    ${customPropertiesMixin}
 `;
 
-export const TextStyle = styled.p<{ color: string; $margin: string }>`
+export const TextStyle = styled.p<{ color: string } & CustomStylingProps>`
     color: ${({ theme, color }) => determineColor(color, theme)};
-    margin: ${({ $margin }) => $margin};
+    ${customPropertiesMixin}
 `;

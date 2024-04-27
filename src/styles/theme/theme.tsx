@@ -14,24 +14,25 @@ const theme = {
     },
 
     padding: {
-        small: "8px",
-        medium: "16px",
-        large: "24px",
-        xlarge: "32px",
+        small: "16px",
+        medium: "32px",
+        large: "48px",
+        xlarge: "64px",
     },
 
     margin: {
-        small: "8px",
-        medium: "16px",
-        large: "24px",
-        xlarge: "32px",
+        small: "16px",
+        medium: "32px",
+        large: "48px",
+        xlarge: "64px",
+        variable: "12.5vw",
     },
 
     borderRadius: {
-        small: "8px",
-        medium: "16px",
-        large: "24px",
-        xlarge: "32px",
+        small: "16px",
+        medium: "32px",
+        large: "48px",
+        xlarge: "64px",
     },
 
     screen: {

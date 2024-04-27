@@ -11,10 +11,10 @@ import {
 type Size = "small" | "medium" | "large";
 type Color = "primary" | "secondary" | "tertiary" | string;
 type HeaderProps = {
-    size: Size;
+    size?: Size;
     color: Color;
     children: React.ReactNode;
-    m: string;
+    m?: string;
 };
 type TextProps = {
     color: Color;
@@ -23,29 +23,35 @@ type TextProps = {
 };
 
 export function Header({ children, size, color, m }: HeaderProps) {
+    let StyledHeader;
+    switch (size) {
+        case "small":
+            StyledHeader = HeaderSmallStyled;
+            break;
+        case "medium":
+            StyledHeader = HeaderMediumStyled;
+            break;
+        case "large":
+            StyledHeader = HeaderLargeStyled;
+            break;
+        default:
+            StyledHeader = HeaderLargeStyled;
+            break;
+    }
     return (
         <React.Fragment>
-            {size === "small" ? (
-                <HeaderSmallStyled color={color} $margin={m}>
-                    {children}
-                </HeaderSmallStyled>
-            ) : size === "medium" ? (
-                <HeaderMediumStyled color={color} $margin={m}>
-                    {children}
-                </HeaderMediumStyled>
-            ) : (
-                <HeaderLargeStyled color={color} $margin={m}>
-                    {children}
-                </HeaderLargeStyled>
-            )}
+            <StyledHeader color={color} $m={m}>
+                {children}
+            </StyledHeader>
         </React.Fragment>
     );
 }
 
 export function Text({ children, color, m }: TextProps) {
     return (
-        <TextStyle color={color} $margin={m}>
+        <TextStyle color={color} $m={m}>
             {children}
         </TextStyle>
     );
 }
+

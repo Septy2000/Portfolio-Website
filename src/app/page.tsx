@@ -64,7 +64,7 @@ const projects = [
 ];
 
 const PortraitPhoto = styled(Image)`
-    border: 1px solid ${({ theme }) => theme.colors.surface.secondary};
+    border: 8px solid ${({ theme }) => theme.colors.surface.secondary};
     border-radius: 50%;
 `;
 
@@ -74,15 +74,9 @@ export default function AboutMePage() {
     return (
         <React.Fragment>
             <MainInformationContainer>
-                <PortraitPhoto
-                    src={portrait_image}
-                    alt="Photo of me"
-                    width={300}
-                    height={300}
-                />
                 <AboutContainer>
-                    <Header size="large" color="primary" m="0.5rem">
-                        About Me
+                    <Header color="tomato" m="0.5rem">
+                        {"Hi, I'm Septi"}
                     </Header>
 
                     <Text color="primary" m="0.5rem">
@@ -92,9 +86,16 @@ export default function AboutMePage() {
                         with Python, Java, and C++.
                     </Text>
                 </AboutContainer>
+                <PortraitPhoto
+                    src={portrait_image}
+                    alt="Photo of me"
+                    width={300}
+                    height={300}
+                    priority
+                />
             </MainInformationContainer>
 
-            <CardsContainer $mh="28px">
+            <CardsContainer>
                 {projects.map((project, id) => (
                     <PlainLinkWrapper
                         key={id}

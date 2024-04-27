@@ -1,15 +1,14 @@
 "use client";
 import styled from "styled-components";
+import {
+    CustomStylingProps,
+    customPropertiesMixin,
+} from "./custom-properties/CustomProperties";
 
-export const CardsContainer = styled.div<{
-    $pv?: string;
-    $ph?: string;
-    $mv?: string;
-    $mh?: string;
-    $p?: string;
-    $m?: string;
-}>`
+export const CardsContainer = styled.div<CustomStylingProps>`
     display: grid;
+    margin: ${({ theme }) =>
+        `${theme.margin.xlarge} ${theme.margin.variable} ${theme.margin.xlarge} ${theme.margin.variable} `};
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         grid-template-columns: repeat(1, 1fr);
     }
@@ -26,31 +25,30 @@ export const CardsContainer = styled.div<{
 
     gap: ${({ theme }) => theme.padding.xlarge};
     grid-auto-rows: 1fr;
-    padding: ${({ $p }) => ($p ? $p : "none")};
-    padding-left: ${({ $ph }) => ($ph ? $ph : "none")};
-    padding-right: ${({ $ph }) => ($ph ? $ph : "none")};
-    padding-top: ${({ $pv }) => ($pv ? $pv : "none")};
-    padding-bottom: ${({ $pv }) => ($pv ? $pv : "none")};
-    margin: ${({ $m }) => ($m ? $m : "none")};
-    margin-top: ${({ $mv }) => ($mv ? $mv : "none")};
-    margin-left: ${({ $mh }) => ($mh ? $mh : "none")};
-    margin-bottom: ${({ $mv }) => ($mv ? $mv : "none")};
-    margin-right: ${({ $mh }) => ($mh ? $mh : "none")};
+
+    ${customPropertiesMixin}
 `;
 
-export const MainInformationContainer = styled.div`
-    display: grid;
+export const MainInformationContainer = styled.div<CustomStylingProps>`
+    display: flex;
+    margin-left: ${({ theme }) => theme.margin.variable};
+    margin-right: ${({ theme }) => theme.margin.variable};
+
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        grid-template-columns: repeat(1, 1fr);
-        grid-template: repeat(2, 1fr);
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
     }
     @media (min-width: ${({ theme }) => theme.screen.medium}) {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(1, 1fr);
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
     }
-    gap: ${({ theme }) => theme.padding.xlarge};
+
+    ${customPropertiesMixin}
 `;
 
 export const AboutContainer = styled.div`
     align-items: start;
+    max-width: 500px;
 `;
