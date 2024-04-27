@@ -9,7 +9,8 @@ const GlobalStyles = createGlobalStyle`
     }
     
     body {
-        background: #fff9f0
+        background: #fff9f0;
+        /* max-width: ${({ theme }) => theme.screen.large}; */
     }
 `;
 export default GlobalStyles;

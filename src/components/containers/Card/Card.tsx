@@ -1,6 +1,5 @@
 import React from "react";
 import * as Styled from "./Card.styled";
-import * as Typography from "@/components/typography/Typography";
 
 type CardProps = {
     imagePath: string;
@@ -18,13 +17,9 @@ export default function Card({ imagePath, title, description }: CardProps) {
                 height={300}
                 priority
             />
-            <Typography.Header size="medium" color="secondary" m="0.5rem">
-                {title}
-            </Typography.Header>
+            <Styled.Header>{title}</Styled.Header>
 
-            <Typography.Text color="secondary" m="0.5rem">
-                {description}
-            </Typography.Text>
+            <Styled.Body>{description}</Styled.Body>
         </Styled.Card>
     );
 }

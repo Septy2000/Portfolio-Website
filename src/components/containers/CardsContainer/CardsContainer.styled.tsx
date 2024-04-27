@@ -1,9 +1,7 @@
-"use client";
 import styled from "styled-components";
 export const CardsContainer = styled.div`
     display: grid;
-    margin: ${({ theme }) =>
-        `${theme.margin.xlarge} ${theme.margin.variable} ${theme.margin.xlarge} ${theme.margin.variable} `};
+    margin: ${({ theme }) => theme.margin.medium};
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         grid-template-columns: repeat(1, 1fr);
     }

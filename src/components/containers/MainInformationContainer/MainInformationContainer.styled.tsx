@@ -1,10 +1,8 @@
-"use client";
 import styled from "styled-components";
 
 export const MainInformationContainer = styled.div`
     display: flex;
-    margin-left: ${({ theme }) => theme.margin.variable};
-    margin-right: ${({ theme }) => theme.margin.variable};
+    margin: ${({ theme }) => theme.margin.medium};
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         flex-direction: column-reverse;

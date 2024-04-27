@@ -2,11 +2,15 @@
 import React from "react";
 import styled from "styled-components";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
+import { PortraitImage } from "@/components/images/Images.styled";
 import Card from "@/components/containers/Card/Card";
 import PlainLinkWrapper from "@/components/wrappers/PlainLinkWrapper/PlainLinkWrapper";
 import { MainInformationContainer } from "@/components/containers/MainInformationContainer/MainInformationContainer.styled";
-import { AboutContainer } from "@/components/containers/AboutContainer/AboutContainer.styled";
+import {
+    AboutContainer,
+    AboutNameHeader,
+    AboutBody,
+} from "@/components/containers/AboutContainer/AboutContainer.styled";
 import { CardsContainer } from "@/components/containers/CardsContainer/CardsContainer.styled";
 import { Header, Text } from "@/components/typography/Typography";
 import {
@@ -14,12 +18,30 @@ import {
     mandelbrot_thumbnail_image,
     a_star_algorithm_image,
     portrait_image,
-} from "@/components/Images";
+} from "@/components/images/Images";
 
-const PortraitPhoto = styled(Image)`
-    border: 8px solid ${({ theme }) => theme.colors.surface.secondary};
-    border-radius: 50%;
-`;
+function AboutMe() {
+    return (
+        <MainInformationContainer>
+            <AboutContainer>
+                <AboutNameHeader>Hi, I&apos;m Septi</AboutNameHeader>
+                <AboutBody>
+                    I&apos;m a software engineer with a passion for creating
+                    interactive visualisations and tools. I enjoy working with
+                    React, Next.js, and TypeScript. I have experience with
+                    Python, Java, and C++.
+                </AboutBody>
+            </AboutContainer>
+            <PortraitImage
+                src={portrait_image}
+                alt="Photo of me"
+                width={300}
+                height={300}
+                priority
+            />
+        </MainInformationContainer>
+    );
+}
 
 export default function AboutMePage() {
     const projects = [
@@ -71,28 +93,7 @@ export default function AboutMePage() {
 
     return (
         <React.Fragment>
-            <MainInformationContainer>
-                <AboutContainer>
-                    <Header color="tomato" m="0.5rem">
-                        {"Hi, I'm Septi"}
-                    </Header>
-
-                    <Text color="primary" m="0.5rem">
-                        I am a software engineer with a passion for creating
-                        interactive visualisations and tools. I enjoy working
-                        with React, Next.js, and TypeScript. I have experience
-                        with Python, Java, and C++.
-                    </Text>
-                </AboutContainer>
-                <PortraitPhoto
-                    src={portrait_image}
-                    alt="Photo of me"
-                    width={300}
-                    height={300}
-                    priority
-                />
-            </MainInformationContainer>
-
+            <AboutMe />
             <CardsContainer>
                 {projects.map((project, id) => (
                     <PlainLinkWrapper

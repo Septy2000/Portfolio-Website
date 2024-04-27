@@ -7,7 +7,7 @@ export const Card = styled.div`
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     display: flex;
     flex-direction: column;
-    background-color: ${({ theme }) => theme.colors.surface.secondary};
+    background-color: orange;
     height: 100%;
     padding: ${({ theme }) => theme.padding.small};
     transition: transform 0.2s;
@@ -22,4 +22,14 @@ export const CardImage = styled(Image)`
     width: 100%;
     height: 70%;
     transition: filter 0.2s;
+`;
+
+export const Header = styled.h2`
+    color: ${({ theme }) => theme.colors.text.secondary};
+    margin-bottom: ${({ theme }) => theme.margin.small};
+`;
+
+export const Body = styled.p`
+    color: ${({ theme }) => theme.colors.text.secondary};
+    margin-bottom: ${({ theme }) => theme.margin.small};
 `;
