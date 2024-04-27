@@ -1,7 +1,6 @@
-"use client";
 import styled from "styled-components";
 
-const WrapperNoDecoration = styled.div`
+export const PlainLinkWrapper = styled.div`
     * {
         text-decoration: none;
     }
@@ -10,5 +9,3 @@ const WrapperNoDecoration = styled.div`
         color: inherit;
     }
 `;
-
-export default WrapperNoDecoration;

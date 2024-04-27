@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 
-const CardStyled = styled.div`
+export const Card = styled.div`
     width: 100%;
     max-width: 500px;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
@@ -16,12 +16,10 @@ const CardStyled = styled.div`
     }
 `;
 
-const CardImageStyled = styled(Image)`
+export const CardImage = styled(Image)`
     border-radius: ${({ theme }) => theme.borderRadius.small};
     margin-bottom: ${({ theme }) => theme.margin.small};
     width: 100%;
     height: 70%;
     transition: filter 0.2s;
 `;
-
-export { CardStyled, CardImageStyled };

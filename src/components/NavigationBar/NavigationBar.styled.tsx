@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import styled from "styled-components";
 
 export const Header = styled.header`
@@ -12,8 +13,12 @@ export const Header = styled.header`
     background-color: transparent;
 `;
 
-export const Nav = styled.nav`
+export const NavigationContainer = styled.nav`
     display: flex;
     justify-content: space-between;
     color: ${({ theme }) => theme.colors.text.primary};
+`;
+
+export const NavigationLink = styled(Link)`
+    
 `;

@@ -1,5 +1,5 @@
 import React from "react";
-import WrapperNoDecoration from "@/components/wrappers/WrapperNoDecoration";
+import * as Styled from "./PlainLinkWrapper.styled";
 import Link from "next/link";
 
 type PlainLinkWrapperProps = {
@@ -12,8 +12,8 @@ export default function PlainLinkWrapper({
     href,
 }: PlainLinkWrapperProps) {
     return (
-        <WrapperNoDecoration>
+        <Styled.PlainLinkWrapper>
             <Link href={href}>{children}</Link>
-        </WrapperNoDecoration>
+        </Styled.PlainLinkWrapper>
     );
 }

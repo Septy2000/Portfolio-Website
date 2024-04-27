@@ -1,67 +1,20 @@
 "use client";
-import { CardsContainer } from "@/styles/Containers.styled";
 import React from "react";
+import styled from "styled-components";
 import { usePathname } from "next/navigation";
-import Card from "@/components/containers/Card";
-import PlainLinkWrapper from "@/components/wrappers/PlainLinkWrapper";
+import Image from "next/image";
+import Card from "@/components/containers/Card/Card";
+import PlainLinkWrapper from "@/components/wrappers/PlainLinkWrapper/PlainLinkWrapper";
+import { MainInformationContainer } from "@/components/containers/MainInformationContainer/MainInformationContainer.styled";
+import { AboutContainer } from "@/components/containers/AboutContainer/AboutContainer.styled";
+import { CardsContainer } from "@/components/containers/CardsContainer/CardsContainer.styled";
+import { Header, Text } from "@/components/typography/Typography";
 import {
     image_missing_image,
     mandelbrot_thumbnail_image,
     a_star_algorithm_image,
+    portrait_image,
 } from "@/components/Images";
-import {
-    MainInformationContainer,
-    AboutContainer,
-} from "@/styles/Containers.styled";
-import { Header, Text } from "@/components/typography/Typography";
-import Image from "next/image";
-import { portrait_image } from "@/components/Images";
-import styled from "styled-components";
-
-const projects = [
-    {
-        title: "Fractals Explorer",
-        slug: "fractals-explorer",
-        imagePath: mandelbrot_thumbnail_image,
-        description:
-            "Explore the Mandelbrot set and experiment with Perlin noise art",
-    },
-
-    {
-        title: "A* Algorithm Visualiser",
-        slug: "fractals-explorer",
-        imagePath: a_star_algorithm_image,
-        description: "Visualise and experiment with the A* algorithm",
-    },
-    {
-        title: "Fractals Explorer",
-        slug: "fractals-explorer",
-        imagePath: mandelbrot_thumbnail_image,
-        description:
-            "Explore the Mandelbrot set and experiment with Perlin noise art",
-    },
-    {
-        title: "Fractals Explorer",
-        slug: "fractals-explorer",
-        imagePath: mandelbrot_thumbnail_image,
-        description:
-            "Explore the Mandelbrot set and experiment with Perlin noise art",
-    },
-    {
-        title: "Fractals Explorer",
-        slug: "fractals-explorer",
-        imagePath: mandelbrot_thumbnail_image,
-        description:
-            "Explore the Mandelbrot set and experiment with Perlin noise art",
-    },
-    {
-        title: "Fractals Explorer",
-        slug: "fractals-explorer",
-        imagePath: mandelbrot_thumbnail_image,
-        description:
-            "Explore the Mandelbrot set and experiment with Perlin noise art",
-    },
-];
 
 const PortraitPhoto = styled(Image)`
     border: 8px solid ${({ theme }) => theme.colors.surface.secondary};
@@ -69,6 +22,51 @@ const PortraitPhoto = styled(Image)`
 `;
 
 export default function AboutMePage() {
+    const projects = [
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
+        },
+
+        {
+            title: "A* Algorithm Visualiser",
+            slug: "fractals-explorer",
+            imagePath: a_star_algorithm_image,
+            description: "Visualise and experiment with the A* algorithm",
+        },
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
+        },
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
+        },
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
+        },
+        {
+            title: "Fractals Explorer",
+            slug: "fractals-explorer",
+            imagePath: mandelbrot_thumbnail_image,
+            description:
+                "Explore the Mandelbrot set and experiment with Perlin noise art",
+        },
+    ];
+
     const pathname = usePathname();
 
     return (
