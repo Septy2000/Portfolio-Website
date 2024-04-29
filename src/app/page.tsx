@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import styled from "styled-components";
 import { usePathname } from "next/navigation";
 import { PortraitImage } from "@/components/images/Images.styled";
 import Card from "@/components/containers/Card/Card";
@@ -12,7 +11,6 @@ import {
     AboutBody,
 } from "@/components/containers/AboutContainer/AboutContainer.styled";
 import { CardsContainer } from "@/components/containers/CardsContainer/CardsContainer.styled";
-import { Header, Text } from "@/components/typography/Typography";
 import {
     image_missing_image,
     mandelbrot_thumbnail_image,
@@ -24,12 +22,11 @@ function AboutMe() {
     return (
         <MainInformationContainer>
             <AboutContainer>
-                <AboutNameHeader>Hi, I&apos;m Septi</AboutNameHeader>
+                <AboutNameHeader>hi, I&apos;m Septi</AboutNameHeader>
                 <AboutBody>
-                    I&apos;m a software engineer with a passion for creating
-                    interactive visualisations and tools. I enjoy working with
-                    React, Next.js, and TypeScript. I have experience with
-                    Python, Java, and C++.
+                    I&apos;m a junior software engineer with a passion for
+                    technology. I enjoy learning new things and experimenting
+                    with different technologies.
                 </AboutBody>
             </AboutContainer>
             <PortraitImage

@@ -11,6 +11,7 @@ const theme = {
             tertiary: "#BBE2EC",
         },
         green: "#0D9276",
+        orange: "#ffa514",
     },
 
     padding: {
@@ -32,6 +33,14 @@ const theme = {
         medium: "32px",
         large: "48px",
         xlarge: "64px",
+    },
+
+    border: {
+        small: "2px",
+        medium: "4px",
+        large: "6px",
+        xlarge: "8px",
+        xxlarge: "10px",
     },
 
     screen: {

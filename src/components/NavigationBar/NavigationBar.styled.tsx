@@ -12,7 +12,7 @@ export const Header = styled.header`
 
 export const Name = styled.h1`
     font-size: 2rem;
-    color: orange;
+    color: ${({ theme }) => theme.colors.orange};
 `;
 
 export const NavigationContainer = styled.nav`

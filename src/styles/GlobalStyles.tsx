@@ -10,7 +10,8 @@ const GlobalStyles = createGlobalStyle`
     
     body {
         background: #fff9f0;
-        /* max-width: ${({ theme }) => theme.screen.large}; */
+        border: ${({ theme }) =>
+            `${theme.border.xxlarge} solid ${theme.colors.surface.secondary}`};
     }
 `;
 export default GlobalStyles;
