@@ -1,3 +1,4 @@
+"use client";
 import styled from "styled-components";
 
 export const Paper = styled.div<{ $elevation?: number }>`

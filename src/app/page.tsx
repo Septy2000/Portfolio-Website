@@ -2,15 +2,12 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import { PortraitImage } from "@/components/images/Images.styled";
-import Card from "@/components/containers/Card/Card";
+import Card from "@/components/containers/CardsContainer/Card/Card";
 import PlainLinkWrapper from "@/components/wrappers/PlainLinkWrapper/PlainLinkWrapper";
-import { MainInformationContainer } from "@/components/containers/MainInformationContainer/MainInformationContainer.styled";
-import {
-    AboutContainer,
-    AboutNameHeader,
-    AboutBody,
-} from "@/components/containers/AboutContainer/AboutContainer.styled";
-import { CardsContainer } from "@/components/containers/CardsContainer/CardsContainer.styled";
+import * as MainInfo from "@/components/containers/MainInformationContainer/MainInformationContainer.styled";
+import * as About from "@/components/containers/AboutContainer/AboutContainer.styled";
+import * as Cards from "@/components/containers/CardsContainer/CardsContainer.styled";
+import * as Timeline from "@/components/containers/ExperienceContainer/ExperienceContainer.styled";
 import {
     image_missing_image,
     mandelbrot_thumbnail_image,
@@ -18,29 +15,30 @@ import {
     portrait_image,
 } from "@/components/images/Images";
 
-function AboutMe() {
+function AboutSection() {
     return (
-        <MainInformationContainer>
-            <AboutContainer>
-                <AboutNameHeader>hi, I&apos;m Septi</AboutNameHeader>
-                <AboutBody>
+        <MainInfo.Container>
+            <About.Container>
+                <About.NameHeader>hi, I&apos;m Septi</About.NameHeader>
+                <About.Body>
                     I&apos;m a junior software engineer with a passion for
                     technology. I enjoy learning new things and experimenting
                     with different technologies.
-                </AboutBody>
-            </AboutContainer>
+                </About.Body>
+            </About.Container>
             <PortraitImage
                 src={portrait_image}
-                alt="Photo of me"
+                alt="Me. Image could not load"
                 width={300}
                 height={300}
                 priority
             />
-        </MainInformationContainer>
+        </MainInfo.Container>
     );
 }
 
-export default function AboutMePage() {
+function ProjectsSection() {
+    const pathname = usePathname();
     const projects = [
         {
             title: "Fractals Explorer",
@@ -85,26 +83,40 @@ export default function AboutMePage() {
                 "Explore the Mandelbrot set and experiment with Perlin noise art",
         },
     ];
+    return (
+        <Cards.Container>
+            {projects.map((project, id) => (
+                <PlainLinkWrapper key={id} href={`${pathname}${project.slug}`}>
+                    <Card
+                        imagePath={project.imagePath ?? image_missing_image}
+                        title={project.title}
+                        description={project.description}
+                    ></Card>
+                </PlainLinkWrapper>
+            ))}
+        </Cards.Container>
+    );
+}
 
-    const pathname = usePathname();
+function TimelineSection() {
+    return (
+        <Timeline.Container>
+            <Timeline.ScrollToExperienceHeader>
+                Scroll to check my experience &darr;
+            </Timeline.ScrollToExperienceHeader>
+            <Timeline.Timeline>
+                <Timeline.TimelineItem>{"hello"}</Timeline.TimelineItem>
+            </Timeline.Timeline>
+        </Timeline.Container>
+    );
+}
 
+export default function AboutMePage() {
     return (
         <React.Fragment>
-            <AboutMe />
-            <CardsContainer>
-                {projects.map((project, id) => (
-                    <PlainLinkWrapper
-                        key={id}
-                        href={`${pathname}${project.slug}`}
-                    >
-                        <Card
-                            imagePath={project.imagePath ?? image_missing_image}
-                            title={project.title}
-                            description={project.description}
-                        ></Card>
-                    </PlainLinkWrapper>
-                ))}
-            </CardsContainer>
+            <AboutSection />
+            <TimelineSection />
+            <ProjectsSection />
         </React.Fragment>
     );
 }

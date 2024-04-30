@@ -1,6 +1,7 @@
+"use client";
 import styled from "styled-components";
 
-export const MainInformationContainer = styled.div`
+export const Container = styled.div`
     display: flex;
     margin: ${({ theme }) => theme.margin.medium};
 

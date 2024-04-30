@@ -1,5 +1,6 @@
+"use client";
 import styled from "styled-components";
-export const CardsContainer = styled.div`
+export const Container = styled.div`
     display: grid;
     margin: ${({ theme }) => theme.margin.medium};
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
