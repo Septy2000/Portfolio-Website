@@ -1,11 +1,11 @@
 "use client";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin: ${({ theme }) => theme.margin.medium};
-    margin-top: 40vh;
 `;
 
 export const ScrollToExperienceHeader = styled.h1`
@@ -14,23 +14,14 @@ export const ScrollToExperienceHeader = styled.h1`
     color: ${({ theme }) => theme.colors.primary};
 `;
 
-export const TimelineItem = styled.div`
-    width: 30%;
-    border: ${({ theme }) =>
-        `${theme.border.small} solid ${theme.colors.orange}`};
+export const Timeline = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
-export const Timeline = styled.div`
-    ${TimelineItem} {
-        border-left: ${({ theme }) =>
-            `${theme.border.xxlarge} solid ${theme.colors.orange}`};
-        padding-left: 20px;
-        &:before {
-            content: "";
-            position: absolute;
-            width: 60px;
-            height: 10px;
-            background-color: ${({ theme }) => theme.colors.orange};
-        }
-    }
+export const TimelineGroup = styled.div<{ index: number }>`
+    display: flex;
+    flex-direction: ${({ index }) => (index % 2 === 1 ? "row" : "row-reverse")};
+    align-items: center;
 `;
