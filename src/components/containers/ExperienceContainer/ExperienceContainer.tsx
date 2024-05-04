@@ -47,7 +47,7 @@ export default function ExperienceContainer() {
                 {timelineItems.map((timelineItem) => (
                     <Styled.TimelineGroup
                         key={timelineItem.id}
-                        index={timelineItem.id}
+                        $index={timelineItem.id}
                     >
                         <ExperienceImage
                             src={timelineItem.icon}
@@ -56,7 +56,10 @@ export default function ExperienceContainer() {
                             height={80}
                             priority
                         />
-                        <TimelineItem attributes={timelineItem} />
+                        <TimelineItem
+                            attributes={timelineItem}
+                            index={timelineItem.id}
+                        />
                     </Styled.TimelineGroup>
                 ))}
             </Styled.Timeline>
