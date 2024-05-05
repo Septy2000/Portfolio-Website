@@ -3,7 +3,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import { PortraitImage } from "@/components/images/Images.styled";
 import Card from "@/components/containers/CardsContainer/Card/Card";
-import PlainLinkWrapper from "@/components/wrappers/PlainLinkWrapper/PlainLinkWrapper";
+import { PlainLinkWrapper } from "@/components/wrappers/PlainLinkWrapper/PlainLinkWrapper.styled";
 import * as MainInfo from "@/components/containers/MainInformationContainer/MainInformationContainer.styled";
 import * as About from "@/components/containers/AboutContainer/AboutContainer.styled";
 import * as Cards from "@/components/containers/CardsContainer/CardsContainer.styled";

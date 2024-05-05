@@ -9,20 +9,10 @@ export default function TimelineItem({
     index: number;
 }) {
     return (
-        <React.Fragment>
-            {index % 2 === 1 ? (
-                <Styled.ContainerRight>
-                    <h2>{attributes.title}</h2>
-                    <h4>{attributes.location}</h4>
-                    <p>{attributes.description}</p>
-                </Styled.ContainerRight>
-            ) : (
-                <Styled.ContainerLeft>
-                    <h2>{attributes.title}</h2>
-                    <h4>{attributes.location}</h4>
-                    <p>{attributes.description}</p>
-                </Styled.ContainerLeft>
-            )}
-        </React.Fragment>
+        <Styled.Container $index={index}>
+            <h2>{attributes.title}</h2>
+            <h4>{attributes.location}</h4>
+            <p>{attributes.description}</p>
+        </Styled.Container>
     );
 }
