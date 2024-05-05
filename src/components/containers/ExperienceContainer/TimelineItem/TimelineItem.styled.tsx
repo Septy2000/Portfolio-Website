@@ -1,6 +1,6 @@
 "use client";
 import styled from "styled-components";
-export const Container = styled.div<{ $index: number }>`
+const Container = styled.div`
     width: auto;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     display: flex;
@@ -10,8 +10,10 @@ export const Container = styled.div<{ $index: number }>`
         `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
     height: 100%;
     padding: ${({ theme }) => theme.padding.small};
-    margin-left: ${({ $index }) => ($index % 2 === 1 ? "30px" : "0px")};
-    margin-right: ${({ $index }) => ($index % 2 === 1 ? "0px" : "30px")};
+`;
+
+export const ContainerRight = styled(Container)`
+    margin-left: 30px;
     &:before {
         content: "";
         position: absolute;
@@ -20,10 +22,12 @@ export const Container = styled.div<{ $index: number }>`
         height: 4px;
         top: 50%;
         left: 80px;
-        background: ${({ $index, theme }) =>
-            $index % 2 === 1 ? theme.colors.surface.secondary : "transparent"};
+        background: ${({ theme }) => theme.colors.surface.secondary};
     }
+`;
 
+export const ContainerLeft = styled(Container)`
+    margin-right: 30px;
     &:after {
         content: "";
         position: absolute;
@@ -32,7 +36,6 @@ export const Container = styled.div<{ $index: number }>`
         height: 4px;
         top: 50%;
         right: 80px;
-        background: ${({ $index, theme }) =>
-            $index % 2 === 1 ? "transparent" : theme.colors.surface.secondary};
+        background: ${({ theme }) => theme.colors.surface.secondary};
     }
 `;

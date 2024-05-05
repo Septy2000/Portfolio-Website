@@ -1,6 +1,5 @@
 "use client";
 import styled from "styled-components";
-import { ExperienceImage } from "@/components/images/Images.styled";
 
 export const Container = styled.div`
     display: flex;
@@ -22,6 +21,8 @@ export const Timeline = styled.div`
     position: relative;
     width: 100%;
     max-width: ${({ theme }) => theme.screen.xlarge};
+    padding-top: 128px;
+    padding-bottom: 128px;
     &:after {
         content: "";
         position: absolute;
@@ -47,7 +48,7 @@ export const Timeline = styled.div`
     }
 `;
 
-export const TimelineGroup = styled.div<{ $index: number }>`
+const TimelineGroup = styled.div`
     display: flex;
     position: relative;
     align-items: center;
@@ -57,10 +58,12 @@ export const TimelineGroup = styled.div<{ $index: number }>`
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         flex-direction: row;
     }
-    @media (min-width: ${({ theme }) => theme.screen.medium}) {
-        flex-direction: ${({ $index }) =>
-            $index % 2 === 1 ? "row" : "row-reverse"};
-    }
-    left: ${({ $index }) => ($index % 2 === 1 ? "calc(50% - 40px)" : "40px")};
-    margin-top: ${({ $index }) => ($index === 1 ? "128px" : "0px")};
+`;
+
+export const TimelineGroupRight = styled(TimelineGroup)`
+    left: calc(50% - 40px);
+`;
+
+export const TimelineGroupLeft = styled(TimelineGroup)`
+    left: 40px;
 `;
