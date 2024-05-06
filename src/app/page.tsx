@@ -4,10 +4,10 @@ import { usePathname } from "next/navigation";
 import { PortraitImage } from "@/components/images/Images.styled";
 import Card from "@/components/containers/CardsContainer/Card/Card";
 import { PlainLinkWrapper } from "@/components/wrappers/PlainLinkWrapper/PlainLinkWrapper.styled";
-import * as MainInfo from "@/components/containers/MainInformationContainer/MainInformationContainer.styled";
-import * as About from "@/components/containers/AboutContainer/AboutContainer.styled";
+import * as MainInfo from "@/components/containers/MainInformationSection/MainInformationContainer.styled";
+import * as About from "@/components/containers/MainInformationSection/AboutContainer/AboutContainer.styled";
 import * as Cards from "@/components/containers/CardsContainer/CardsContainer.styled";
-import ExperienceContainer from "@/components/containers/ExperienceContainer/ExperienceContainer";
+import ExperienceContainer from "@/components/containers/ExperienceSection/ExperienceContainer";
 import {
     image_missing_src,
     mandelbrot_thumbnail_src,
