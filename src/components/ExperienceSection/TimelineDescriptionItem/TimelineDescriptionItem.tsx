@@ -1,7 +1,7 @@
 import React from "react";
 import { TimelineItemAttributes } from "../ExperienceSection";
-import * as Styled from "./TimelineItem.styled";
-export default function TimelineItem({
+import * as Styled from "./TimelineDescriptionItem.styled";
+export default function TimelineDescriptionItem({
     attributes,
     index,
 }: {

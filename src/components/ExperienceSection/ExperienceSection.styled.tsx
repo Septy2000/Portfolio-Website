@@ -60,22 +60,13 @@ export const TimelineItemGroup = styled.div`
     padding-bottom: ${({ theme }) => theme.padding.small};
 `;
 
-export const TimelineIconItem = styled.div`
+const TimelineIconItem = styled.div`
     padding-left: ${({ theme }) => theme.padding.large};
     padding-right: ${({ theme }) => theme.padding.large};
     position: relative;
+`;
 
-    &:before {
-        content: "";
-        position: absolute;
-        width: 64px;
-        z-index: -1;
-        height: 4px;
-        top: 50%;
-        left: 0;
-        background: ${({ theme }) => theme.colors.surface.secondary};
-    }
-
+export const TimelineIconItemRight = styled(TimelineIconItem)`
     &:after {
         content: "";
         position: absolute;
@@ -88,9 +79,17 @@ export const TimelineIconItem = styled.div`
     }
 `;
 
-export const TimelineDateItem = styled.i<{ $index: number }>`
-    color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.3rem;
-    font-weight: bold;
-    justify-self: ${({ $index }) => ($index % 2 === 1 ? "end" : "start")};
+export const TimelineIconItemLeft = styled(TimelineIconItem)`
+    &:before {
+        content: "";
+        position: absolute;
+        width: 64px;
+        z-index: -1;
+        height: 4px;
+        top: 50%;
+        left: 0;
+        background: ${({ theme }) => theme.colors.surface.secondary};
+    }
 `;
+
+export const GridFiller = styled.div``;

@@ -1,5 +1,5 @@
 import * as Styled from "./ExperienceSection.styled";
-import TimelineItem from "./TimelineItem/TimelineItem";
+import TimelineDescriptionItem from "./TimelineDescriptionItem/TimelineDescriptionItem";
 import React from "react";
 import { gocity_icon_src, kcl_icon_src } from "@/components/images/Images";
 import { ExperienceImage } from "@/components/images/Images.styled";
@@ -51,14 +51,10 @@ export default function ExperienceSection() {
                 {timelineItems.map((timelineItem) => {
                     return (
                         <React.Fragment key={timelineItem.id}>
-                            {timelineItem.id === 1 ? (
+                            {timelineItem.id % 2 === 1 ? (
                                 <Styled.TimelineItemGroup>
-                                    <Styled.TimelineDateItem
-                                        $index={timelineItem.id}
-                                    >
-                                        {timelineItem.date}
-                                    </Styled.TimelineDateItem>
-                                    <Styled.TimelineIconItem>
+                                    <Styled.GridFiller />
+                                    <Styled.TimelineIconItemRight>
                                         <PlainLinkWrapper
                                             href={timelineItem.website}
                                         >
@@ -70,20 +66,20 @@ export default function ExperienceSection() {
                                                 priority
                                             />
                                         </PlainLinkWrapper>
-                                    </Styled.TimelineIconItem>
+                                    </Styled.TimelineIconItemRight>
 
-                                    <TimelineItem
+                                    <TimelineDescriptionItem
                                         attributes={timelineItem}
                                         index={timelineItem.id}
                                     />
                                 </Styled.TimelineItemGroup>
                             ) : (
                                 <Styled.TimelineItemGroup>
-                                    <TimelineItem
+                                    <TimelineDescriptionItem
                                         attributes={timelineItem}
                                         index={timelineItem.id}
                                     />
-                                    <Styled.TimelineIconItem>
+                                    <Styled.TimelineIconItemLeft>
                                         <PlainLinkWrapper
                                             href={timelineItem.website}
                                         >
@@ -95,13 +91,8 @@ export default function ExperienceSection() {
                                                 priority
                                             />
                                         </PlainLinkWrapper>
-                                    </Styled.TimelineIconItem>
-
-                                    <Styled.TimelineDateItem
-                                        $index={timelineItem.id}
-                                    >
-                                        {timelineItem.date}
-                                    </Styled.TimelineDateItem>
+                                    </Styled.TimelineIconItemLeft>
+                                    <Styled.GridFiller />
                                 </Styled.TimelineItemGroup>
                             )}
                         </React.Fragment>
