@@ -10,9 +10,13 @@ export default function TimelineDescriptionItem({
 }) {
     return (
         <Styled.Container $index={index}>
-            <h2>{attributes.title}</h2>
-            <h4>{attributes.location}</h4>
-            <p>{attributes.description}</p>
+            <Styled.Title>{attributes.title}</Styled.Title>
+            <Styled.Divider />
+            <Styled.Company>{attributes.company}</Styled.Company>
+            <Styled.Date>{attributes.date}</Styled.Date>
+            <Styled.Location>{attributes.location}</Styled.Location>
+            <Styled.Divider />
+            <Styled.Description>{attributes.description}</Styled.Description>
         </Styled.Container>
     );
 }

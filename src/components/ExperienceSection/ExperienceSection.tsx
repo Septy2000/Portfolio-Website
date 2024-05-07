@@ -23,7 +23,7 @@ export default function ExperienceSection() {
             title: "Graduate Software Engineer",
             company: "GoCity",
             website: "https://gocity.com/",
-            date: "Sept 2023 - Feb 2024",
+            date: "Sep 2023 - Feb 2024",
             location: "London, United Kingdom",
             description:
                 "Worked on a project to develop a mobile application for a client using React Native and TypeScript",
@@ -34,7 +34,7 @@ export default function ExperienceSection() {
             title: "MSci Computer Science Graduate (First Class Honours)",
             company: "King's College London",
             website: "https://www.kcl.ac.uk/",
-            date: "Sept 2019 - June 2023",
+            date: "Sep 2019 - Jun 2023",
             location: "London, United Kingdom",
             description:
                 "Worked on a project to develop a mobile application for a client using React Native and TypeScript",
