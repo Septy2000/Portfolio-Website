@@ -1,7 +1,8 @@
 "use client";
+import Link from "next/link";
 import styled from "styled-components";
 
-export const PlainLinkWrapper = styled.div`
+export const PlainLinkWrapper = styled(Link)`
     * {
         text-decoration: none;
     }
