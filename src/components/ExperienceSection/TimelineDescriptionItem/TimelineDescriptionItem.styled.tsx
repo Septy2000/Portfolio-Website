@@ -11,4 +11,5 @@ export const Container = styled.div<{ $index: number }>`
     height: 100%;
     padding: ${({ theme }) => theme.padding.small};
     justify-self: ${({ $index }) => ($index % 2 === 1 ? "start" : "end")};
+    grid-area: description;
 `;

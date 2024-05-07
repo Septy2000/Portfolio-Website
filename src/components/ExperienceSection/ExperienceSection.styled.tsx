@@ -20,7 +20,6 @@ export const ScrollToExperienceHeader = styled.h1`
 export const TimelineGridContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: 1fr;
     gap: ${({ theme }) => theme.padding.medium};
     position: relative;
     padding-top: 128px;
@@ -34,6 +33,9 @@ export const TimelineGridContainer = styled.div`
         top: 0;
         bottom: 0;
         left: 50%;
+        @media (max-width: ${({ theme }) => theme.screen.medium}) {
+            left: 40px;
+        }
         margin-left: -2px;
         z-index: -1;
     }
@@ -47,13 +49,25 @@ export const TimelineGridContainer = styled.div`
         background: ${({ theme }) => theme.colors.surface.secondary};
         top: 0;
         left: 50%;
+        @media (max-width: ${({ theme }) => theme.screen.medium}) {
+            left: 40px;
+        }
         margin-left: -15px;
     }
 `;
 
-export const TimelineItemGroup = styled.div`
+export const TimelineItemGroup = styled.div<{ $index: number }>`
     display: grid;
     grid-template-columns: 1fr min-content 1fr;
+
+    grid-template-areas: ${({ $index }) =>
+        $index % 2 === 1
+            ? "'filler icon description'"
+            : "'description icon filler'"};
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        grid-template-columns: min-content 1fr;
+        grid-template-areas: "icon description";
+    }
     align-items: center;
     width: 100%;
     padding-top: ${({ theme }) => theme.padding.small};
@@ -63,7 +77,11 @@ export const TimelineItemGroup = styled.div`
 const TimelineIconItem = styled.div`
     padding-left: ${({ theme }) => theme.padding.large};
     padding-right: ${({ theme }) => theme.padding.large};
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        padding-left: 0px;
+    }
     position: relative;
+    grid-area: icon;
 `;
 
 export const TimelineIconItemRight = styled(TimelineIconItem)`
@@ -80,16 +98,34 @@ export const TimelineIconItemRight = styled(TimelineIconItem)`
 `;
 
 export const TimelineIconItemLeft = styled(TimelineIconItem)`
-    &:before {
-        content: "";
-        position: absolute;
-        width: 64px;
-        z-index: -1;
-        height: 4px;
-        top: 50%;
-        left: 0;
-        background: ${({ theme }) => theme.colors.surface.secondary};
+    @media (min-width: ${({ theme }) => theme.screen.medium}) {
+        &:before {
+            content: "";
+            position: absolute;
+            width: 64px;
+            z-index: -1;
+            height: 4px;
+            top: 50%;
+            left: 0;
+            background: ${({ theme }) => theme.colors.surface.secondary};
+        }
+    }
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        &:after {
+            content: "";
+            position: absolute;
+            width: 64px;
+            z-index: -1;
+            height: 4px;
+            top: 50%;
+            right: 0;
+            background: ${({ theme }) => theme.colors.surface.secondary};
+        }
     }
 `;
 
-export const GridFiller = styled.div``;
+export const GridFiller = styled.div`
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        grid-area: left;
+    }
+`;

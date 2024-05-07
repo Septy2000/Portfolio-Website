@@ -52,7 +52,9 @@ export default function ExperienceSection() {
                     return (
                         <React.Fragment key={timelineItem.id}>
                             {timelineItem.id % 2 === 1 ? (
-                                <Styled.TimelineItemGroup>
+                                <Styled.TimelineItemGroup
+                                    $index={timelineItem.id}
+                                >
                                     <Styled.GridFiller />
                                     <Styled.TimelineIconItemRight>
                                         <PlainLinkWrapper
@@ -74,7 +76,9 @@ export default function ExperienceSection() {
                                     />
                                 </Styled.TimelineItemGroup>
                             ) : (
-                                <Styled.TimelineItemGroup>
+                                <Styled.TimelineItemGroup
+                                    $index={timelineItem.id}
+                                >
                                     <TimelineDescriptionItem
                                         attributes={timelineItem}
                                         index={timelineItem.id}
