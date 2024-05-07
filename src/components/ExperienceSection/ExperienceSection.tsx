@@ -1,5 +1,5 @@
 import * as Styled from "./ExperienceSection.styled";
-import TimelineItem from "./TimelineItem/TimelineItem";
+import TimelineDescriptionItem from "./TimelineDescriptionItem/TimelineDescriptionItem";
 import React from "react";
 import { gocity_icon_src, kcl_icon_src } from "@/components/images/Images";
 import { ExperienceImage } from "@/components/images/Images.styled";
@@ -23,7 +23,7 @@ export default function ExperienceSection() {
             title: "Graduate Software Engineer",
             company: "GoCity",
             website: "https://gocity.com/",
-            date: "Sept 2023 - Feb 2024",
+            date: "Sep 2023 - Feb 2024",
             location: "London, United Kingdom",
             description:
                 "Worked on a project to develop a mobile application for a client using React Native and TypeScript",
@@ -34,7 +34,7 @@ export default function ExperienceSection() {
             title: "MSci Computer Science Graduate (First Class Honours)",
             company: "King's College London",
             website: "https://www.kcl.ac.uk/",
-            date: "Sept 2019 - June 2023",
+            date: "Sep 2019 - Jun 2023",
             location: "London, United Kingdom",
             description:
                 "Worked on a project to develop a mobile application for a client using React Native and TypeScript",
@@ -51,14 +51,12 @@ export default function ExperienceSection() {
                 {timelineItems.map((timelineItem) => {
                     return (
                         <React.Fragment key={timelineItem.id}>
-                            {timelineItem.id === 1 ? (
-                                <Styled.TimelineItemGroup>
-                                    <Styled.TimelineDateItem
-                                        $index={timelineItem.id}
-                                    >
-                                        {timelineItem.date}
-                                    </Styled.TimelineDateItem>
-                                    <Styled.TimelineIconItem>
+                            {timelineItem.id % 2 === 1 ? (
+                                <Styled.TimelineItemGroup
+                                    $index={timelineItem.id}
+                                >
+                                    <Styled.GridFiller />
+                                    <Styled.TimelineIconItemRight>
                                         <PlainLinkWrapper
                                             href={timelineItem.website}
                                         >
@@ -70,20 +68,22 @@ export default function ExperienceSection() {
                                                 priority
                                             />
                                         </PlainLinkWrapper>
-                                    </Styled.TimelineIconItem>
+                                    </Styled.TimelineIconItemRight>
 
-                                    <TimelineItem
+                                    <TimelineDescriptionItem
                                         attributes={timelineItem}
                                         index={timelineItem.id}
                                     />
                                 </Styled.TimelineItemGroup>
                             ) : (
-                                <Styled.TimelineItemGroup>
-                                    <TimelineItem
+                                <Styled.TimelineItemGroup
+                                    $index={timelineItem.id}
+                                >
+                                    <TimelineDescriptionItem
                                         attributes={timelineItem}
                                         index={timelineItem.id}
                                     />
-                                    <Styled.TimelineIconItem>
+                                    <Styled.TimelineIconItemLeft>
                                         <PlainLinkWrapper
                                             href={timelineItem.website}
                                         >
@@ -95,13 +95,8 @@ export default function ExperienceSection() {
                                                 priority
                                             />
                                         </PlainLinkWrapper>
-                                    </Styled.TimelineIconItem>
-
-                                    <Styled.TimelineDateItem
-                                        $index={timelineItem.id}
-                                    >
-                                        {timelineItem.date}
-                                    </Styled.TimelineDateItem>
+                                    </Styled.TimelineIconItemLeft>
+                                    <Styled.GridFiller />
                                 </Styled.TimelineItemGroup>
                             )}
                         </React.Fragment>
