@@ -1,4 +1,4 @@
-import * as Styled from "./ExperienceContainer.styled";
+import * as Styled from "./ExperienceSection.styled";
 import TimelineItem from "./TimelineItem/TimelineItem";
 import React from "react";
 import { gocity_icon_src, kcl_icon_src } from "@/components/images/Images";
@@ -16,7 +16,7 @@ export type TimelineItemAttributes = {
     icon: string;
 };
 
-export default function ExperienceContainer() {
+export default function ExperienceSection() {
     const timelineItems: TimelineItemAttributes[] = [
         {
             id: 1,
