@@ -9,7 +9,7 @@ export const Container = styled.div`
     padding: ${({ theme }) => theme.padding.small};
     width: 100%;
     max-width: 500px;
-    max-height: 500px;
+    max-height: 700px;
     border: ${({ theme }) =>
         `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
     border-radius: ${({ theme }) => theme.borderRadius.medium};
@@ -17,8 +17,8 @@ export const Container = styled.div`
 `;
 
 export const Icon = styled(Image)`
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
     border: ${({ theme }) =>
         `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
     margin-bottom: ${({ theme }) => theme.margin.small};

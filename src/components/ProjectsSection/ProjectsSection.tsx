@@ -36,7 +36,9 @@ export default function ProjectsSection() {
 
     const projectsSectionTitle = "projects";
 
-    const [selectedProject, setSelectedProject] = useState(projects[0]);
+    const [selectedProject, setSelectedProject] = useState<Project>(
+        projects[0]
+    );
 
     function handleProjectItemClick(project: Project) {
         setSelectedProject(project);
@@ -53,6 +55,9 @@ export default function ProjectsSection() {
                         <Styled.ProjectItemContainer
                             key={index}
                             onClick={() => handleProjectItemClick(project)}
+                            $isSelected={
+                                selectedProject?.title === project.title
+                            }
                         >
                             <Styled.ProjectItemTitle>
                                 {project.title}
@@ -60,7 +65,7 @@ export default function ProjectsSection() {
                         </Styled.ProjectItemContainer>
                     ))}
                 </Styled.ProjectsList>
-                <ProjectCard project={selectedProject} />
+                {selectedProject && <ProjectCard project={selectedProject} />}
             </Styled.ProjectsContainer>
         </Styled.Container>
     );

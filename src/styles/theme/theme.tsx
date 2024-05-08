@@ -5,6 +5,8 @@ const theme = {
             primary: "#fff9f0",
             primary_shade_1: "#e6e0d8",
             primary_shade_2: "#ccc7c0",
+            primary_shade_3: "#b3aea8",
+            primary_shade_4: "#999590",
             secondary: "#1A1B25",
         },
         text: {
