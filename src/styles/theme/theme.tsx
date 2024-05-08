@@ -3,6 +3,8 @@ const theme = {
     colors: {
         surface: {
             primary: "#fff9f0",
+            primary_shade_1: "#e6e0d8",
+            primary_shade_2: "#ccc7c0",
             secondary: "#1A1B25",
         },
         text: {

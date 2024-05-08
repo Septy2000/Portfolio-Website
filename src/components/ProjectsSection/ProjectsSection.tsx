@@ -1,20 +1,27 @@
+"use client";
 import { usePathname } from "next/navigation";
-import { PlainLinkWrapper } from "@/components/wrappers/PlainLinkWrapper/PlainLinkWrapper.styled";
-import * as Cards from "@/components/containers/CardsContainer/CardsContainer.styled";
-import Card from "@/components/containers/Card/Card";
+import React, { useState } from "react";
+import * as Styled from "./ProjectsSection.styled";
+import ProjectCard from "./ProjectCard/ProjectCard";
 import {
-    image_missing_src,
-    mandelbrot_thumbnail_src,
-    a_star_algorithm_src,
+    mandelbrot_image_src,
+    a_star_image_src,
 } from "@/components/images/Images";
+
+export type Project = {
+    title: string;
+    slug: string;
+    imagePath: string;
+    description: string;
+};
 
 export default function ProjectsSection() {
     const pathname = usePathname();
-    const projects = [
+    const projects: Project[] = [
         {
             title: "Fractals Explorer",
             slug: "fractals-explorer",
-            imagePath: mandelbrot_thumbnail_src,
+            imagePath: mandelbrot_image_src,
             description:
                 "Explore the Mandelbrot set and experiment with Perlin noise art",
         },
@@ -22,49 +29,39 @@ export default function ProjectsSection() {
         {
             title: "A* Algorithm Visualiser",
             slug: "fractals-explorer",
-            imagePath: a_star_algorithm_src,
+            imagePath: a_star_image_src,
             description: "Visualise and experiment with the A* algorithm",
         },
-        {
-            title: "Fractals Explorer",
-            slug: "fractals-explorer",
-            imagePath: mandelbrot_thumbnail_src,
-            description:
-                "Explore the Mandelbrot set and experiment with Perlin noise art",
-        },
-        {
-            title: "Fractals Explorer",
-            slug: "fractals-explorer",
-            imagePath: mandelbrot_thumbnail_src,
-            description:
-                "Explore the Mandelbrot set and experiment with Perlin noise art",
-        },
-        {
-            title: "Fractals Explorer",
-            slug: "fractals-explorer",
-            imagePath: mandelbrot_thumbnail_src,
-            description:
-                "Explore the Mandelbrot set and experiment with Perlin noise art",
-        },
-        {
-            title: "Fractals Explorer",
-            slug: "fractals-explorer",
-            imagePath: mandelbrot_thumbnail_src,
-            description:
-                "Explore the Mandelbrot set and experiment with Perlin noise art",
-        },
     ];
+
+    const projectsSectionTitle = "projects";
+
+    const [selectedProject, setSelectedProject] = useState(projects[0]);
+
+    function handleProjectItemClick(project: Project) {
+        setSelectedProject(project);
+    }
+
     return (
-        <Cards.Container>
-            {projects.map((project, id) => (
-                <PlainLinkWrapper key={id} href={`${pathname}${project.slug}`}>
-                    <Card
-                        imagePath={project.imagePath ?? image_missing_src}
-                        title={project.title}
-                        description={project.description}
-                    ></Card>
-                </PlainLinkWrapper>
-            ))}
-        </Cards.Container>
+        <Styled.Container>
+            <Styled.ProjectsSectionTitle>
+                {projectsSectionTitle}
+            </Styled.ProjectsSectionTitle>
+            <Styled.ProjectsContainer>
+                <Styled.ProjectsList>
+                    {projects.map((project, index) => (
+                        <Styled.ProjectItemContainer
+                            key={index}
+                            onClick={() => handleProjectItemClick(project)}
+                        >
+                            <Styled.ProjectItemTitle>
+                                {project.title}
+                            </Styled.ProjectItemTitle>
+                        </Styled.ProjectItemContainer>
+                    ))}
+                </Styled.ProjectsList>
+                <ProjectCard project={selectedProject} />
+            </Styled.ProjectsContainer>
+        </Styled.Container>
     );
 }

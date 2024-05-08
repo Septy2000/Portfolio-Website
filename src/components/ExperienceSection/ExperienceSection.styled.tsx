@@ -61,7 +61,7 @@ export const TimelineItemGroup = styled.div<{ $index: number }>`
     grid-template-columns: 1fr min-content 1fr;
 
     grid-template-areas: ${({ $index }) =>
-        $index % 2 === 1
+        $index % 2 === 0
             ? "'filler icon description'"
             : "'description icon filler'"};
     @media (max-width: ${({ theme }) => theme.screen.medium}) {

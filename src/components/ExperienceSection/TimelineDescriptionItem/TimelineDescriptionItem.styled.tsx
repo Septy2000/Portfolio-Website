@@ -10,7 +10,7 @@ export const Container = styled.div<{ $index: number }>`
         `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
     height: 100%;
     padding: ${({ theme }) => theme.padding.small};
-    justify-self: ${({ $index }) => ($index % 2 === 1 ? "start" : "end")};
+    justify-self: ${({ $index }) => ($index % 2 === 0 ? "start" : "end")};
     grid-area: description;
 `;
 

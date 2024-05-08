@@ -1,8 +1,9 @@
 import React from "react";
 import * as Styled from "./Card.styled";
+import { missing_image_src } from "@/components/images/Images";
 
 type CardProps = {
-    imagePath: string;
+    imagePath?: string;
     title: string;
     description: string;
 };
@@ -11,7 +12,7 @@ export default function Card({ imagePath, title, description }: CardProps) {
     return (
         <Styled.Card>
             <Styled.CardImage
-                src={imagePath}
+                src={imagePath ?? missing_image_src}
                 alt="Image could not load"
                 width={300}
                 height={300}
