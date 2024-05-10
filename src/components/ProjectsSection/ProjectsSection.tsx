@@ -65,7 +65,7 @@ export default function ProjectsSection() {
                         </Styled.ProjectItemContainer>
                     ))}
                 </Styled.ProjectsList>
-                {selectedProject && <ProjectCard project={selectedProject} />}
+                <ProjectCard project={selectedProject} />
             </Styled.ProjectsContainer>
         </Styled.Container>
     );
