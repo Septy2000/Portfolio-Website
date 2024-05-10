@@ -7,6 +7,7 @@ import {
     mandelbrot_image_src,
     a_star_image_src,
 } from "@/components/images/Images";
+import { SpacerSmall } from "@/components/Spacer/Spacer.styled";
 
 export type Project = {
     title: string;
@@ -46,11 +47,12 @@ export default function ProjectsSection() {
 
     return (
         <Styled.Container>
-            <Styled.ProjectsSectionTitle>
-                {projectsSectionTitle}
-            </Styled.ProjectsSectionTitle>
+            <SpacerSmall />
             <Styled.ProjectsContainer>
                 <Styled.ProjectsList>
+                    <Styled.ProjectsSectionTitle>
+                        {projectsSectionTitle}
+                    </Styled.ProjectsSectionTitle>
                     {projects.map((project, index) => (
                         <Styled.ProjectItemContainer
                             key={index}
@@ -67,6 +69,7 @@ export default function ProjectsSection() {
                 </Styled.ProjectsList>
                 <ProjectCard project={selectedProject} />
             </Styled.ProjectsContainer>
+            <SpacerSmall />
         </Styled.Container>
     );
 }
