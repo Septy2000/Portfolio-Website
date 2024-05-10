@@ -37,17 +37,21 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const Button = styled.button`
-    background-color: ${({ theme }) => theme.colors.surface.secondary};
+    background-color: ${({ theme }) =>
+        theme.colors.surface.secondary_shade.light_2};
     font-size: 1.3rem;
     width: 45%;
     color: ${({ theme }) => theme.colors.text.secondary};
     padding: ${({ theme }) => theme.padding.small};
+    border: none;
     border-radius: ${({ theme }) => theme.borderRadius.small};
-    transition: background-color 0.4s;
+    cursor: pointer;
+    transition: background-color 0.4s, box-shadow 0.2s;
     &:hover {
         background-color: ${({ theme }) => theme.colors.orange};
     }
     &:active {
-        background-color: ${({ theme }) => theme.colors.green};
+        box-shadow: ${({ theme }) =>
+            `inset 5px 5px 5px -1px ${theme.colors.orange_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.orange}`};
     }
 `;

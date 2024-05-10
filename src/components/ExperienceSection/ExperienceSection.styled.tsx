@@ -14,7 +14,7 @@ export const ScrollToExperienceHeader = styled.h1`
         font-size: 1.5rem;
     }
     font-size: 2rem;
-    color: ${({ theme }) => theme.colors.surface.secondary};
+    color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 export const TimelineGridContainer = styled.div`
