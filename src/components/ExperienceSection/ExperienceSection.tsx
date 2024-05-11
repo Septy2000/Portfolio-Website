@@ -6,7 +6,6 @@ import { ExperienceImage } from "@/components/images/Images.styled";
 import { PlainLinkWrapper } from "@/components/wrappers/PlainLinkWrapper/PlainLinkWrapper.styled";
 
 export type TimelineItemAttributes = {
-    id: number;
     title: string;
     company: string;
     website: string;
@@ -19,7 +18,6 @@ export type TimelineItemAttributes = {
 export default function ExperienceSection() {
     const timelineItems: TimelineItemAttributes[] = [
         {
-            id: 1,
             title: "Graduate Software Engineer",
             company: "GoCity",
             website: "https://gocity.com/",
@@ -30,7 +28,6 @@ export default function ExperienceSection() {
             icon: gocity_icon_src,
         },
         {
-            id: 2,
             title: "MSci Computer Science Graduate (First Class Honours)",
             company: "King's College London",
             website: "https://www.kcl.ac.uk/",
@@ -48,13 +45,11 @@ export default function ExperienceSection() {
                 Scroll to check my experience &darr;
             </Styled.ScrollToExperienceHeader>
             <Styled.TimelineGridContainer>
-                {timelineItems.map((timelineItem) => {
+                {timelineItems.map((timelineItem, index) => {
                     return (
-                        <React.Fragment key={timelineItem.id}>
-                            {timelineItem.id % 2 === 1 ? (
-                                <Styled.TimelineItemGroup
-                                    $index={timelineItem.id}
-                                >
+                        <React.Fragment key={index}>
+                            {index % 2 === 0 ? (
+                                <Styled.TimelineItemGroup $index={index}>
                                     <Styled.GridFiller />
                                     <Styled.TimelineIconItemRight>
                                         <PlainLinkWrapper
@@ -72,16 +67,14 @@ export default function ExperienceSection() {
 
                                     <TimelineDescriptionItem
                                         attributes={timelineItem}
-                                        index={timelineItem.id}
+                                        index={index}
                                     />
                                 </Styled.TimelineItemGroup>
                             ) : (
-                                <Styled.TimelineItemGroup
-                                    $index={timelineItem.id}
-                                >
+                                <Styled.TimelineItemGroup $index={index}>
                                     <TimelineDescriptionItem
                                         attributes={timelineItem}
-                                        index={timelineItem.id}
+                                        index={index}
                                     />
                                     <Styled.TimelineIconItemLeft>
                                         <PlainLinkWrapper

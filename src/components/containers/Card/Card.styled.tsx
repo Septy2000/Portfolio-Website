@@ -3,8 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export const Card = styled.div`
-    width: 100%;
-    max-width: 500;
+    max-width: 200px;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     display: flex;
     flex-direction: column;
@@ -14,11 +13,6 @@ export const Card = styled.div`
     height: 100%;
     padding: ${({ theme }) => theme.padding.small};
     transition: transform 0.2s, border 0.2s;
-    &:hover {
-        transform: scale(1.02);
-        border: ${({ theme }) =>
-            `${theme.border.large} solid ${theme.colors.surface.secondary}`};
-    }
 `;
 
 export const CardImage = styled(Image)`
@@ -28,7 +22,6 @@ export const CardImage = styled(Image)`
     margin-bottom: ${({ theme }) => theme.margin.small};
     width: 100%;
     height: 70%;
-    transition: filter 0.2s;
 `;
 
 export const Header = styled.h2`
