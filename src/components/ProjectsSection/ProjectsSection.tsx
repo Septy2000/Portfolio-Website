@@ -1,5 +1,4 @@
 "use client";
-import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import * as Styled from "./ProjectsSection.styled";
 import ProjectCard from "./ProjectCard/ProjectCard";
@@ -11,27 +10,29 @@ import { SpacerSmall } from "@/components/Spacer/Spacer.styled";
 
 export type Project = {
     title: string;
-    slug: string;
     imagePath: string;
     description: string;
+    slug?: string;
+    code_url?: string;
 };
 
 export default function ProjectsSection() {
-    const pathname = usePathname();
     const projects: Project[] = [
         {
             title: "Fractals Explorer",
-            slug: "fractals-explorer",
             imagePath: mandelbrot_image_src,
             description:
                 "Explore the Mandelbrot set and experiment with Perlin noise art",
+            slug: "fractals-explorer",
+            code_url: "https://github.com/Septy2000/Portfolio-Website",
         },
 
         {
             title: "A* Algorithm Visualiser",
-            slug: "fractals-explorer",
             imagePath: a_star_image_src,
             description: "Visualise and experiment with the A* algorithm",
+            slug: "a-star-visualiser",
+            code_url: "https://github.com/Septy2000/Portfolio-Website",
         },
     ];
 

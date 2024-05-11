@@ -10,10 +10,6 @@ export const Container = styled.div`
 
 export const ScrollToExperienceHeader = styled.h1`
     margin-bottom: ${({ theme }) => theme.margin.medium};
-    @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        font-size: 1.5rem;
-    }
-    font-size: 2rem;
     color: ${({ theme }) => theme.colors.text.primary};
 `;
 

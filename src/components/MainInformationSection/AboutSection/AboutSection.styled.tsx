@@ -14,6 +14,6 @@ export const NameHeader = styled.h1`
 
 export const Body = styled.p`
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     line-height: 1.2;
 `;
