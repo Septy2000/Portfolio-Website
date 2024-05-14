@@ -3,6 +3,7 @@ import GlobalStyles from "@/styles/GlobalStyles";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import React from "react";
 import ThemeClient from "@/styles/theme/ThemeClient";
+import StyledComponentsRegistry from "@/lib/registry";
 
 export const metadata: Metadata = {
     title: "Personal Portfolio Website",
@@ -13,14 +14,16 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <ThemeClient>
-            <GlobalStyles />
-            <html lang="en">
-                <body>
-                    <NavigationBar />
-                    {children}
-                </body>
-            </html>
-        </ThemeClient>
+        <html lang="en">
+            <StyledComponentsRegistry>
+                <ThemeClient>
+                    <GlobalStyles />
+                    <body>
+                        <NavigationBar />
+                        {children}
+                    </body>
+                </ThemeClient>
+            </StyledComponentsRegistry>
+        </html>
     );
 }
