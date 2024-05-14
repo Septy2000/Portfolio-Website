@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import * as Styled from "./ProjectsSection.styled";
 import ProjectCard from "./ProjectCard/ProjectCard";
 import {
@@ -16,7 +16,11 @@ export type Project = {
     code_url?: string;
 };
 
-export default function ProjectsSection() {
+export default function ProjectsSection({
+    projectsRef,
+}: {
+    projectsRef: React.RefObject<HTMLDivElement>;
+}) {
     const projects: Project[] = [
         {
             title: "Fractals Explorer",
@@ -35,19 +39,18 @@ export default function ProjectsSection() {
             code_url: "https://github.com/Septy2000/Portfolio-Website",
         },
     ];
-
-    const projectsSectionTitle = "projects";
-
     const [selectedProject, setSelectedProject] = useState<Project>(
         projects[0]
     );
+
+    const projectsSectionTitle = "projects";
 
     function handleProjectItemClick(project: Project) {
         setSelectedProject(project);
     }
 
     return (
-        <Styled.Container>
+        <Styled.Container ref={projectsRef}>
             <SpacerSmall />
             <Styled.ProjectsContainer>
                 <Styled.ProjectsList>

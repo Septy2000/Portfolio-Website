@@ -15,7 +15,11 @@ export type TimelineItemAttributes = {
     icon: string;
 };
 
-export default function ExperienceSection() {
+export default function ExperienceSection({
+    experienceRef,
+}: {
+    experienceRef: React.RefObject<HTMLDivElement>;
+}) {
     const timelineItems: TimelineItemAttributes[] = [
         {
             title: "Graduate Software Engineer",
@@ -40,7 +44,7 @@ export default function ExperienceSection() {
     ];
 
     return (
-        <Styled.Container>
+        <Styled.Container ref={experienceRef}>
             <Styled.ScrollToExperienceHeader>
                 Scroll to check my experience &darr;
             </Styled.ScrollToExperienceHeader>

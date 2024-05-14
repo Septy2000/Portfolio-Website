@@ -22,7 +22,7 @@ export const NavigationContainer = styled.nav`
     margin-left: ${({ theme }) => theme.margin.medium};
 `;
 
-export const NavigationLink = styled(Link)`
+export const NavigationLink = styled.div`
     font-size: 1.5rem;
     margin-left: ${({ theme }) => theme.margin.medium};
     margin-right: ${({ theme }) => theme.margin.medium};

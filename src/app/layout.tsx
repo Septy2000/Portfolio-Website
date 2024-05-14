@@ -19,7 +19,6 @@ export default function RootLayout({
                 <ThemeClient>
                     <GlobalStyles />
                     <body>
-                        <NavigationBar />
                         {children}
                     </body>
                 </ThemeClient>
