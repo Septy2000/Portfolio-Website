@@ -28,4 +28,19 @@ export const NavigationLink = styled(Link)`
     margin-right: ${({ theme }) => theme.margin.medium};
     text-decoration: none;
     color: ${({ theme }) => theme.colors.text.primary};
+    &:after {
+        content: "";
+        position: relative;
+        display: block;
+        bottom: -5px;
+        height: 2px;
+        width: 0;
+        background: ${({ theme }) => theme.colors.orange};
+        z-index: 1;
+        cursor: default;
+        transition: width 0.3s;
+    }
+    &:hover:after {
+        width: 100%;
+    }
 `;
