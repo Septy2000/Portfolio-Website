@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import styled from "styled-components";
 
 export const Header = styled.header`
@@ -24,8 +23,10 @@ export const NavigationContainer = styled.nav`
 
 export const NavigationLink = styled.div`
     font-size: 1.5rem;
-    margin-left: ${({ theme }) => theme.margin.medium};
-    margin-right: ${({ theme }) => theme.margin.medium};
+    margin: 0 ${({ theme }) => theme.margin.medium};
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        margin: 0 ${({ theme }) => theme.margin.small};
+    }
     text-decoration: none;
     color: ${({ theme }) => theme.colors.text.secondary};
     &:after {

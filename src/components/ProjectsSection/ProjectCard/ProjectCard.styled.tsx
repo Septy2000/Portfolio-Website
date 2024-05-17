@@ -10,16 +10,6 @@ export const Container = styled.div`
     overflow: hidden;
 `;
 
-export const Icon = styled(Image)`
-    width: 100%;
-    height: 100%;
-    border: ${({ theme }) =>
-        `${theme.border.small} solid ${theme.colors.surface.secondary}`};
-    margin-bottom: ${({ theme }) => theme.margin.small};
-    border-radius: ${({ theme }) => theme.borderRadius.small};
-    object-fit: cover;
-`;
-
 export const Header = styled.h2`
     color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: ${({ theme }) => theme.margin.small};

@@ -2,11 +2,12 @@
 import * as Styled from "./ProjectCard.styled";
 import { Project } from "@/components/ProjectsSection/ProjectsSection";
 import { missing_image_src } from "@/components/images/Images";
+import { ProjectImage } from "@/components/images/Images.styled";
 
 export default function ProjectCard({ project }: { project: Project }) {
     return (
         <Styled.Container>
-            <Styled.Icon
+            <ProjectImage
                 src={project.imagePath ?? missing_image_src}
                 width={400}
                 height={300}
