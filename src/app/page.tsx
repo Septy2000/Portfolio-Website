@@ -17,9 +17,9 @@ export default function AboutMePage() {
                 projectsRef={projectsRef}
                 experienceRef={experienceRef}
             />
-            <MainInformationSection aboutRef={aboutRef} />
-            <ExperienceContainer experienceRef={experienceRef} />
-            <ProjectsSection projectsRef={projectsRef} />
+            <MainInformationSection ref={aboutRef} />
+            <ExperienceContainer ref={experienceRef} />
+            <ProjectsSection ref={projectsRef} />
         </React.Fragment>
     );
 }

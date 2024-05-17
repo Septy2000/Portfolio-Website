@@ -8,6 +8,8 @@ export const Container = styled.div<{ $index: number }>`
     background-color: ${({ theme }) => theme.colors.surface.primary};
     border: ${({ theme }) =>
         `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
+    box-shadow: ${({ theme }) =>
+        `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}`};
     height: 100%;
     padding: ${({ theme }) => theme.padding.small};
     justify-self: ${({ $index }) => ($index % 2 === 0 ? "start" : "end")};

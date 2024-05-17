@@ -1,10 +1,12 @@
+"use client";
 import * as Styled from "./ExperienceSection.styled";
 import TimelineDescriptionItem from "./TimelineDescriptionItem/TimelineDescriptionItem";
-import React from "react";
+import React, { forwardRef } from "react";
 import { gocity_icon_src, kcl_icon_src } from "@/components/images/Images";
 import { ExperienceImage } from "@/components/images/Images.styled";
 import { PlainLinkWrapper } from "@/components/wrappers/PlainLinkWrapper/PlainLinkWrapper.styled";
-
+import { useInView } from "react-intersection-observer";
+import { SpacerSmall } from "../Spacer/Spacer.styled";
 export type TimelineItemAttributes = {
     title: string;
     company: string;
@@ -15,11 +17,11 @@ export type TimelineItemAttributes = {
     icon: string;
 };
 
-export default function ExperienceSection({
-    experienceRef,
-}: {
-    experienceRef: React.RefObject<HTMLDivElement>;
-}) {
+const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
+    const { ref, inView } = useInView({
+        threshold: 0.3,
+    });
+
     const timelineItems: TimelineItemAttributes[] = [
         {
             title: "Graduate Software Engineer",
@@ -44,11 +46,14 @@ export default function ExperienceSection({
     ];
 
     return (
-        <Styled.Container ref={experienceRef}>
-            <Styled.ScrollToExperienceHeader>
+        <Styled.Container ref={ref} $inView={inView}>
+            <SpacerSmall />
+            <Styled.ScrollToExperienceHeader ref={experienceRef}>
                 Scroll to check my experience &darr;
             </Styled.ScrollToExperienceHeader>
             <Styled.TimelineGridContainer>
+                <SpacerSmall />
+
                 {timelineItems.map((timelineItem, index) => {
                     return (
                         <React.Fragment key={index}>
@@ -100,6 +105,9 @@ export default function ExperienceSection({
                     );
                 })}
             </Styled.TimelineGridContainer>
+            <SpacerSmall />
         </Styled.Container>
     );
-}
+});
+ExperienceSection.displayName = "ExperienceSection";
+export default ExperienceSection;

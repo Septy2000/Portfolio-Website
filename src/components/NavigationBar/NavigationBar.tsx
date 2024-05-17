@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import * as Styled from "./NavigationBar.styled";
 
 type Page = {
@@ -35,7 +35,7 @@ export default function NavigationBar({
 
     return (
         <Styled.Header>
-            <Styled.Name>{topLeftText}.</Styled.Name>
+            <Styled.Name>{topLeftText}</Styled.Name>
             <Styled.NavigationContainer>
                 {pages.map((page, id) => (
                     <Styled.NavigationLink
