@@ -8,7 +8,7 @@ export const Header = styled.header`
     justify-content: space-between;
     align-items: center;
     padding: ${({ theme }) => theme.padding.medium};
-    background-color: transparent;
+    background-color: ${({ theme }) => theme.colors.surface.secondary};
 `;
 
 export const Name = styled.h1`
@@ -27,7 +27,7 @@ export const NavigationLink = styled.div`
     margin-left: ${({ theme }) => theme.margin.medium};
     margin-right: ${({ theme }) => theme.margin.medium};
     text-decoration: none;
-    color: ${({ theme }) => theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.secondary};
     &:after {
         content: "";
         position: relative;

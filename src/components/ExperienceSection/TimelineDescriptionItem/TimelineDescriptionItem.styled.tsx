@@ -7,7 +7,7 @@ export const Container = styled.div<{ $index: number }>`
     flex-direction: column;
     background-color: ${({ theme }) => theme.colors.surface.primary};
     border: ${({ theme }) =>
-        `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
+        `${theme.border.medium} solid ${theme.colors.surface.primary}`};
     height: 100%;
     padding: ${({ theme }) => theme.padding.small};
     justify-self: ${({ $index }) => ($index % 2 === 0 ? "start" : "end")};

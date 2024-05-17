@@ -35,7 +35,7 @@ export default function NavigationBar({
 
     return (
         <Styled.Header>
-            <Styled.Name>{topLeftText}.</Styled.Name>
+            <Styled.Name>{topLeftText}</Styled.Name>
             <Styled.NavigationContainer>
                 {pages.map((page, id) => (
                     <Styled.NavigationLink

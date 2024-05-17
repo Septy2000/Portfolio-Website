@@ -6,11 +6,12 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     padding: ${({ theme }) => theme.padding.medium};
+    background: ${({ theme }) => theme.colors.surface.secondary};
 `;
 
 export const ScrollToExperienceHeader = styled.h1`
     margin-bottom: ${({ theme }) => theme.margin.medium};
-    color: ${({ theme }) => theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 export const TimelineGridContainer = styled.div`
@@ -25,7 +26,7 @@ export const TimelineGridContainer = styled.div`
         content: "";
         position: absolute;
         width: 4px;
-        background: ${({ theme }) => theme.colors.surface.secondary};
+        background: ${({ theme }) => theme.colors.surface.primary};
         top: 0;
         bottom: 0;
         left: 50%;
@@ -42,7 +43,7 @@ export const TimelineGridContainer = styled.div`
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background: ${({ theme }) => theme.colors.surface.secondary};
+        background: ${({ theme }) => theme.colors.surface.primary};
         top: 0;
         left: 50%;
         @media (max-width: ${({ theme }) => theme.screen.medium}) {
@@ -91,7 +92,7 @@ export const TimelineIconItemRight = styled(TimelineIconItem)`
         height: 4px;
         top: 50%;
         right: 0;
-        background: ${({ theme }) => theme.colors.surface.secondary};
+        background: ${({ theme }) => theme.colors.surface.primary};
     }
 `;
 
@@ -105,7 +106,7 @@ export const TimelineIconItemLeft = styled(TimelineIconItem)`
             height: 4px;
             top: 50%;
             left: 0;
-            background: ${({ theme }) => theme.colors.surface.secondary};
+            background: ${({ theme }) => theme.colors.surface.primary};
         }
     }
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
@@ -117,7 +118,7 @@ export const TimelineIconItemLeft = styled(TimelineIconItem)`
             height: 4px;
             top: 50%;
             right: 0;
-            background: ${({ theme }) => theme.colors.surface.secondary};
+            background: ${({ theme }) => theme.colors.surface.primary};
         }
     }
 `;
