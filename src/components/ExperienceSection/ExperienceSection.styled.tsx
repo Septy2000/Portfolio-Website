@@ -6,12 +6,16 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     padding: ${({ theme }) => theme.padding.medium};
-    background: ${({ theme }) => theme.colors.surface.secondary};
+    background: ${({ theme }) => theme.colors.surface.primary_shade.dark_1};
+    box-shadow: ${({ theme }) =>
+        `inset 10px 10px 10px -1px ${theme.colors.surface.primary_shade.dark_3}, inset -10px -10px 10px -1px ${theme.colors.surface.primary_shade.dark_1}`};
 `;
 
 export const ScrollToExperienceHeader = styled.h1`
     margin-bottom: ${({ theme }) => theme.margin.medium};
-    color: ${({ theme }) => theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.text.primary};
+    text-shadow: ${({ theme }) =>
+        `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}`};
 `;
 
 export const TimelineGridContainer = styled.div`
@@ -26,7 +30,7 @@ export const TimelineGridContainer = styled.div`
         content: "";
         position: absolute;
         width: 4px;
-        background: ${({ theme }) => theme.colors.surface.primary};
+        background: ${({ theme }) => theme.colors.surface.secondary};
         top: 0;
         bottom: 0;
         left: 50%;
@@ -43,7 +47,7 @@ export const TimelineGridContainer = styled.div`
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background: ${({ theme }) => theme.colors.surface.primary};
+        background: ${({ theme }) => theme.colors.surface.secondary};
         top: 0;
         left: 50%;
         @media (max-width: ${({ theme }) => theme.screen.medium}) {
@@ -57,7 +61,6 @@ export const TimelineGridContainer = styled.div`
 export const TimelineItemGroup = styled.div<{ $index: number }>`
     display: grid;
     grid-template-columns: 1fr min-content 1fr;
-
     grid-template-areas: ${({ $index }) =>
         $index % 2 === 0
             ? "'filler icon description'"
@@ -92,7 +95,7 @@ export const TimelineIconItemRight = styled(TimelineIconItem)`
         height: 4px;
         top: 50%;
         right: 0;
-        background: ${({ theme }) => theme.colors.surface.primary};
+        background: ${({ theme }) => theme.colors.surface.secondary};
     }
 `;
 
@@ -106,7 +109,7 @@ export const TimelineIconItemLeft = styled(TimelineIconItem)`
             height: 4px;
             top: 50%;
             left: 0;
-            background: ${({ theme }) => theme.colors.surface.primary};
+            background: ${({ theme }) => theme.colors.surface.secondary};
         }
     }
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
@@ -118,7 +121,7 @@ export const TimelineIconItemLeft = styled(TimelineIconItem)`
             height: 4px;
             top: 50%;
             right: 0;
-            background: ${({ theme }) => theme.colors.surface.primary};
+            background: ${({ theme }) => theme.colors.surface.secondary};
         }
     }
 `;

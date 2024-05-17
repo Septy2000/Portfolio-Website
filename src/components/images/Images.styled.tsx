@@ -10,7 +10,7 @@ export const PortraitImage = styled(Image)`
 
 export const ExperienceImage = styled(Image)`
     border: ${({ theme }) =>
-        `${theme.border.medium} solid ${theme.colors.surface.primary}`};
+        `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
     border-radius: 50%;
     transition: transform 0.2s, border 0.2s;
     &:hover {

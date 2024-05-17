@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    padding: ${({ theme }) => theme.padding.medium};
+    margin: ${({ theme }) => theme.margin.medium};
     height: 65vh;
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         flex-direction: column-reverse;
