@@ -44,7 +44,7 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>(
         const projectsSectionTitle = "projects";
 
         const { ref, inView } = useInView({
-            threshold: 0.3,
+            threshold: 0.5,
         });
 
         function handleProjectItemClick(project: Project) {

@@ -19,7 +19,7 @@ export type TimelineItemAttributes = {
 
 const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
     const { ref, inView } = useInView({
-        threshold: 0.3,
+        threshold: 0.5,
     });
 
     const timelineItems: TimelineItemAttributes[] = [

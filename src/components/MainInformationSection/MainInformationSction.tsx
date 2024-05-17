@@ -8,7 +8,7 @@ import React from "react";
 
 const MainInformationSection = forwardRef<HTMLDivElement>((props, aboutRef) => {
     const { ref, inView } = useInView({
-        threshold: 0.3,
+        threshold: 0.5,
     });
     return (
         <Styled.Container ref={ref} $inView={inView}>
