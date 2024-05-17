@@ -5,7 +5,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: ${({ theme }) => theme.margin.medium};
+    padding: ${({ theme }) => theme.padding.medium};
 `;
 
 export const ScrollToExperienceHeader = styled.h1`
@@ -33,7 +33,7 @@ export const TimelineGridContainer = styled.div`
             left: 40px;
         }
         margin-left: -2px;
-        z-index: -1;
+        z-index: 0;
     }
 
     &:before {
@@ -49,6 +49,7 @@ export const TimelineGridContainer = styled.div`
             left: 40px;
         }
         margin-left: -15px;
+        z-index: 0;
     }
 `;
 
@@ -68,6 +69,7 @@ export const TimelineItemGroup = styled.div<{ $index: number }>`
     width: 100%;
     padding-top: ${({ theme }) => theme.padding.small};
     padding-bottom: ${({ theme }) => theme.padding.small};
+    z-index: 1;
 `;
 
 const TimelineIconItem = styled.div`

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import * as Styled from "./ProjectsSection.styled";
 import ProjectCard from "./ProjectCard/ProjectCard";
 import {
