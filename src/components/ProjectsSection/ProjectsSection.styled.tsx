@@ -30,7 +30,6 @@ export const ProjectsContainer = styled.div`
     display: grid;
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         grid-template-rows: min-content 1fr;
-        /* grid-template-columns: 1fr; */
     }
     @media (min-width: ${({ theme }) => theme.screen.medium}) {
         grid-template-rows: 1fr;
