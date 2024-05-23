@@ -11,28 +11,29 @@ export default function mandelbrotIterationCalculator(
     c: ComplexNumber,
     maxIterations: number
 ): number {
-    // Initialize Z to zero
-    let z: ComplexNumber = { x: 0, y: 0 };
-    let iterations = 0;
-
-    // Iterate until escape condition or max iterations reached
-    while (iterations < maxIterations && isWithinThreshold(z)) {
-        // Calculate Z squared
-        const zSquared: ComplexNumber = {
-            x: z.x * z.x - z.y * z.y,
+    // Initialise complex number z
+    let z = { x: 0, y: 0 };
+    // Iteration number
+    let n = 0;
+    let z_sqr;
+    do {
+        // Complex number Z squared
+        // The minus exists because i^2 is -1
+        z_sqr = {
+            x: Math.pow(z.x, 2) - Math.pow(z.y, 2),
             y: 2 * z.x * z.y,
         };
 
-        // Update Z by adding C
+        // Complex number Z with added C (i.e z^2 + c)
         z = {
-            x: zSquared.x + c.x,
-            y: zSquared.y + c.y,
+            x: z_sqr.x + c.x,
+            y: z_sqr.y + c.y,
         };
+        n += 1;
+        // Repeat until the point passes the threshold or reaches maximum iterations
+    } while (Math.abs(z.x) + Math.abs(z.y) <= 2 && n < maxIterations);
 
-        iterations++;
-    }
-
-    return iterations;
+    return n;
 }
 
 /**

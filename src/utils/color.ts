@@ -9,7 +9,7 @@ import { randomWithinBounds } from "./random";
 export function getHSLColor(
     iterations: number,
     maxIterations: number,
-    color_intensity: number
+    colorIntensity: number
 ): string {
     // If the point reached the maximum number of iterations, it's part of the Mandelbrot/Julia set and is colored black
     if (iterations === maxIterations) {
@@ -18,7 +18,7 @@ export function getHSLColor(
 
     // Calculate the hue based on the number of iterations
     // Increase color intensity to make the colors pop more and add more colors overall
-    const hue = color_intensity * 360 * (iterations / maxIterations);
+    const hue = colorIntensity * 360 * (iterations / maxIterations);
     return `hsl(${Math.floor(hue)}, 100%, 50%)`;
 }
 

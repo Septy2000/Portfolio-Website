@@ -13,8 +13,8 @@ export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
     const [parameters, setParameters] = useState<Parameters>({
-        width: 800,
-        height: 600,
+        width: 240,
+        height: 180,
         colorIntensity: 1,
         fractalType: "mandelbrot",
         maxIterations: 500,
@@ -52,11 +52,9 @@ export default function FractalsSection() {
             canvas.style.height = "600px";
 
             const ctx = canvas.getContext("2d");
-            if (ctx) {
-                contextRef.current = ctx;
-            }
+            contextRef.current = ctx;
         }
-    }, []);
+    });
 
     function drawColumn(column: number, columnValues: number[]) {
         if (!canvasRef.current) return;
@@ -85,16 +83,19 @@ export default function FractalsSection() {
         for (let column = 0; column < parameters.width; column++) {
             let columnValues: number[] = [];
             for (let row = 0; row < parameters.height; row++) {
+                let complexPoint = complexPlanePoint(
+                    column,
+                    row,
+                    complexPlaneBoundaries,
+                    parameters.width,
+                    parameters.height
+                );
+
                 let iterationsReached = mandelbrotIterationCalculator(
-                    complexPlanePoint(
-                        column,
-                        row,
-                        complexPlaneBoundaries,
-                        parameters.width,
-                        parameters.height
-                    ),
+                    complexPoint,
                     parameters.maxIterations
                 );
+
                 columnValues.push(iterationsReached);
             }
 
@@ -103,13 +104,14 @@ export default function FractalsSection() {
     }
 
     return (
-        <Styled.Container>
-            <canvas ref={canvasRef} />
+        <canvas ref={canvasRef} />
 
-            <ParametersMenu
-                parameters={parameters}
-                setParameters={setParameters}
-            />
-        </Styled.Container>
+        // <Styled.Container>
+
+        //     {/* <ParametersMenu
+        //         parameters={parameters}
+        //         setParameters={setParameters}
+        //     /> */}
+        // </Styled.Container>
     );
 }
