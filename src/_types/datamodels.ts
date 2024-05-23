@@ -5,6 +5,7 @@ export type Parameters = {
     height: number;
     colorIntensity: number;
     fractalType: "mandelbrot" | "julia" | "perlin";
+    maxIterations: number;
 };
 
 export type ParametersMenuProps = {

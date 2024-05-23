@@ -3,17 +3,21 @@ import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import Canvas from "../canvas/Canvas";
 import { useState } from "react";
 import { Parameters } from "@/_types/datamodels";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { ComplexNumber, ComplexPlaneBoundary } from "@/_types/math";
 import mandelbrotIterationCalculator from "@/utils/algorithms/mandelbrotFunction";
 import { complexPlanePoint } from "@/utils/complexNumbers";
+import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 
 export default function FractalsSection() {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const contextRef = useRef<CanvasRenderingContext2D | null>(null);
     const [parameters, setParameters] = useState<Parameters>({
         width: 800,
         height: 600,
         colorIntensity: 1,
         fractalType: "mandelbrot",
+        maxIterations: 500,
     });
     const [isGenerated, setIsGenerated] = useState(false);
 
@@ -24,14 +28,9 @@ export default function FractalsSection() {
         IM_MAX: 1.5,
     };
 
-    const MAX_ITERATIONS = 500;
-
-    const width = 800;
-    const height = 600;
-
     // Scaling factor for taking into account resolution difference between the actual canvas
     // and the displayed canvas
-    let scaling_factor = 1;
+    let scalingFactor = 1;
 
     useEffect(() => {
         if (!isGenerated) {
@@ -40,34 +39,77 @@ export default function FractalsSection() {
         }
     }, [isGenerated]);
 
+    useEffect(() => {
+        const canvas = canvasRef.current;
+
+        if (canvas) {
+            // resolution of canvas
+            canvas.width = parameters.width;
+            canvas.height = parameters.height;
+
+            // actual size of canvas
+            canvas.style.width = "800px";
+            canvas.style.height = "600px";
+
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+                contextRef.current = ctx;
+            }
+        }
+    }, []);
+
+    function drawColumn(column: number, columnValues: number[]) {
+        if (!canvasRef.current) return;
+
+        for (let row = 0; row < canvasRef.current.height; row++) {
+            draw(column, row, columnValues[row]);
+        }
+    }
+
+    function draw(column: number, row: number, iterations: number) {
+        const ctx = contextRef.current;
+        if (!ctx) return;
+
+        ctx.fillStyle = getHSLColor(
+            iterations,
+            parameters.maxIterations,
+            parameters.colorIntensity
+        );
+        let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
+        let rect_height = scalingFactor < 1 ? 1 / scalingFactor : 1;
+
+        ctx.fillRect(column, row, rect_width, rect_height);
+    }
+
     function generate() {
-        for (let column = 0; column < width; column++) {
+        for (let column = 0; column < parameters.width; column++) {
             let columnValues: number[] = [];
-            for (let row = 0; row < height; row++) {
+            for (let row = 0; row < parameters.height; row++) {
                 let iterationsReached = mandelbrotIterationCalculator(
                     complexPlanePoint(
                         column,
                         row,
                         complexPlaneBoundaries,
-                        width,
-                        height
+                        parameters.width,
+                        parameters.height
                     ),
-                    MAX_ITERATIONS
+                    parameters.maxIterations
                 );
                 columnValues.push(iterationsReached);
             }
 
-            // find a way to call drawColumn
+            drawColumn(column, columnValues);
         }
     }
 
     return (
         <Styled.Container>
+            <canvas ref={canvasRef} />
+
             <ParametersMenu
                 parameters={parameters}
                 setParameters={setParameters}
             />
-            <Canvas width={width} height={height} />
         </Styled.Container>
     );
 }
