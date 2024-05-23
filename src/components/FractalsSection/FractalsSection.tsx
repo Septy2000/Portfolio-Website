@@ -13,6 +13,49 @@ export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
 
+    // Default parameters
+    /*
+        algorithm (default mandelbrot)
+        width (default 800)
+        height (default 600)
+    */
+
+    // Mandelbrot params
+    /*
+        reset / undo zoom buttons
+        color mode: {
+            smooth (default selected) -> color intensity (default 1)
+            rgb -> R G B weights (default 1 1 1)
+            random -> number of random colors (default 16)
+        }
+        iterations (default 500)
+
+    */
+
+    // Julia params
+    /*
+        reset / undo zoom buttons
+        color mode: {
+            smooth (default selected) -> color intensity (default 1)
+            rgb -> R G B weights (default 1 1 1)
+            random -> number of random colors (default 16)
+        }
+        iterations (default 500)
+        value of c (default any)
+    */
+
+    // Perlin params
+    /*
+        color mode: {
+            smooth (default selected) -> color intensity (default 3)
+            rgb -> R G B weights (default 1 1 1)
+        }
+        scale (default 1)
+        zoom out (default 2)
+        seed 
+        current seed (show seed)
+    */
+
     const parameters = {
         width: 240,
         height: 180,
