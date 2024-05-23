@@ -1,6 +1,7 @@
 import { ComplexNumber } from "@/_types/math";
 
 const THRESHOLD_VALUE = 2;
+
 /**
  * Calculates the number of iterations for a given complex number in the Mandelbrot set.
  * @param {ComplexNumber} c - The complex number for which to calculate iterations.
@@ -11,29 +12,30 @@ export default function mandelbrotIterationCalculator(
     c: ComplexNumber,
     maxIterations: number
 ): number {
-    // Initialise complex number z
+    // Initialize complex number z to the origin
     let z = { x: 0, y: 0 };
-    // Iteration number
-    let n = 0;
-    let z_sqr;
+    // Initialize the iteration counter
+    let iteration = 0;
+
+    // Iterate until z escapes the threshold or we reach the maximum number of iterations
     do {
-        // Complex number Z squared
-        // The minus exists because i^2 is -1
-        z_sqr = {
-            x: Math.pow(z.x, 2) - Math.pow(z.y, 2),
-            y: 2 * z.x * z.y,
+        // Calculate z^2
+        const zSquared = {
+            x: z.x * z.x - z.y * z.y, // Real part: x^2 - y^2
+            y: 2 * z.x * z.y, // Imaginary part: 2xy
         };
 
-        // Complex number Z with added C (i.e z^2 + c)
+        // Update z to z^2 + c
         z = {
-            x: z_sqr.x + c.x,
-            y: z_sqr.y + c.y,
+            x: zSquared.x + c.x,
+            y: zSquared.y + c.y,
         };
-        n += 1;
-        // Repeat until the point passes the threshold or reaches maximum iterations
-    } while (Math.abs(z.x) + Math.abs(z.y) <= 2 && n < maxIterations);
 
-    return n;
+        // Increment the iteration counter
+        iteration += 1;
+    } while (isWithinThreshold(z) && iteration < maxIterations);
+
+    return iteration;
 }
 
 /**

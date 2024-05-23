@@ -12,13 +12,15 @@ import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
-    const [parameters, setParameters] = useState<Parameters>({
+
+    const parameters = {
         width: 240,
         height: 180,
         colorIntensity: 1,
         fractalType: "mandelbrot",
         maxIterations: 500,
-    });
+    };
+
     const [isGenerated, setIsGenerated] = useState(false);
 
     let complexPlaneBoundaries: ComplexPlaneBoundary = {
@@ -31,13 +33,6 @@ export default function FractalsSection() {
     // Scaling factor for taking into account resolution difference between the actual canvas
     // and the displayed canvas
     let scalingFactor = 1;
-
-    useEffect(() => {
-        if (!isGenerated) {
-            generate();
-            setIsGenerated(true);
-        }
-    }, [isGenerated]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -56,11 +51,20 @@ export default function FractalsSection() {
         }
     });
 
-    function drawColumn(column: number, columnValues: number[]) {
-        if (!canvasRef.current) return;
+    function setupCanvas() {
+        const canvas = canvasRef.current;
 
-        for (let row = 0; row < canvasRef.current.height; row++) {
-            draw(column, row, columnValues[row]);
+        if (canvas) {
+            // resolution of canvas
+            canvas.width = parameters.width;
+            canvas.height = parameters.height;
+
+            // actual size of canvas
+            canvas.style.width = "800px";
+            canvas.style.height = "600px";
+
+            const ctx = canvas.getContext("2d");
+            contextRef.current = ctx;
         }
     }
 
@@ -75,11 +79,19 @@ export default function FractalsSection() {
         );
         let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
         let rect_height = scalingFactor < 1 ? 1 / scalingFactor : 1;
-
         ctx.fillRect(column, row, rect_width, rect_height);
     }
 
+    function drawColumn(column: number, columnValues: number[]) {
+        if (!canvasRef.current) return;
+
+        for (let row = 0; row < canvasRef.current.height; row++) {
+            draw(column, row, columnValues[row]);
+        }
+    }
+
     function generate() {
+        setupCanvas();
         for (let column = 0; column < parameters.width; column++) {
             let columnValues: number[] = [];
             for (let row = 0; row < parameters.height; row++) {
@@ -104,14 +116,13 @@ export default function FractalsSection() {
     }
 
     return (
-        <canvas ref={canvasRef} />
-
-        // <Styled.Container>
-
-        //     {/* <ParametersMenu
-        //         parameters={parameters}
-        //         setParameters={setParameters}
-        //     /> */}
-        // </Styled.Container>
+        <Styled.Container>
+            <canvas ref={canvasRef} />
+            <button onClick={generate}>Generate</button>
+            <ParametersMenu
+                parameters={parameters}
+                setParameters={setParameters}
+            />
+        </Styled.Container>
     );
 }
