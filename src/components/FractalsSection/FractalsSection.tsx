@@ -1,13 +1,12 @@
 import * as Styled from "./FractalsSection.styled";
-import ParametersMenu from "./ParametersMenu/ParametersMenu";
-import Canvas from "../canvas/Canvas";
 import { useState } from "react";
-import { Parameters } from "@/_types/datamodels";
 import React, { useEffect, useRef } from "react";
 import { ComplexNumber, ComplexPlaneBoundary } from "@/_types/math";
 import mandelbrotIterationCalculator from "@/utils/algorithms/mandelbrotFunction";
 import { complexPlanePoint } from "@/utils/complexNumbers";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
+import ParametersMenu from "./ParametersMenu/ParametersMenu";
+import { ParametersProvider } from "./ParametersProvider/ParametersProvider";
 
 export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -160,12 +159,10 @@ export default function FractalsSection() {
 
     return (
         <Styled.Container>
-            <canvas ref={canvasRef} />
-            <button onClick={generate}>Generate</button>
-            {/* <ParametersMenu
-                parameters={parameters}
-                setParameters={setParameters}
-            /> */}
+            <ParametersProvider>
+                <canvas ref={canvasRef} />
+                <ParametersMenu generate={generate} />
+            </ParametersProvider>
         </Styled.Container>
     );
 }
