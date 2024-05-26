@@ -21,19 +21,34 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
 
     const [mandelbrotParameters, setMandelbrotParameters] =
         useState<MandelbrotParameters>({
-            colorModeParameters: { colorMode: "smooth", colorIntensity: 1 },
-            iterations: 500,
+            colorModeParameters: {
+                colorMode: "smooth",
+                colorIntensity: 1,
+                rgbWeights: { r: 1, g: 1, b: 1 },
+                numberOfRandomColors: 16,
+            },
+            maxIterations: 500,
         });
 
     const [juliaParameters, setJuliaParameters] = useState<JuliaParameters>({
-        colorModeParameters: { colorMode: "smooth", colorIntensity: 1 },
-        iterations: 500,
+        colorModeParameters: {
+            colorMode: "smooth",
+            colorIntensity: 1,
+            rgbWeights: { r: 1, g: 1, b: 1 },
+            numberOfRandomColors: 16,
+        },
+        maxIterations: 500,
         valueOfC: "",
     });
 
     const [perlinNoiseParameters, setPerlinNoiseParameters] =
         useState<PerlinNoiseParameters>({
-            colorModeParameters: { colorMode: "smooth", colorIntensity: 3 },
+            colorModeParameters: {
+                colorMode: "smooth",
+                colorIntensity: 3,
+                rgbWeights: { r: 1, g: 1, b: 1 },
+                numberOfRandomColors: 16,
+            },
             scale: 1,
             zoomOut: 2,
             seed: "",

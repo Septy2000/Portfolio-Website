@@ -6,11 +6,17 @@ import mandelbrotIterationCalculator from "@/utils/algorithms/mandelbrotFunction
 import { complexPlanePoint } from "@/utils/complexNumbers";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
-import { ParametersProvider } from "./ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
 
 export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
+    const {
+        defaultParameters,
+        mandelbrotParameters,
+        juliaParameters,
+        perlinNoiseParameters,
+    } = useParameters();
 
     // Default parameters
     /*
@@ -55,14 +61,6 @@ export default function FractalsSection() {
         current seed (show seed)
     */
 
-    const parameters = {
-        width: 240,
-        height: 180,
-        colorIntensity: 1,
-        fractalType: "mandelbrot",
-        maxIterations: 500,
-    };
-
     const [isGenerated, setIsGenerated] = useState(false);
 
     let complexPlaneBoundaries: ComplexPlaneBoundary = {
@@ -76,30 +74,13 @@ export default function FractalsSection() {
     // and the displayed canvas
     let scalingFactor = 1;
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-
-        if (canvas) {
-            // resolution of canvas
-            canvas.width = parameters.width;
-            canvas.height = parameters.height;
-
-            // actual size of canvas
-            canvas.style.width = "800px";
-            canvas.style.height = "600px";
-
-            const ctx = canvas.getContext("2d");
-            contextRef.current = ctx;
-        }
-    });
-
     function setupCanvas() {
         const canvas = canvasRef.current;
 
         if (canvas) {
             // resolution of canvas
-            canvas.width = parameters.width;
-            canvas.height = parameters.height;
+            canvas.width = defaultParameters.width;
+            canvas.height = defaultParameters.height;
 
             // actual size of canvas
             canvas.style.width = "800px";
@@ -110,14 +91,18 @@ export default function FractalsSection() {
         }
     }
 
+    // useEffect(() => {
+    //     setupCanvas();
+    // });
+
     function draw(column: number, row: number, iterations: number) {
         const ctx = contextRef.current;
         if (!ctx) return;
 
         ctx.fillStyle = getHSLColor(
             iterations,
-            parameters.maxIterations,
-            parameters.colorIntensity
+            mandelbrotParameters.maxIterations,
+            mandelbrotParameters.colorModeParameters.colorIntensity
         );
         let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
         let rect_height = scalingFactor < 1 ? 1 / scalingFactor : 1;
@@ -134,20 +119,20 @@ export default function FractalsSection() {
 
     function generate() {
         setupCanvas();
-        for (let column = 0; column < parameters.width; column++) {
+        for (let column = 0; column < defaultParameters.width; column++) {
             let columnValues: number[] = [];
-            for (let row = 0; row < parameters.height; row++) {
+            for (let row = 0; row < defaultParameters.height; row++) {
                 let complexPoint = complexPlanePoint(
                     column,
                     row,
                     complexPlaneBoundaries,
-                    parameters.width,
-                    parameters.height
+                    defaultParameters.width,
+                    defaultParameters.height
                 );
 
                 let iterationsReached = mandelbrotIterationCalculator(
                     complexPoint,
-                    parameters.maxIterations
+                    mandelbrotParameters.maxIterations
                 );
 
                 columnValues.push(iterationsReached);
@@ -159,10 +144,8 @@ export default function FractalsSection() {
 
     return (
         <Styled.Container>
-            <ParametersProvider>
-                <canvas ref={canvasRef} />
-                <ParametersMenu generate={generate} />
-            </ParametersProvider>
+            <canvas ref={canvasRef} />
+            <ParametersMenu generate={generate} />
         </Styled.Container>
     );
 }

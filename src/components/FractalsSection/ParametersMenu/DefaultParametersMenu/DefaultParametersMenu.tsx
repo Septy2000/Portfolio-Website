@@ -22,6 +22,30 @@ export default function DefaultParametersMenu() {
                 <option value="julia">Julia Set</option>
                 <option value="perlin">Perlin Noise</option>
             </select>
+            <label htmlFor="width">Width:</label>
+            <input
+                id="width"
+                type="number"
+                value={defaultParameters.width}
+                onChange={(e) =>
+                    setDefaultParameters({
+                        ...defaultParameters,
+                        width: parseInt(e.target.value),
+                    })
+                }
+            />
+            <label htmlFor="height">Height:</label>
+            <input
+                id="height"
+                type="number"
+                value={defaultParameters.height}
+                onChange={(e) =>
+                    setDefaultParameters({
+                        ...defaultParameters,
+                        height: parseInt(e.target.value),
+                    })
+                }
+            />
         </div>
     );
 }

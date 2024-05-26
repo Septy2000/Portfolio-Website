@@ -6,14 +6,14 @@ export interface DefaultParameters {
 
 export interface ColorModeParameters {
     colorMode: "smooth" | "rgb" | "random";
-    colorIntensity?: number;
-    rgbWeights?: { r: number; g: number; b: number };
-    numberOfRandomColors?: number;
+    colorIntensity: number;
+    rgbWeights: { r: number; g: number; b: number };
+    numberOfRandomColors: number;
 }
 
 export interface MandelbrotParameters {
     colorModeParameters: ColorModeParameters;
-    iterations: number;
+    maxIterations: number;
 }
 
 export interface JuliaParameters extends MandelbrotParameters {
