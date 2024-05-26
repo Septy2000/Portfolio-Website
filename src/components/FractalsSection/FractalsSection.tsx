@@ -162,10 +162,10 @@ export default function FractalsSection() {
         <Styled.Container>
             <canvas ref={canvasRef} />
             <button onClick={generate}>Generate</button>
-            <ParametersMenu
+            {/* <ParametersMenu
                 parameters={parameters}
                 setParameters={setParameters}
-            />
+            /> */}
         </Styled.Container>
     );
 }

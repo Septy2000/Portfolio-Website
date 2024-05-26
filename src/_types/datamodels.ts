@@ -1,14 +1,33 @@
 import React from "react";
 
-export type Parameters = {
+export interface DefaultParameters {
+    algorithm: "mandelbrot" | "julia" | "perlin";
     width: number;
     height: number;
-    colorIntensity: number;
-    fractalType: "mandelbrot" | "julia" | "perlin";
-    maxIterations: number;
-};
+}
 
-export type ParametersMenuProps = {
-    parameters: Parameters;
-    setParameters: React.Dispatch<React.SetStateAction<Parameters>>;
-};
+export interface ColorModeParams {
+    colorMode: "smooth" | "rgb" | "random";
+    colorIntensity?: number;
+    rgbWeights?: { r: number; g: number; b: number };
+    numberOfRandomColors?: number;
+}
+
+export interface MandelbrotParams {
+    reset: boolean;
+    undoZoom: boolean;
+    colorModeParams: ColorModeParams;
+    iterations: number;
+}
+
+export interface JuliaParams extends MandelbrotParams {
+    valueOfC: string;
+}
+
+export interface PerlinParams {
+    colorModeParams: ColorModeParams;
+    scale: number;
+    zoomOut: number;
+    seed: string;
+    currentSeed: string;
+}
