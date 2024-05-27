@@ -1,3 +1,5 @@
+import { ComplexNumber } from "./math";
+
 export interface DefaultParameters {
     algorithm: "mandelbrot" | "julia" | "perlin";
     width: number;
@@ -12,16 +14,14 @@ export interface ColorModeParameters {
 }
 
 export interface MandelbrotParameters {
-    colorModeParameters: ColorModeParameters;
     maxIterations: number;
 }
 
 export interface JuliaParameters extends MandelbrotParameters {
-    valueOfC: string;
+    valueOfC: ComplexNumber;
 }
 
 export interface PerlinNoiseParameters {
-    colorModeParameters: ColorModeParameters;
     scale: number;
     zoomOut: number;
     seed: string;
@@ -37,4 +37,6 @@ export interface ParametersContextType {
     setJuliaParameters: (parameters: JuliaParameters) => void;
     perlinNoiseParameters: PerlinNoiseParameters;
     setPerlinNoiseParameters: (parameters: PerlinNoiseParameters) => void;
+    colorModeParameters: ColorModeParameters;
+    setColorModeParameters: (parameters: ColorModeParameters) => void;
 }

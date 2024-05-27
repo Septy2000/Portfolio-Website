@@ -5,6 +5,7 @@ import DefaultParametersMenu from "./DefaultParametersMenu/DefaultParametersMenu
 import MandelbrotParametersMenu from "./MandelbrotParametersMenu/MandelbrotParametersMenu";
 import JuliaParametersMenu from "./JuliaParametersMenu/JuliaParametersMenu";
 import PerlinNoiseParametersMenu from "./PerlinNoiseParametersMenu/PerlinNoiseParametersMenu";
+import ColorModeMenu from "@/components/FractalsSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
 
 export default function ParametersMenu({ generate }: { generate: () => void }) {
     const { defaultParameters } = useParameters();
@@ -12,6 +13,7 @@ export default function ParametersMenu({ generate }: { generate: () => void }) {
     return (
         <Styled.MenuContainer>
             <DefaultParametersMenu />
+            <ColorModeMenu />
             {defaultParameters.algorithm === "mandelbrot" && (
                 <MandelbrotParametersMenu />
             )}

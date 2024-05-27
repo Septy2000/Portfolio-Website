@@ -1,151 +1,52 @@
 import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
 import React from "react";
+import { ComplexNumber } from "@/_types/math";
 export default function JuliaParametersMenu() {
     const { juliaParameters, setJuliaParameters } = useParameters();
-
-    const handleColorModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setJuliaParameters({
-            ...juliaParameters,
-            colorModeParameters: {
-                ...juliaParameters.colorModeParameters,
-                colorMode: e.target.value as "smooth" | "rgb" | "random",
-            },
-        });
-    };
+    const COMPLEX_LIST: ComplexNumber[] = [
+        { x: 0.355, y: 0.355 },
+        { x: 0, y: 0.8 },
+        { x: 0.37, y: 0.1 },
+        { x: -0.54, y: 0.54 },
+        { x: -0.4, y: -0.59 },
+        { x: 0.355534, y: -0.337292 },
+    ];
 
     return (
         <div>
-            <label htmlFor="colorMode">Color Mode:</label>
-            <select
-                id="colorMode"
-                value={juliaParameters.colorModeParameters.colorMode}
-                onChange={handleColorModeChange}
-            >
-                <option value="smooth">Smooth</option>
-                <option value="rgb">RGB</option>
-                <option value="random">Random</option>
-            </select>
-            {juliaParameters.colorModeParameters.colorMode === "smooth" && (
-                <React.Fragment>
-                    <label htmlFor="intensity">Intensity:</label>
-                    <input
-                        id="intensity"
-                        type="number"
-                        value={
-                            juliaParameters.colorModeParameters.colorIntensity
-                        }
-                        onChange={(e) =>
-                            setJuliaParameters({
-                                ...juliaParameters,
-                                colorModeParameters: {
-                                    ...juliaParameters.colorModeParameters,
-                                    colorIntensity: parseFloat(e.target.value),
-                                },
-                            })
-                        }
-                    />
-                </React.Fragment>
-            )}
-            {juliaParameters.colorModeParameters.colorMode === "rgb" && (
-                <React.Fragment>
-                    <label htmlFor="r">R:</label>
-                    <input
-                        id="r"
-                        type="number"
-                        value={juliaParameters.colorModeParameters.rgbWeights.r}
-                        onChange={(e) =>
-                            setJuliaParameters({
-                                ...juliaParameters,
-                                colorModeParameters: {
-                                    ...juliaParameters.colorModeParameters,
-                                    rgbWeights: {
-                                        ...juliaParameters.colorModeParameters
-                                            .rgbWeights,
-                                        r: parseFloat(e.target.value),
-                                    },
-                                },
-                            })
-                        }
-                    />
-                    <label htmlFor="g">G:</label>
-                    <input
-                        id="g"
-                        type="number"
-                        value={juliaParameters.colorModeParameters.rgbWeights.g}
-                        onChange={(e) =>
-                            setJuliaParameters({
-                                ...juliaParameters,
-                                colorModeParameters: {
-                                    ...juliaParameters.colorModeParameters,
-                                    rgbWeights: {
-                                        ...juliaParameters.colorModeParameters
-                                            .rgbWeights,
-                                        g: parseFloat(e.target.value),
-                                    },
-                                },
-                            })
-                        }
-                    />
-                    <label htmlFor="b">B:</label>
-                    <input
-                        id="b"
-                        type="number"
-                        value={juliaParameters.colorModeParameters.rgbWeights.b}
-                        onChange={(e) =>
-                            setJuliaParameters({
-                                ...juliaParameters,
-                                colorModeParameters: {
-                                    ...juliaParameters.colorModeParameters,
-                                    rgbWeights: {
-                                        ...juliaParameters.colorModeParameters
-                                            .rgbWeights,
-                                        b: parseFloat(e.target.value),
-                                    },
-                                },
-                            })
-                        }
-                    />
-                </React.Fragment>
-            )}
-            {juliaParameters.colorModeParameters.colorMode === "random" && (
-                <React.Fragment>
-                    <label htmlFor="numberOfRandomColors">
-                        Number of Random Colors:
-                    </label>
-                    <input
-                        id="numberOfRandomColors"
-                        type="number"
-                        value={
-                            juliaParameters.colorModeParameters
-                                .numberOfRandomColors
-                        }
-                        onChange={(e) =>
-                            setJuliaParameters({
-                                ...juliaParameters,
-                                colorModeParameters: {
-                                    ...juliaParameters.colorModeParameters,
-                                    numberOfRandomColors: parseInt(
-                                        e.target.value
-                                    ),
-                                },
-                            })
-                        }
-                    />
-                </React.Fragment>
-            )}
-
-            <label htmlFor="valueOfC">Value of C:</label>
+            <label htmlFor="maxIterations">Max Iterations:</label>
             <input
-                id="valueOfC"
-                type="text"
-                value={juliaParameters.valueOfC}
+                id="maxIterations"
+                type="number"
+                value={juliaParameters.maxIterations}
                 onChange={(e) =>
                     setJuliaParameters({
                         ...juliaParameters,
-                        valueOfC: e.target.value,
+                        maxIterations: parseInt(e.target.value),
                     })
                 }
             />
+            <label htmlFor="c">C:</label>
+            <select
+                id="c"
+                value={`${juliaParameters.valueOfC.x},${juliaParameters.valueOfC.y}i`}
+                onChange={(e) => {
+                    const [x, y] = e.target.value.split(",");
+                    setJuliaParameters({
+                        ...juliaParameters,
+                        valueOfC: { x: parseFloat(x), y: parseFloat(y) },
+                    });
+                }}
+            >
+                {COMPLEX_LIST.map((complexNumber) => (
+                    <option
+                        key={`${complexNumber.x},${complexNumber.y}`}
+                        value={`${complexNumber.x},${complexNumber.y}`}
+                    >
+                        {`${complexNumber.x},${complexNumber.y}i`}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 }

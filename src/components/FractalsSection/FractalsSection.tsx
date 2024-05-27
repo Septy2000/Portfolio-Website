@@ -1,7 +1,7 @@
 import * as Styled from "./FractalsSection.styled";
 import { useState } from "react";
 import React, { useEffect, useRef } from "react";
-import { ComplexNumber, ComplexPlaneBoundary } from "@/_types/math";
+import { ComplexPlaneBoundary } from "@/_types/math";
 import mandelbrotIterationCalculator from "@/utils/algorithms/mandelbrotFunction";
 import { complexPlanePoint } from "@/utils/complexNumbers";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
@@ -16,50 +16,8 @@ export default function FractalsSection() {
         mandelbrotParameters,
         juliaParameters,
         perlinNoiseParameters,
+        colorModeParameters,
     } = useParameters();
-
-    // Default parameters
-    /*
-        algorithm (default mandelbrot)
-        width (default 800)
-        height (default 600)
-    */
-
-    // Mandelbrot params
-    /*
-        reset / undo zoom buttons
-        color mode: {
-            smooth (default selected) -> color intensity (default 1)
-            rgb -> R G B weights (default 1 1 1)
-            random -> number of random colors (default 16)
-        }
-        iterations (default 500)
-
-    */
-
-    // Julia params
-    /*
-        reset / undo zoom buttons
-        color mode: {
-            smooth (default selected) -> color intensity (default 1)
-            rgb -> R G B weights (default 1 1 1)
-            random -> number of random colors (default 16)
-        }
-        iterations (default 500)
-        value of c (default any)
-    */
-
-    // Perlin params
-    /*
-        color mode: {
-            smooth (default selected) -> color intensity (default 3)
-            rgb -> R G B weights (default 1 1 1)
-        }
-        scale (default 1)
-        zoom out (default 2)
-        seed 
-        current seed (show seed)
-    */
 
     const [isGenerated, setIsGenerated] = useState(false);
 
@@ -91,9 +49,10 @@ export default function FractalsSection() {
         }
     }
 
-    // useEffect(() => {
-    //     setupCanvas();
-    // });
+    // redender the canvas on first load
+    useEffect(() => {
+        generate();
+    }, []);
 
     function draw(column: number, row: number, iterations: number) {
         const ctx = contextRef.current;
@@ -102,7 +61,7 @@ export default function FractalsSection() {
         ctx.fillStyle = getHSLColor(
             iterations,
             mandelbrotParameters.maxIterations,
-            mandelbrotParameters.colorModeParameters.colorIntensity
+            colorModeParameters.colorIntensity
         );
         let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
         let rect_height = scalingFactor < 1 ? 1 / scalingFactor : 1;

@@ -5,6 +5,7 @@ import {
     JuliaParameters,
     PerlinNoiseParameters,
     ParametersContextType,
+    ColorModeParameters,
 } from "@/_types/common";
 
 const ParametersContext = createContext<ParametersContextType | undefined>(
@@ -21,38 +22,28 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
 
     const [mandelbrotParameters, setMandelbrotParameters] =
         useState<MandelbrotParameters>({
-            colorModeParameters: {
-                colorMode: "smooth",
-                colorIntensity: 1,
-                rgbWeights: { r: 1, g: 1, b: 1 },
-                numberOfRandomColors: 16,
-            },
             maxIterations: 500,
         });
 
     const [juliaParameters, setJuliaParameters] = useState<JuliaParameters>({
-        colorModeParameters: {
-            colorMode: "smooth",
-            colorIntensity: 1,
-            rgbWeights: { r: 1, g: 1, b: 1 },
-            numberOfRandomColors: 16,
-        },
         maxIterations: 500,
-        valueOfC: "",
+        valueOfC: { x: 0.355, y: 0.355 },
     });
 
     const [perlinNoiseParameters, setPerlinNoiseParameters] =
         useState<PerlinNoiseParameters>({
-            colorModeParameters: {
-                colorMode: "smooth",
-                colorIntensity: 3,
-                rgbWeights: { r: 1, g: 1, b: 1 },
-                numberOfRandomColors: 16,
-            },
             scale: 1,
             zoomOut: 2,
             seed: "",
             currentSeed: "",
+        });
+
+    const [colorModeParameters, setColorModeParameters] =
+        useState<ColorModeParameters>({
+            colorMode: "smooth",
+            colorIntensity: 1,
+            rgbWeights: { r: 1, g: 1, b: 1 },
+            numberOfRandomColors: 16,
         });
 
     return (
@@ -66,6 +57,8 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
                 setJuliaParameters,
                 perlinNoiseParameters,
                 setPerlinNoiseParameters,
+                colorModeParameters,
+                setColorModeParameters,
             }}
         >
             {children}
