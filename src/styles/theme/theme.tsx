@@ -32,6 +32,7 @@ const theme = {
             dark_2: "#CC8410",
             dark_3: "#CC8410",
         },
+        error: "#FF0000",
     },
 
     padding: {

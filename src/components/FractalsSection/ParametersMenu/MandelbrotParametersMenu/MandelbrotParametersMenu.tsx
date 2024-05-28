@@ -13,7 +13,7 @@ export default function MandelbrotParametersMenu() {
                 onChange={(e) =>
                     setMandelbrotParameters({
                         ...mandelbrotParameters,
-                        maxIterations: parseInt(e.target.value),
+                        maxIterations: e.target.value,
                     })
                 }
             />

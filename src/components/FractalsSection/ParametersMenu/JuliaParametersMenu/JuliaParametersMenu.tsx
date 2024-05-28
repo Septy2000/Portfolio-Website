@@ -22,7 +22,7 @@ export default function JuliaParametersMenu() {
                 onChange={(e) =>
                     setJuliaParameters({
                         ...juliaParameters,
-                        maxIterations: parseInt(e.target.value),
+                        maxIterations: e.target.value,
                     })
                 }
             />

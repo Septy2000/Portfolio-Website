@@ -13,7 +13,7 @@ export default function PerlinNoiseParametersMenu() {
                 onChange={(e) =>
                     setPerlinNoiseParameters({
                         ...perlinNoiseParameters,
-                        scale: parseFloat(e.target.value),
+                        scale: e.target.value,
                     })
                 }
             />
@@ -25,14 +25,14 @@ export default function PerlinNoiseParametersMenu() {
                 onChange={(e) =>
                     setPerlinNoiseParameters({
                         ...perlinNoiseParameters,
-                        zoomOut: parseFloat(e.target.value),
+                        zoomOut: e.target.value,
                     })
                 }
             />
             <label htmlFor="seed">Seed:</label>
             <input
                 id="seed"
-                type="text"
+                type="number"
                 value={perlinNoiseParameters.seed}
                 onChange={(e) =>
                     setPerlinNoiseParameters({
@@ -41,7 +41,7 @@ export default function PerlinNoiseParametersMenu() {
                     })
                 }
             />
-            <p>Current Seed: {perlinNoiseParameters.currentSeed}</p>
+            <p>Current Seed: {perlinNoiseParameters.seed}</p>
         </div>
     );
 }

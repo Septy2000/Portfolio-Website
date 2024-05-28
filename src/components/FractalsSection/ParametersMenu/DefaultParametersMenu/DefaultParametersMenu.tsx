@@ -30,7 +30,7 @@ export default function DefaultParametersMenu() {
                 onChange={(e) =>
                     setDefaultParameters({
                         ...defaultParameters,
-                        width: parseInt(e.target.value),
+                        width: e.target.value,
                     })
                 }
             />
@@ -42,7 +42,7 @@ export default function DefaultParametersMenu() {
                 onChange={(e) =>
                     setDefaultParameters({
                         ...defaultParameters,
-                        height: parseInt(e.target.value),
+                        height: e.target.value,
                     })
                 }
             />

@@ -37,8 +37,8 @@ export default function FractalsSection() {
 
         if (canvas) {
             // resolution of canvas
-            canvas.width = defaultParameters.width;
-            canvas.height = defaultParameters.height;
+            canvas.width = parseInt(defaultParameters.width);
+            canvas.height = parseInt(defaultParameters.height);
 
             // actual size of canvas
             canvas.style.width = "800px";
@@ -60,8 +60,8 @@ export default function FractalsSection() {
 
         ctx.fillStyle = getHSLColor(
             iterations,
-            mandelbrotParameters.maxIterations,
-            colorModeParameters.colorIntensity
+            parseInt(mandelbrotParameters.maxIterations),
+            parseInt(colorModeParameters.colorIntensity)
         );
         let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
         let rect_height = scalingFactor < 1 ? 1 / scalingFactor : 1;
@@ -78,20 +78,24 @@ export default function FractalsSection() {
 
     function generate() {
         setupCanvas();
-        for (let column = 0; column < defaultParameters.width; column++) {
+        for (
+            let column = 0;
+            column < parseInt(defaultParameters.width);
+            column++
+        ) {
             let columnValues: number[] = [];
-            for (let row = 0; row < defaultParameters.height; row++) {
+            for (let row = 0; row < parseInt(defaultParameters.height); row++) {
                 let complexPoint = complexPlanePoint(
                     column,
                     row,
                     complexPlaneBoundaries,
-                    defaultParameters.width,
-                    defaultParameters.height
+                    parseInt(defaultParameters.width),
+                    parseInt(defaultParameters.height)
                 );
 
                 let iterationsReached = mandelbrotIterationCalculator(
                     complexPoint,
-                    mandelbrotParameters.maxIterations
+                    parseInt(mandelbrotParameters.maxIterations)
                 );
 
                 columnValues.push(iterationsReached);

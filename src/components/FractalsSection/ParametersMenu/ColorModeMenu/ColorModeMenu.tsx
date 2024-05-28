@@ -1,8 +1,14 @@
 import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
 import React, { useEffect } from "react";
+import ErrorText from "@/components/ErrorText/ErrorText";
 export default function ColorModeMenu() {
-    const { colorModeParameters, setColorModeParameters, defaultParameters } =
-        useParameters();
+    const {
+        colorModeParameters,
+        setColorModeParameters,
+        defaultParameters,
+        inputParametersError,
+        setInputParametersError,
+    } = useParameters();
 
     const handleColorModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setColorModeParameters({
@@ -11,15 +17,40 @@ export default function ColorModeMenu() {
         });
     };
 
-    // Set default color mode parameters based on the default algorithm
+    // Set color mode params to default when algorithm changes
     useEffect(() => {
         setColorModeParameters({
             colorMode: "smooth",
-            colorIntensity: 1,
-            rgbWeights: { r: 1, g: 1, b: 1 },
-            numberOfRandomColors: 10,
+            colorIntensity: "1",
+            rgbWeights: { r: "1", g: "1", b: "1" },
+            numberOfRandomColors: "10",
         });
     }, [defaultParameters.algorithm, setColorModeParameters]);
+
+    function isIntensityInvalid(intensity: string) {
+        return Number.isNaN(parseInt(intensity)) || parseInt(intensity) === 0;
+    }
+
+    function isRweightInvalid(r: string) {
+        return Number.isNaN(parseInt(r)) || parseInt(r) === 0;
+    }
+
+    function isGweightInvalid(g: string) {
+        return Number.isNaN(parseInt(g)) || parseInt(g) === 0;
+    }
+
+    function isBweightInvalid(b: string) {
+        return Number.isNaN(parseInt(b)) || parseInt(b) === 0;
+    }
+
+    function isNumberOfRandomColorsInvalid(numberOfRandomColors: string) {
+        return (
+            Number.isNaN(parseInt(numberOfRandomColors)) ||
+            parseInt(numberOfRandomColors) === 0
+        );
+    }
+
+    
 
     return (
         <div>
@@ -44,10 +75,13 @@ export default function ColorModeMenu() {
                         onChange={(e) =>
                             setColorModeParameters({
                                 ...colorModeParameters,
-                                colorIntensity: parseFloat(e.target.value),
+                                colorIntensity: e.target.value,
                             })
                         }
                     />
+                    {isIntensityInvalid(colorModeParameters.colorIntensity) && (
+                        <ErrorText text="Intensity must be a non-zero number" />
+                    )}
                 </React.Fragment>
             )}
             {colorModeParameters.colorMode === "rgb" && (
@@ -62,7 +96,7 @@ export default function ColorModeMenu() {
                                 ...colorModeParameters,
                                 rgbWeights: {
                                     ...colorModeParameters.rgbWeights,
-                                    r: parseFloat(e.target.value),
+                                    r: e.target.value,
                                 },
                             })
                         }
@@ -77,7 +111,7 @@ export default function ColorModeMenu() {
                                 ...colorModeParameters,
                                 rgbWeights: {
                                     ...colorModeParameters.rgbWeights,
-                                    g: parseFloat(e.target.value),
+                                    g: e.target.value,
                                 },
                             })
                         }
@@ -92,7 +126,7 @@ export default function ColorModeMenu() {
                                 ...colorModeParameters,
                                 rgbWeights: {
                                     ...colorModeParameters.rgbWeights,
-                                    b: parseFloat(e.target.value),
+                                    b: e.target.value,
                                 },
                             })
                         }
@@ -111,7 +145,7 @@ export default function ColorModeMenu() {
                         onChange={(e) =>
                             setColorModeParameters({
                                 ...colorModeParameters,
-                                numberOfRandomColors: parseInt(e.target.value),
+                                numberOfRandomColors: e.target.value,
                             })
                         }
                     />
