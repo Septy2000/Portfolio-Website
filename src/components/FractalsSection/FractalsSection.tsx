@@ -11,15 +11,7 @@ import { useParameters } from "@/components/FractalsSection/ParametersProvider/P
 export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
-    const {
-        defaultParameters,
-        mandelbrotParameters,
-        juliaParameters,
-        perlinNoiseParameters,
-        colorModeParameters,
-    } = useParameters();
-
-    const [isGenerated, setIsGenerated] = useState(false);
+    const { parameters, colorModeParameters } = useParameters();
 
     let complexPlaneBoundaries: ComplexPlaneBoundary = {
         RE_MIN: -2,
@@ -37,8 +29,8 @@ export default function FractalsSection() {
 
         if (canvas) {
             // resolution of canvas
-            canvas.width = parseInt(defaultParameters.width);
-            canvas.height = parseInt(defaultParameters.height);
+            canvas.width = parseInt(parameters.width);
+            canvas.height = parseInt(parameters.height);
 
             // actual size of canvas
             canvas.style.width = "800px";
@@ -51,7 +43,7 @@ export default function FractalsSection() {
 
     // redender the canvas on first load
     useEffect(() => {
-        generate();
+        setupCanvas();
     }, []);
 
     function draw(column: number, row: number, iterations: number) {
@@ -60,7 +52,7 @@ export default function FractalsSection() {
 
         ctx.fillStyle = getHSLColor(
             iterations,
-            parseInt(mandelbrotParameters.maxIterations),
+            parseInt(parameters.maxIterations),
             parseInt(colorModeParameters.colorIntensity)
         );
         let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
@@ -78,24 +70,20 @@ export default function FractalsSection() {
 
     function generate() {
         setupCanvas();
-        for (
-            let column = 0;
-            column < parseInt(defaultParameters.width);
-            column++
-        ) {
+        for (let column = 0; column < parseInt(parameters.width); column++) {
             let columnValues: number[] = [];
-            for (let row = 0; row < parseInt(defaultParameters.height); row++) {
+            for (let row = 0; row < parseInt(parameters.height); row++) {
                 let complexPoint = complexPlanePoint(
                     column,
                     row,
                     complexPlaneBoundaries,
-                    parseInt(defaultParameters.width),
-                    parseInt(defaultParameters.height)
+                    parseInt(parameters.width),
+                    parseInt(parameters.height)
                 );
 
                 let iterationsReached = mandelbrotIterationCalculator(
                     complexPoint,
-                    parseInt(mandelbrotParameters.maxIterations)
+                    parseInt(parameters.maxIterations)
                 );
 
                 columnValues.push(iterationsReached);

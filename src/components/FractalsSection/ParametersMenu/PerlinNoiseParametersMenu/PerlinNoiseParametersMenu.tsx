@@ -1,7 +1,7 @@
 import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
 import React from "react";
 export default function PerlinNoiseParametersMenu() {
-    const { perlinNoiseParameters, setPerlinNoiseParameters } = useParameters();
+    const { parameters, setParameters } = useParameters();
 
     return (
         <div>
@@ -9,10 +9,10 @@ export default function PerlinNoiseParametersMenu() {
             <input
                 id="scale"
                 type="number"
-                value={perlinNoiseParameters.scale}
+                value={parameters.scale}
                 onChange={(e) =>
-                    setPerlinNoiseParameters({
-                        ...perlinNoiseParameters,
+                    setParameters({
+                        ...parameters,
                         scale: e.target.value,
                     })
                 }
@@ -21,10 +21,10 @@ export default function PerlinNoiseParametersMenu() {
             <input
                 id="zoomOut"
                 type="number"
-                value={perlinNoiseParameters.zoomOut}
+                value={parameters.zoomOut}
                 onChange={(e) =>
-                    setPerlinNoiseParameters({
-                        ...perlinNoiseParameters,
+                    setParameters({
+                        ...parameters,
                         zoomOut: e.target.value,
                     })
                 }
@@ -33,15 +33,15 @@ export default function PerlinNoiseParametersMenu() {
             <input
                 id="seed"
                 type="number"
-                value={perlinNoiseParameters.seed}
+                value={parameters.seed}
                 onChange={(e) =>
-                    setPerlinNoiseParameters({
-                        ...perlinNoiseParameters,
+                    setParameters({
+                        ...parameters,
                         seed: e.target.value,
                     })
                 }
             />
-            <p>Current Seed: {perlinNoiseParameters.seed}</p>
+            <p>Current Seed: {parameters.seed}</p>
         </div>
     );
 }

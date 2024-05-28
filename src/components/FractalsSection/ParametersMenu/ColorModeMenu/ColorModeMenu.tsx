@@ -2,13 +2,8 @@ import { useParameters } from "@/components/FractalsSection/ParametersProvider/P
 import React, { useEffect } from "react";
 import ErrorText from "@/components/ErrorText/ErrorText";
 export default function ColorModeMenu() {
-    const {
-        colorModeParameters,
-        setColorModeParameters,
-        defaultParameters,
-        inputParametersError,
-        setInputParametersError,
-    } = useParameters();
+    const { colorModeParameters, setColorModeParameters, parameters } =
+        useParameters();
 
     const handleColorModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setColorModeParameters({
@@ -19,38 +14,22 @@ export default function ColorModeMenu() {
 
     // Set color mode params to default when algorithm changes
     useEffect(() => {
-        setColorModeParameters({
-            colorMode: "smooth",
-            colorIntensity: "1",
-            rgbWeights: { r: "1", g: "1", b: "1" },
-            numberOfRandomColors: "10",
-        });
-    }, [defaultParameters.algorithm, setColorModeParameters]);
-
-    function isIntensityInvalid(intensity: string) {
-        return Number.isNaN(parseInt(intensity)) || parseInt(intensity) === 0;
-    }
-
-    function isRweightInvalid(r: string) {
-        return Number.isNaN(parseInt(r)) || parseInt(r) === 0;
-    }
-
-    function isGweightInvalid(g: string) {
-        return Number.isNaN(parseInt(g)) || parseInt(g) === 0;
-    }
-
-    function isBweightInvalid(b: string) {
-        return Number.isNaN(parseInt(b)) || parseInt(b) === 0;
-    }
-
-    function isNumberOfRandomColorsInvalid(numberOfRandomColors: string) {
-        return (
-            Number.isNaN(parseInt(numberOfRandomColors)) ||
-            parseInt(numberOfRandomColors) === 0
-        );
-    }
-
-    
+        if (parameters.algorithm === "perlin") {
+            setColorModeParameters({
+                colorMode: "smooth",
+                colorIntensity: "3",
+                rgbWeights: { r: "1", g: "1", b: "1" },
+                numberOfRandomColors: "10",
+            });
+        } else {
+            setColorModeParameters({
+                colorMode: "smooth",
+                colorIntensity: "1",
+                rgbWeights: { r: "1", g: "1", b: "1" },
+                numberOfRandomColors: "10",
+            });
+        }
+    }, [parameters.algorithm, setColorModeParameters]);
 
     return (
         <div>
@@ -79,9 +58,6 @@ export default function ColorModeMenu() {
                             })
                         }
                     />
-                    {isIntensityInvalid(colorModeParameters.colorIntensity) && (
-                        <ErrorText text="Intensity must be a non-zero number" />
-                    )}
                 </React.Fragment>
             )}
             {colorModeParameters.colorMode === "rgb" && (

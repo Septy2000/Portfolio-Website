@@ -1,7 +1,7 @@
 import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
 import React from "react";
 export default function MandelbrotParametersMenu() {
-    const { mandelbrotParameters, setMandelbrotParameters } = useParameters();
+    const { parameters, setParameters } = useParameters();
 
     return (
         <div>
@@ -9,10 +9,10 @@ export default function MandelbrotParametersMenu() {
             <input
                 id="maxIterations"
                 type="number"
-                value={mandelbrotParameters.maxIterations}
+                value={parameters.maxIterations}
                 onChange={(e) =>
-                    setMandelbrotParameters({
-                        ...mandelbrotParameters,
+                    setParameters({
+                        ...parameters,
                         maxIterations: e.target.value,
                     })
                 }

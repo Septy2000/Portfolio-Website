@@ -8,19 +8,17 @@ import PerlinNoiseParametersMenu from "./PerlinNoiseParametersMenu/PerlinNoisePa
 import ColorModeMenu from "@/components/FractalsSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
 
 export default function ParametersMenu({ generate }: { generate: () => void }) {
-    const { defaultParameters } = useParameters();
+    const { parameters } = useParameters();
 
     return (
         <Styled.MenuContainer>
             <DefaultParametersMenu />
             <ColorModeMenu />
-            {defaultParameters.algorithm === "mandelbrot" && (
+            {parameters.algorithm === "mandelbrot" && (
                 <MandelbrotParametersMenu />
             )}
-            {defaultParameters.algorithm === "julia" && <JuliaParametersMenu />}
-            {defaultParameters.algorithm === "perlin" && (
-                <PerlinNoiseParametersMenu />
-            )}
+            {parameters.algorithm === "julia" && <JuliaParametersMenu />}
+            {parameters.algorithm === "perlin" && <PerlinNoiseParametersMenu />}
             <button onClick={generate}>Generate</button>
         </Styled.MenuContainer>
     );

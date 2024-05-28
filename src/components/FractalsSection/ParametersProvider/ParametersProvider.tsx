@@ -1,12 +1,8 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import {
-    DefaultParameters,
-    MandelbrotParameters,
-    JuliaParameters,
-    PerlinNoiseParameters,
+    Parameters,
     ParametersContextType,
     ColorModeParameters,
-    InputParametersError,
 } from "@/_types/common";
 
 const ParametersContext = createContext<ParametersContextType | undefined>(
@@ -14,29 +10,16 @@ const ParametersContext = createContext<ParametersContextType | undefined>(
 );
 
 export const ParametersProvider = ({ children }: { children: ReactNode }) => {
-    const [defaultParameters, setDefaultParameters] =
-        useState<DefaultParameters>({
-            algorithm: "mandelbrot",
-            width: "800",
-            height: "600",
-        });
-
-    const [mandelbrotParameters, setMandelbrotParameters] =
-        useState<MandelbrotParameters>({
-            maxIterations: "500",
-        });
-
-    const [juliaParameters, setJuliaParameters] = useState<JuliaParameters>({
+    const [parameters, setParameters] = useState<Parameters>({
+        algorithm: "mandelbrot",
+        width: "800",
+        height: "600",
         maxIterations: "500",
         valueOfC: { x: 0.355, y: 0.355 },
+        scale: "1",
+        zoomOut: "2",
+        seed: "",
     });
-
-    const [perlinNoiseParameters, setPerlinNoiseParameters] =
-        useState<PerlinNoiseParameters>({
-            scale: "1",
-            zoomOut: "2",
-            seed: "",
-        });
 
     const [colorModeParameters, setColorModeParameters] =
         useState<ColorModeParameters>({
@@ -46,35 +29,13 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
             numberOfRandomColors: "16",
         });
 
-    const [inputParametersError, setInputParametersError] =
-        useState<InputParametersError>({
-            width: false,
-            height: false,
-            maxIterations: false,
-            intensity: false,
-            r: false,
-            g: false,
-            b: false,
-            randomColors: false,
-            scale: false,
-            zoomOut: false,
-        });
-
     return (
         <ParametersContext.Provider
             value={{
-                defaultParameters,
-                setDefaultParameters,
-                mandelbrotParameters,
-                setMandelbrotParameters,
-                juliaParameters,
-                setJuliaParameters,
-                perlinNoiseParameters,
-                setPerlinNoiseParameters,
+                parameters,
+                setParameters,
                 colorModeParameters,
                 setColorModeParameters,
-                inputParametersError,
-                setInputParametersError,
             }}
         >
             {children}

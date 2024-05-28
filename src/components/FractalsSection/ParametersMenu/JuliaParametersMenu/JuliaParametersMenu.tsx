@@ -2,7 +2,7 @@ import { useParameters } from "@/components/FractalsSection/ParametersProvider/P
 import React from "react";
 import { ComplexNumber } from "@/_types/math";
 export default function JuliaParametersMenu() {
-    const { juliaParameters, setJuliaParameters } = useParameters();
+    const { parameters, setParameters } = useParameters();
     const COMPLEX_LIST: ComplexNumber[] = [
         { x: 0.355, y: 0.355 },
         { x: 0, y: 0.8 },
@@ -18,10 +18,10 @@ export default function JuliaParametersMenu() {
             <input
                 id="maxIterations"
                 type="number"
-                value={juliaParameters.maxIterations}
+                value={parameters.maxIterations}
                 onChange={(e) =>
-                    setJuliaParameters({
-                        ...juliaParameters,
+                    setParameters({
+                        ...parameters,
                         maxIterations: e.target.value,
                     })
                 }
@@ -29,11 +29,11 @@ export default function JuliaParametersMenu() {
             <label htmlFor="c">C:</label>
             <select
                 id="c"
-                value={`${juliaParameters.valueOfC.x},${juliaParameters.valueOfC.y}i`}
+                value={`${parameters.valueOfC.x},${parameters.valueOfC.y}i`}
                 onChange={(e) => {
                     const [x, y] = e.target.value.split(",");
-                    setJuliaParameters({
-                        ...juliaParameters,
+                    setParameters({
+                        ...parameters,
                         valueOfC: { x: parseFloat(x), y: parseFloat(y) },
                     });
                 }}
