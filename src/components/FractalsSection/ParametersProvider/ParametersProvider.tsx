@@ -1,9 +1,22 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+"use client";
+import {
+    createContext,
+    useContext,
+    useState,
+    useEffect,
+    ReactNode,
+} from "react";
 import {
     Parameters,
     ParametersContextType,
+    TypedParameters,
+    TypedColorModeParameters,
     ColorModeParameters,
 } from "@/_types/common";
+import {
+    convertParameters,
+    convertColorModeParameters,
+} from "./ParametersTypeConversion";
 
 const ParametersContext = createContext<ParametersContextType | undefined>(
     undefined
@@ -16,6 +29,9 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
         height: "600",
         maxIterations: "500",
         valueOfC: { x: 0.355, y: 0.355 },
+        customCRealValue: "0.0",
+        customCImaginaryValue: "0.0",
+        customCValueSelected: false,
         scale: "1",
         zoomOut: "2",
         seed: "",
@@ -29,11 +45,31 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
             numberOfRandomColors: "16",
         });
 
+    const [typedParameters, setTypedParameters] = useState<TypedParameters>(
+        convertParameters(parameters)
+    );
+    const [typedColorModeParameters, setTypedColorModeParameters] =
+        useState<TypedColorModeParameters>(
+            convertColorModeParameters(colorModeParameters)
+        );
+
+    useEffect(() => {
+        setTypedParameters(convertParameters(parameters));
+    }, [parameters]);
+
+    useEffect(() => {
+        setTypedColorModeParameters(
+            convertColorModeParameters(colorModeParameters)
+        );
+    }, [colorModeParameters]);
+
     return (
         <ParametersContext.Provider
             value={{
                 parameters,
                 setParameters,
+                typedParameters,
+                typedColorModeParameters,
                 colorModeParameters,
                 setColorModeParameters,
             }}

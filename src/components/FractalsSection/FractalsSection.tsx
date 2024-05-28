@@ -7,11 +7,11 @@ import { complexPlanePoint } from "@/utils/complexNumbers";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
-
+import { TypedColorModeParameters, TypedParameters } from "@/_types/common";
 export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
-    const { parameters, colorModeParameters } = useParameters();
+    const { typedParameters, typedColorModeParameters } = useParameters();
 
     let complexPlaneBoundaries: ComplexPlaneBoundary = {
         RE_MIN: -2,
@@ -29,8 +29,8 @@ export default function FractalsSection() {
 
         if (canvas) {
             // resolution of canvas
-            canvas.width = parseInt(parameters.width);
-            canvas.height = parseInt(parameters.height);
+            canvas.width = typedParameters.width;
+            canvas.height = typedParameters.height;
 
             // actual size of canvas
             canvas.style.width = "800px";
@@ -52,8 +52,8 @@ export default function FractalsSection() {
 
         ctx.fillStyle = getHSLColor(
             iterations,
-            parseInt(parameters.maxIterations),
-            parseInt(colorModeParameters.colorIntensity)
+            typedParameters.maxIterations,
+            typedColorModeParameters.colorIntensity
         );
         let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
         let rect_height = scalingFactor < 1 ? 1 / scalingFactor : 1;
@@ -70,20 +70,20 @@ export default function FractalsSection() {
 
     function generate() {
         setupCanvas();
-        for (let column = 0; column < parseInt(parameters.width); column++) {
+        for (let column = 0; column < typedParameters.width; column++) {
             let columnValues: number[] = [];
-            for (let row = 0; row < parseInt(parameters.height); row++) {
+            for (let row = 0; row < typedParameters.height; row++) {
                 let complexPoint = complexPlanePoint(
                     column,
                     row,
                     complexPlaneBoundaries,
-                    parseInt(parameters.width),
-                    parseInt(parameters.height)
+                    typedParameters.width,
+                    typedParameters.height
                 );
 
                 let iterationsReached = mandelbrotIterationCalculator(
                     complexPoint,
-                    parseInt(parameters.maxIterations)
+                    typedParameters.maxIterations
                 );
 
                 columnValues.push(iterationsReached);
