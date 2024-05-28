@@ -31,6 +31,7 @@ export default function DefaultParametersMenu() {
                     setParameters({
                         ...parameters,
                         width: e.target.value,
+                        height: String((parseInt(e.target.value) * 3) / 4),
                     })
                 }
             />
@@ -42,6 +43,7 @@ export default function DefaultParametersMenu() {
                 onChange={(e) =>
                     setParameters({
                         ...parameters,
+                        width: String((parseInt(e.target.value) * 4) / 3),
                         height: e.target.value,
                     })
                 }

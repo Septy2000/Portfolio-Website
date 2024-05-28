@@ -1,5 +1,4 @@
 import * as Styled from "./FractalsSection.styled";
-import { useState } from "react";
 import React, { useEffect, useRef } from "react";
 import { ComplexPlaneBoundary } from "@/_types/math";
 import mandelbrotIterationCalculator from "@/utils/algorithms/mandelbrotFunction";
@@ -7,7 +6,6 @@ import { complexPlanePoint } from "@/utils/complexNumbers";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
-import { TypedColorModeParameters, TypedParameters } from "@/_types/common";
 export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);

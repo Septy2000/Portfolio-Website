@@ -17,6 +17,14 @@ import {
     convertParameters,
     convertColorModeParameters,
 } from "./ParametersTypeConversion";
+import {
+    isColorIntensityValid,
+    isBlueWeightValid,
+    isColorsNumberValid,
+    isGreenWeightValid,
+    isMaxIterationsValid,
+    isRedWeightValid,
+} from "./ParametersValidation";
 
 const ParametersContext = createContext<ParametersContextType | undefined>(
     undefined
@@ -62,6 +70,8 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
             convertColorModeParameters(colorModeParameters)
         );
     }, [colorModeParameters]);
+
+    
 
     return (
         <ParametersContext.Provider

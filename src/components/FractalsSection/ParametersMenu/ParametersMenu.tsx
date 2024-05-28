@@ -6,9 +6,11 @@ import MandelbrotParametersMenu from "./MandelbrotParametersMenu/MandelbrotParam
 import JuliaParametersMenu from "./JuliaParametersMenu/JuliaParametersMenu";
 import PerlinNoiseParametersMenu from "./PerlinNoiseParametersMenu/PerlinNoiseParametersMenu";
 import ColorModeMenu from "@/components/FractalsSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
+import { isParametersMenuInputValid } from "../ParametersProvider/ParametersValidation";
 
 export default function ParametersMenu({ generate }: { generate: () => void }) {
-    const { parameters } = useParameters();
+    const { parameters, typedColorModeParameters, typedParameters } =
+        useParameters();
 
     return (
         <Styled.MenuContainer>
@@ -19,7 +21,17 @@ export default function ParametersMenu({ generate }: { generate: () => void }) {
             )}
             {parameters.algorithm === "julia" && <JuliaParametersMenu />}
             {parameters.algorithm === "perlin" && <PerlinNoiseParametersMenu />}
-            <button onClick={generate}>Generate</button>
+            <button
+                onClick={generate}
+                disabled={
+                    !isParametersMenuInputValid(
+                        typedParameters,
+                        typedColorModeParameters
+                    )
+                }
+            >
+                Generate
+            </button>
         </Styled.MenuContainer>
     );
 }
