@@ -1,6 +1,5 @@
 import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
 import React, { useEffect } from "react";
-import ErrorText from "@/components/ErrorText/ErrorText";
 export default function ColorModeMenu() {
     const { colorModeParameters, setColorModeParameters, parameters } =
         useParameters();

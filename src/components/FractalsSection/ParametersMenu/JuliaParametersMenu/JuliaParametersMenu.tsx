@@ -1,4 +1,3 @@
-"use client";
 import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
 import React, { useState } from "react";
 import { ComplexNumber } from "@/_types/math";
