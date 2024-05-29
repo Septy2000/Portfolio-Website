@@ -1,4 +1,4 @@
-import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import React from "react";
 export default function PerlinNoiseParametersMenu() {
     const { parameters, setParameters } = useParameters();

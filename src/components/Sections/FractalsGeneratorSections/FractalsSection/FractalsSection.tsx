@@ -5,7 +5,7 @@ import mandelbrotIterationCalculator from "@/utils/algorithms/mandelbrotFunction
 import { complexPlanePoint } from "@/utils/complexNumbers";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
-import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -93,7 +93,7 @@ export default function FractalsSection() {
 
     return (
         <Styled.Container>
-            <canvas ref={canvasRef} />
+            <Styled.Canvas ref={canvasRef} />
             <ParametersMenu generate={generate} />
         </Styled.Container>
     );

@@ -1,4 +1,4 @@
-import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 
 export default function DefaultParametersMenu() {
     const { parameters, setParameters } = useParameters();

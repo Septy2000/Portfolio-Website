@@ -16,7 +16,7 @@ import {
 import {
     convertParameters,
     convertColorModeParameters,
-} from "@/utils/ParametersTypeConversion";
+} from "@/utils/parametersTypeConversion";
 
 const ParametersContext = createContext<ParametersContextType | undefined>(
     undefined

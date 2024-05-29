@@ -1,4 +1,4 @@
-import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import React, { useState } from "react";
 import { ComplexNumber } from "@/_types/math";
 export default function JuliaParametersMenu() {

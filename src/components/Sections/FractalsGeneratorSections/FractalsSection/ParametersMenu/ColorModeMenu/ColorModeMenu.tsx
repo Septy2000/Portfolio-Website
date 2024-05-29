@@ -1,4 +1,4 @@
-import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import React, { useEffect } from "react";
 export default function ColorModeMenu() {
     const { colorModeParameters, setColorModeParameters, parameters } =

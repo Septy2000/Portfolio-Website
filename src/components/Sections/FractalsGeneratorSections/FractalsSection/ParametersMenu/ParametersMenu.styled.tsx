@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const MenuContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 10px;
+    background: ${({ theme }) => theme.colors.surface.primary};
+    border-radius: ${({ theme }) => theme.borderRadius.small};
 `;
 
 export const Container = styled.div`

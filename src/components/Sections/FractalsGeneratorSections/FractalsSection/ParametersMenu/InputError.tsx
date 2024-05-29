@@ -10,7 +10,7 @@ import {
     isRedWeightValid,
     isWidthValid,
 } from "@/utils/ParametersValidation";
-import { useParameters } from "@/components/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 
 export default function InputError() {
     const { typedColorModeParameters, typedParameters } = useParameters();

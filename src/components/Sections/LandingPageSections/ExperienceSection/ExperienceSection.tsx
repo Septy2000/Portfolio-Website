@@ -6,7 +6,7 @@ import { gocity_icon_src, kcl_icon_src } from "@/components/images/Images";
 import { ExperienceImage } from "@/components/images/Images.styled";
 import { PlainLinkWrapper } from "@/components/Wrappers/PlainLinkWrapper/PlainLinkWrapper.styled";
 import { useInView } from "react-intersection-observer";
-import { SpacerSmall } from "../Spacer/Spacer.styled";
+import { SpacerSmall } from "../../../Spacer/Spacer.styled";
 export type TimelineItemAttributes = {
     title: string;
     company: string;
