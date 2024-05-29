@@ -1,33 +1,37 @@
 import styled from "styled-components";
-
-export const MenuContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    background: ${({ theme }) => theme.colors.surface.primary};
-    border-radius: ${({ theme }) => theme.borderRadius.small};
-`;
-
+import { ButtonDefault } from "@/components/Button/Button.styled";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    margin-left: ${({ theme }) => theme.margin.medium};
+    background: ${({ theme }) => theme.colors.surface.primary};
+    border-radius: ${({ theme }) => theme.borderRadius.small};
+    max-width: 300px;
+    height: 100%;
 `;
 
-export const Label = styled.label`
-    margin-bottom: 5px;
+export const MenusContainer = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
-export const Input = styled.input`
-    margin-bottom: 10px;
-    padding: 5px;
-    font-size: 16px;
+export const ButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
-export const Select = styled.select`
-    margin-bottom: 10px;
-    padding: 5px;
-    font-size: 16px;
+export const ZoomButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 8px 0;
+`;
+
+export const GenerateButton = styled(ButtonDefault)`
+    width: 100%;
+`;
+
+export const ZoomControlButton = styled(ButtonDefault)`
+    width: 45%;
 `;

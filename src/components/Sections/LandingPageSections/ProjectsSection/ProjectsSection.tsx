@@ -33,7 +33,7 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>(
                 title: "A* Algorithm Visualiser",
                 imagePath: a_star_image_src,
                 description: "Visualise and experiment with the A* algorithm",
-                slug: "a-star-visualiser",
+                slug: undefined,
                 code_url: "https://github.com/Septy2000/Portfolio-Website",
             },
         ];

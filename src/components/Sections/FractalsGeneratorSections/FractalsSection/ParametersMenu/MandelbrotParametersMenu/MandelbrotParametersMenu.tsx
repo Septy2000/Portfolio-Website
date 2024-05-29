@@ -1,13 +1,15 @@
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import React from "react";
+import * as Styled from "./MandelbrotParametersMenu.styled";
+import LabelledInput from "@/components/LabelledInput/LabelledInput";
 export default function MandelbrotParametersMenu() {
     const { parameters, setParameters } = useParameters();
 
     return (
-        <div>
-            <label htmlFor="maxIterations">Max Iterations:</label>
-            <input
+        <Styled.Container>
+            <LabelledInput
                 id="maxIterations"
+                label="Max Iterations:"
                 type="number"
                 value={parameters.maxIterations}
                 onChange={(e) =>
@@ -17,6 +19,6 @@ export default function MandelbrotParametersMenu() {
                     })
                 }
             />
-        </div>
+        </Styled.Container>
     );
 }

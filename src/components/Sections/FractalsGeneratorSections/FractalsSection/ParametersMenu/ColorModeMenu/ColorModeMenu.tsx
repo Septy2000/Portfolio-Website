@@ -1,5 +1,10 @@
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import React, { useEffect } from "react";
+import * as Styled from "./ColorModeMenu.styled";
+import LabelledInput from "@/components/LabelledInput/LabelledInput";
+import HorizontalLabelledInput from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput";
+import LabelledSelect from "@/components/LabelledSelect/LabelledSelect";
+import { HorizontalLabelledInputsContainer } from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput.styled";
 export default function ColorModeMenu() {
     const { colorModeParameters, setColorModeParameters, parameters } =
         useParameters();
@@ -8,6 +13,19 @@ export default function ColorModeMenu() {
         setColorModeParameters({
             ...colorModeParameters,
             colorMode: e.target.value as "smooth" | "rgb" | "random",
+        });
+    };
+
+    const handleRGBChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        color: "r" | "g" | "b"
+    ) => {
+        setColorModeParameters({
+            ...colorModeParameters,
+            rgbWeights: {
+                ...colorModeParameters.rgbWeights,
+                [color]: e.target.value,
+            },
         });
     };
 
@@ -31,101 +49,72 @@ export default function ColorModeMenu() {
     }, [parameters.algorithm, setColorModeParameters]);
 
     return (
-        <div>
-            <label htmlFor="colorMode">Color Mode:</label>
-            <select
+        <Styled.Container>
+            <LabelledSelect
                 id="colorMode"
+                label="Color Mode:"
                 value={colorModeParameters.colorMode}
                 onChange={handleColorModeChange}
             >
                 <option value="smooth">Smooth</option>
                 <option value="rgb">RGB</option>
-                {}
                 <option value="random">Random</option>
-            </select>
+            </LabelledSelect>
             {colorModeParameters.colorMode === "smooth" && (
-                <React.Fragment>
-                    <label htmlFor="intensity">Intensity:</label>
-                    <input
-                        id="intensity"
-                        type="number"
-                        value={colorModeParameters.colorIntensity}
-                        onChange={(e) =>
-                            setColorModeParameters({
-                                ...colorModeParameters,
-                                colorIntensity: e.target.value,
-                            })
-                        }
-                    />
-                </React.Fragment>
+                <LabelledInput
+                    id="intensity"
+                    label="Intensity:"
+                    type="number"
+                    value={colorModeParameters.colorIntensity}
+                    onChange={(e) =>
+                        setColorModeParameters({
+                            ...colorModeParameters,
+                            colorIntensity: e.target.value,
+                        })
+                    }
+                />
             )}
+
             {colorModeParameters.colorMode === "rgb" && (
-                <React.Fragment>
-                    <label htmlFor="r">R:</label>
-                    <input
+                <HorizontalLabelledInputsContainer>
+                    <HorizontalLabelledInput
                         id="r"
+                        label="R:"
                         type="number"
                         value={colorModeParameters.rgbWeights.r}
-                        onChange={(e) =>
-                            setColorModeParameters({
-                                ...colorModeParameters,
-                                rgbWeights: {
-                                    ...colorModeParameters.rgbWeights,
-                                    r: e.target.value,
-                                },
-                            })
-                        }
+                        onChange={(e) => handleRGBChange(e, "r")}
                     />
-                    <label htmlFor="g">G:</label>
-                    <input
+                    <HorizontalLabelledInput
                         id="g"
+                        label="G:"
                         type="number"
                         value={colorModeParameters.rgbWeights.g}
-                        onChange={(e) =>
-                            setColorModeParameters({
-                                ...colorModeParameters,
-                                rgbWeights: {
-                                    ...colorModeParameters.rgbWeights,
-                                    g: e.target.value,
-                                },
-                            })
-                        }
+                        onChange={(e) => handleRGBChange(e, "g")}
                     />
-                    <label htmlFor="b">B:</label>
-                    <input
+                    <HorizontalLabelledInput
                         id="b"
+                        label="B:"
                         type="number"
                         value={colorModeParameters.rgbWeights.b}
-                        onChange={(e) =>
-                            setColorModeParameters({
-                                ...colorModeParameters,
-                                rgbWeights: {
-                                    ...colorModeParameters.rgbWeights,
-                                    b: e.target.value,
-                                },
-                            })
-                        }
+                        onChange={(e) => handleRGBChange(e, "b")}
                     />
-                </React.Fragment>
+                </HorizontalLabelledInputsContainer>
             )}
+
             {colorModeParameters.colorMode === "random" && (
-                <React.Fragment>
-                    <label htmlFor="numberOfRandomColors">
-                        Number of Random Colors:
-                    </label>
-                    <input
-                        id="numberOfRandomColors"
-                        type="number"
-                        value={colorModeParameters.numberOfRandomColors}
-                        onChange={(e) =>
-                            setColorModeParameters({
-                                ...colorModeParameters,
-                                numberOfRandomColors: e.target.value,
-                            })
-                        }
-                    />
-                </React.Fragment>
+                <LabelledInput
+                    id="numberOfRandomColors"
+                    label="Number of Random Colors:"
+                    type="number"
+                    value={colorModeParameters.numberOfRandomColors}
+                    onChange={(e) =>
+                        setColorModeParameters({
+                            ...colorModeParameters,
+                            numberOfRandomColors: e.target.value,
+                        })
+                    }
+                />
             )}
-        </div>
+        </Styled.Container>
     );
 }

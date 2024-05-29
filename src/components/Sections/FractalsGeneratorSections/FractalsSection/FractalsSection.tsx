@@ -30,10 +30,6 @@ export default function FractalsSection() {
             canvas.width = typedParameters.width;
             canvas.height = typedParameters.height;
 
-            // actual size of canvas
-            canvas.style.width = "800px";
-            canvas.style.height = "600px";
-
             const ctx = canvas.getContext("2d");
             contextRef.current = ctx;
         }
@@ -94,7 +90,9 @@ export default function FractalsSection() {
     return (
         <Styled.Container>
             <Styled.Canvas ref={canvasRef} />
-            <ParametersMenu generate={generate} />
+            <Styled.MenuContainer>
+                <ParametersMenu generate={generate} />
+            </Styled.MenuContainer>
         </Styled.Container>
     );
 }

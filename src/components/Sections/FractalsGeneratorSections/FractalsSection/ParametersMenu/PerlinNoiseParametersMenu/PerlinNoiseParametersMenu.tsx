@@ -1,13 +1,15 @@
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import React from "react";
+import * as Styled from "./PerlinNoiseParametersMenu.styled";
+import LabelledInput from "@/components/LabelledInput/LabelledInput";
 export default function PerlinNoiseParametersMenu() {
     const { parameters, setParameters } = useParameters();
 
     return (
-        <div>
-            <label htmlFor="scale">Scale:</label>
-            <input
+        <Styled.Container>
+            <LabelledInput
                 id="scale"
+                label="Scale:"
                 type="number"
                 value={parameters.scale}
                 onChange={(e) =>
@@ -17,9 +19,9 @@ export default function PerlinNoiseParametersMenu() {
                     })
                 }
             />
-            <label htmlFor="zoomOut">Zoom Out:</label>
-            <input
+            <LabelledInput
                 id="zoomOut"
+                label="Zoom:"
                 type="number"
                 value={parameters.zoomOut}
                 onChange={(e) =>
@@ -29,9 +31,10 @@ export default function PerlinNoiseParametersMenu() {
                     })
                 }
             />
-            <label htmlFor="seed">Seed:</label>
-            <input
+
+            <LabelledInput
                 id="seed"
+                label="Seed:"
                 type="number"
                 value={parameters.seed}
                 onChange={(e) =>
@@ -42,6 +45,6 @@ export default function PerlinNoiseParametersMenu() {
                 }
             />
             <p>Current Seed: {parameters.seed}</p>
-        </div>
+        </Styled.Container>
     );
 }

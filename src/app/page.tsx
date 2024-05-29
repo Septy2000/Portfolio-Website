@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
-import MainInformationSection from "@/components/Sections/LandingPageSections/MainInformationSction";
+import MainInformationSection from "@/components/Sections/LandingPageSections/MainInformationSection/MainInformationSction";
 import ExperienceContainer from "@/components/Sections/LandingPageSections/ExperienceSection/ExperienceSection";
 import ProjectsSection from "@/components/Sections/LandingPageSections/ProjectsSection/ProjectsSection";
 

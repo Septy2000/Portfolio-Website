@@ -9,7 +9,7 @@ import {
     isMaxIterationsValid,
     isRedWeightValid,
     isWidthValid,
-} from "@/utils/ParametersValidation";
+} from "@/utils/parametersValidation";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 
 export default function InputError() {

@@ -1,6 +1,9 @@
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import React, { useState } from "react";
 import { ComplexNumber } from "@/_types/math";
+import * as Styled from "./JuliaParametersMenu.styled";
+import LabelledInput from "@/components/LabelledInput/LabelledInput";
+import LabelledSelect from "@/components/LabelledSelect/LabelledSelect";
 export default function JuliaParametersMenu() {
     const { parameters, setParameters } = useParameters();
 
@@ -44,10 +47,10 @@ export default function JuliaParametersMenu() {
     }
 
     return (
-        <div>
-            <label htmlFor="maxIterations">Max Iterations:</label>
-            <input
+        <Styled.Container>
+            <LabelledInput
                 id="maxIterations"
+                label="Max Iterations:"
                 type="number"
                 value={parameters.maxIterations}
                 onChange={(e) =>
@@ -57,21 +60,23 @@ export default function JuliaParametersMenu() {
                     })
                 }
             />
-            <label htmlFor="c">C:</label>
-            <select id="c" value={selectedCValue} onChange={handleCValueChange}>
+            <LabelledSelect
+                id="c"
+                label="C:"
+                value={selectedCValue}
+                onChange={handleCValueChange}
+            >
                 {COMPLEX_LIST_OPTIONS_STRINGS.map((complexNumber, id) => (
                     <option key={id} value={complexNumber}>
                         {complexNumber}
                     </option>
                 ))}
-            </select>
+            </LabelledSelect>
             {parameters.customCValueSelected && (
                 <React.Fragment>
-                    <label htmlFor="customCRealValue">
-                        Custom C Real Value:
-                    </label>
-                    <input
+                    <LabelledInput
                         id="customCRealValue"
+                        label="Custom C Real Value:"
                         type="number"
                         value={parameters.customCRealValue}
                         onChange={(e) =>
@@ -81,11 +86,9 @@ export default function JuliaParametersMenu() {
                             })
                         }
                     />
-                    <label htmlFor="customCImaginaryValue">
-                        Custom C Imaginary Value:
-                    </label>
-                    <input
+                    <LabelledInput
                         id="customCImaginaryValue"
+                        label="Custom C Imaginary Value:"
                         type="number"
                         value={parameters.customCImaginaryValue}
                         onChange={(e) =>
@@ -97,6 +100,6 @@ export default function JuliaParametersMenu() {
                     />
                 </React.Fragment>
             )}
-        </div>
+        </Styled.Container>
     );
 }
