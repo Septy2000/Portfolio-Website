@@ -35,9 +35,9 @@ export default function FractalsSection() {
         }
     }
 
-    // redender the canvas on first load
+    // generate a canvas image on first load
     useEffect(() => {
-        setupCanvas();
+        generate();
     }, []);
 
     function draw(column: number, row: number, iterations: number) {
