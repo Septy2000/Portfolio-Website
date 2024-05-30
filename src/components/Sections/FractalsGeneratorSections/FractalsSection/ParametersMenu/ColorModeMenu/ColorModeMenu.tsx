@@ -58,7 +58,9 @@ export default function ColorModeMenu() {
             >
                 <option value="smooth">Smooth</option>
                 <option value="rgb">RGB</option>
-                <option value="random">Random</option>
+                {parameters.algorithm !== "perlin" && (
+                    <option value="random">Random</option>
+                )}
             </LabelledSelect>
             {colorModeParameters.colorMode === "smooth" && (
                 <LabelledInput

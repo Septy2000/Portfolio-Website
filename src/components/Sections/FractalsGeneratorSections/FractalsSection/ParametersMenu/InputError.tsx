@@ -1,60 +1,66 @@
 import ErrorText from "@/components/ErrorText/ErrorText";
 import React from "react";
-import {
-    isColorIntensityValid,
-    isBlueWeightValid,
-    isColorsNumberValid,
-    isGreenWeightValid,
-    isHeightValid,
-    isMaxIterationsValid,
-    isRedWeightValid,
-    isWidthValid,
-} from "@/utils/parametersValidation";
+import * as InputValidation from "@/utils/parametersValidation";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 
 export default function InputError() {
-    const { typedColorModeParameters, typedParameters } = useParameters();
+    const { typedColorModeParameters, typedParameters, parameters } =
+        useParameters();
     return (
         <React.Fragment>
-            {!isColorIntensityValid(
+            {!InputValidation.isColorIntensityValid(
                 typedColorModeParameters.colorIntensity
             ) && (
                 <ErrorText>
                     Color intensity must be a number different from 0
                 </ErrorText>
             )}
-            {!isRedWeightValid(typedColorModeParameters.rgbWeights.r) && (
+            {!InputValidation.isRedWeightValid(
+                typedColorModeParameters.rgbWeights.r
+            ) && (
                 <ErrorText>
                     Red weight must be a number greater than or equal than 0
                 </ErrorText>
             )}
-            {!isGreenWeightValid(typedColorModeParameters.rgbWeights.g) && (
+            {!InputValidation.isGreenWeightValid(
+                typedColorModeParameters.rgbWeights.g
+            ) && (
                 <ErrorText>
                     Green weight must be a number greater than or equal than 0
                 </ErrorText>
             )}
-            {!isBlueWeightValid(typedColorModeParameters.rgbWeights.b) && (
+            {!InputValidation.isBlueWeightValid(
+                typedColorModeParameters.rgbWeights.b
+            ) && (
                 <ErrorText>
                     Blue weight must be a number greater than or equal to 0
                 </ErrorText>
             )}
-            {!isColorsNumberValid(
+            {!InputValidation.isColorsNumberValid(
                 typedColorModeParameters.numberOfRandomColors
             ) && (
                 <ErrorText>
                     Number of colors must be a number greater than 0
                 </ErrorText>
             )}
-            {!isMaxIterationsValid(typedParameters.maxIterations) && (
+            {!InputValidation.isMaxIterationsValid(
+                typedParameters.maxIterations
+            ) && (
                 <ErrorText>
                     Max iterations must be a number greater than 0
                 </ErrorText>
             )}
-            {!isWidthValid(typedParameters.width) && (
+            {!InputValidation.isWidthValid(typedParameters.width) && (
                 <ErrorText>Width must be a number greater than 3</ErrorText>
             )}
-            {!isHeightValid(typedParameters.height) && (
+            {!InputValidation.isHeightValid(typedParameters.height) && (
                 <ErrorText>Height must be a number greater than 2</ErrorText>
+            )}
+            {!InputValidation.isZoomOutValid(typedParameters.zoomOut) && (
+                <ErrorText>Zoom out must be a number greater than 0</ErrorText>
+            )}
+            {!InputValidation.isScaleValid(typedParameters.scale) && (
+                <ErrorText>Scale must be a number greater than 0</ErrorText>
             )}
         </React.Fragment>
     );

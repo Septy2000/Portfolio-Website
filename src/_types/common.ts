@@ -11,6 +11,7 @@ export interface Parameters {
     customCValueSelected: boolean;
     scale: string;
     zoomOut: string;
+    customSeed: string;
     seed: string;
 }
 
@@ -25,6 +26,7 @@ export interface TypedParameters {
     customCValueSelected: boolean;
     scale: number;
     zoomOut: number;
+    customSeed: number;
     seed: number;
 }
 

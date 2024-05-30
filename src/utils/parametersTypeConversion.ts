@@ -17,6 +17,7 @@ export function convertParameters(params: Parameters): TypedParameters {
         customCValueSelected: params.customCValueSelected,
         scale: parseFloat(params.scale),
         zoomOut: parseFloat(params.zoomOut),
+        customSeed: parseInt(params.customSeed),
         seed: parseInt(params.seed),
     };
 }

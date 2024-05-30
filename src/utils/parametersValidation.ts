@@ -1,4 +1,5 @@
 import { TypedParameters, TypedColorModeParameters } from "@/_types/common";
+import { log } from "console";
 
 export function isColorIntensityValid(colorIntensity: number): boolean {
     return !Number.isNaN(colorIntensity) && colorIntensity !== 0;
@@ -30,6 +31,14 @@ export function isWidthValid(width: number): boolean {
 
 export function isHeightValid(height: number): boolean {
     return !Number.isNaN(height) && height >= 3;
+}
+
+export function isZoomOutValid(zoomOut: number): boolean {
+    return !Number.isNaN(zoomOut) && zoomOut > 0;
+}
+
+export function isScaleValid(scale: number): boolean {
+    return !Number.isNaN(scale) && scale > 0;
 }
 
 export function isParametersMenuInputValid(

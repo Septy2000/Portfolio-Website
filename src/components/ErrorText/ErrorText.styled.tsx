@@ -9,11 +9,10 @@ export const Container = styled.div`
 
 export const ErrorText = styled.p`
     color: ${({ theme }) => theme.colors.error};
-    margin-top: ${({ theme }) => theme.margin.small};
 `;
 
 export const BsExclamationCircleIcon = styled(BsExclamationCircle)`
     color: ${({ theme }) => theme.colors.error};
     margin-right: 2px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 `;

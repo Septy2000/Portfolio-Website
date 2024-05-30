@@ -34,6 +34,7 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
         customCValueSelected: false,
         scale: "1",
         zoomOut: "2",
+        customSeed: "",
         seed: "",
     });
 

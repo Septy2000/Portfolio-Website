@@ -8,10 +8,16 @@ import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import { randomWithinBounds } from "@/utils/random";
+import * as noise from "@/utils/algorithms/perlinNoise";
 export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
-    const { typedParameters, typedColorModeParameters } = useParameters();
+    const {
+        parameters,
+        setParameters,
+        typedParameters,
+        typedColorModeParameters,
+    } = useParameters();
 
     let complexPlaneBoundaries: ComplexPlaneBoundary = {
         RE_MIN: -2,
@@ -93,6 +99,14 @@ export default function FractalsSection() {
         )
             .fill(0)
             .map((_) => randomWithinBounds(0, 360));
+        if (typedParameters.algorithm !== "perlin") {
+            generateMandelbrotAndJulia();
+        } else {
+            generatePerlin();
+        }
+    }
+
+    function generateMandelbrotAndJulia() {
         for (let column = 0; column < typedParameters.width; column++) {
             let columnValues: number[] = [];
             for (let row = 0; row < typedParameters.height; row++) {
@@ -129,6 +143,80 @@ export default function FractalsSection() {
 
             drawColumn(column, columnValues);
         }
+    }
+
+    function generatePerlin() {
+        if (Number.isNaN(typedParameters.customSeed)) {
+            let perlinNoiseSeed = randomWithinBounds(
+                Number.MIN_SAFE_INTEGER,
+                Number.MAX_SAFE_INTEGER
+            );
+            setParameters({
+                ...parameters,
+                seed: String(perlinNoiseSeed),
+            });
+            // Set the perlin noise seed
+            noise.seed(perlinNoiseSeed);
+        } else {
+            parameters.seed = String(typedParameters.customSeed);
+            noise.seed(typedParameters.customSeed);
+        }
+
+        let columns = Math.floor(typedParameters.width / typedParameters.scale);
+        let rows = Math.floor(typedParameters.height / typedParameters.scale);
+
+        // Add variance on x and y axes, so the perlin noise is different
+        let xChange;
+        let yChange;
+
+        let zoomOutFactor = typedParameters.zoomOut / 100;
+        for (let col = 0; col < columns; col++) {
+            xChange = 0;
+            yChange = col * zoomOutFactor;
+            for (let row = 0; row < rows; row++) {
+                let pointValues = noise.computeEndPoints(
+                    col,
+                    row,
+                    typedParameters.scale,
+                    xChange,
+                    yChange
+                );
+
+                drawPerlinPoint(row, col, pointValues);
+                xChange += zoomOutFactor;
+            }
+        }
+    }
+
+    function drawPerlinPoint(row: number, col: number, pointValues: number[]) {
+        const ctx = contextRef.current;
+        if (!ctx) return;
+
+        let [x_end, y_end, perlin_noise] = pointValues;
+
+        // Color the image based on the user selection
+        if (typedColorModeParameters.colorMode === "smooth") {
+            // Get the absolute value of perlin noise and multiply by 360 the number is in hue range
+            ctx.strokeStyle = `hsl(${
+                Math.abs(perlin_noise) *
+                360 *
+                typedColorModeParameters.colorIntensity
+            }, 100%, 50%)`;
+        } else {
+            // Multiply each value by 255 to get a value in RGB range
+            let abs_noise = Math.abs(perlin_noise);
+            ctx.strokeStyle = `rgb(${
+                abs_noise * typedColorModeParameters.rgbWeights.r * 255
+            },${abs_noise * typedColorModeParameters.rgbWeights.g * 255},${
+                abs_noise * typedColorModeParameters.rgbWeights.b * 255
+            })`;
+        }
+
+        // Draw the line
+        ctx.beginPath();
+        ctx.moveTo(col * typedParameters.scale, row * typedParameters.scale);
+        ctx.lineTo(x_end, y_end);
+        ctx.stroke();
     }
 
     return (

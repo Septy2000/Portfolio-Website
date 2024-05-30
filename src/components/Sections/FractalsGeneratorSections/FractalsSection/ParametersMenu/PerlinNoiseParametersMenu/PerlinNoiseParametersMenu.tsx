@@ -33,13 +33,14 @@ export default function PerlinNoiseParametersMenu() {
             />
 
             <LabelledInput
-                id="seed"
-                label="Seed:"
+                id="customSeed"
+                label="Custom seed:"
                 type="number"
-                value={parameters.seed}
+                value={parameters.customSeed}
                 onChange={(e) =>
-                    setParameters({
+                    setParameters({ 
                         ...parameters,
+                        customSeed: e.target.value,
                         seed: e.target.value,
                     })
                 }
