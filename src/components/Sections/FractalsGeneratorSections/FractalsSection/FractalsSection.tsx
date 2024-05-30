@@ -6,6 +6,7 @@ import { complexPlanePoint } from "@/utils/complexNumbers";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
+import { randomWithinBounds } from "@/utils/random";
 export default function FractalsSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -17,6 +18,7 @@ export default function FractalsSection() {
         IM_MIN: -1.5,
         IM_MAX: 1.5,
     };
+    let randomColorsList: number[] = [];
 
     // Scaling factor for taking into account resolution difference between the actual canvas
     // and the displayed canvas
@@ -40,20 +42,6 @@ export default function FractalsSection() {
         generate();
     }, []);
 
-    function draw(column: number, row: number, iterations: number) {
-        const ctx = contextRef.current;
-        if (!ctx) return;
-
-        ctx.fillStyle = getHSLColor(
-            iterations,
-            typedParameters.maxIterations,
-            typedColorModeParameters.colorIntensity
-        );
-        let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
-        let rect_height = scalingFactor < 1 ? 1 / scalingFactor : 1;
-        ctx.fillRect(column, row, rect_width, rect_height);
-    }
-
     function drawColumn(column: number, columnValues: number[]) {
         if (!canvasRef.current) return;
 
@@ -62,8 +50,48 @@ export default function FractalsSection() {
         }
     }
 
+    function draw(column: number, row: number, iterations: number) {
+        const ctx = contextRef.current;
+        if (!ctx) return;
+
+        switch (typedColorModeParameters.colorMode) {
+            case "smooth":
+                ctx.fillStyle = getHSLColor(
+                    iterations,
+                    typedParameters.maxIterations,
+                    typedColorModeParameters.colorIntensity
+                );
+                break;
+            case "rgb":
+                ctx.fillStyle = getRGBColor(
+                    iterations,
+                    typedParameters.maxIterations,
+                    typedColorModeParameters.rgbWeights.r,
+                    typedColorModeParameters.rgbWeights.g,
+                    typedColorModeParameters.rgbWeights.b
+                );
+                break;
+            case "random":
+                ctx.fillStyle = getRandomHSLColor(
+                    iterations,
+                    typedParameters.maxIterations,
+                    randomColorsList
+                );
+                break;
+        }
+
+        let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
+        let rect_height = scalingFactor < 1 ? 1 / scalingFactor : 1;
+        ctx.fillRect(column, row, rect_width, rect_height);
+    }
+
     function generate() {
         setupCanvas();
+        randomColorsList = new Array(
+            typedColorModeParameters.numberOfRandomColors
+        )
+            .fill(0)
+            .map((_) => randomWithinBounds(0, 360));
         for (let column = 0; column < typedParameters.width; column++) {
             let columnValues: number[] = [];
             for (let row = 0; row < typedParameters.height; row++) {
