@@ -2,6 +2,7 @@ import * as Styled from "./FractalsSection.styled";
 import React, { useEffect, useRef } from "react";
 import { ComplexPlaneBoundary } from "@/_types/math";
 import mandelbrotIterationCalculator from "@/utils/algorithms/mandelbrotFunction";
+import juliaIterationCalculator from "@/utils/algorithms/juliaFunction";
 import { complexPlanePoint } from "@/utils/complexNumbers";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
@@ -102,11 +103,26 @@ export default function FractalsSection() {
                     typedParameters.width,
                     typedParameters.height
                 );
-
-                let iterationsReached = mandelbrotIterationCalculator(
-                    complexPoint,
-                    typedParameters.maxIterations
-                );
+                let iterationsReached = 0;
+                if (typedParameters.algorithm === "mandelbrot") {
+                    iterationsReached = mandelbrotIterationCalculator(
+                        complexPoint,
+                        typedParameters.maxIterations
+                    );
+                } else {
+                    const selectedComplexNumber =
+                        typedParameters.customCValueSelected
+                            ? {
+                                  x: typedParameters.customCRealValue,
+                                  y: typedParameters.customCImaginaryValue,
+                              }
+                            : typedParameters.valueOfC;
+                    iterationsReached = juliaIterationCalculator(
+                        complexPoint,
+                        selectedComplexNumber,
+                        typedParameters.maxIterations
+                    );
+                }
 
                 columnValues.push(iterationsReached);
             }

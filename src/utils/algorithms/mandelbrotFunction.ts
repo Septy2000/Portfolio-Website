@@ -33,16 +33,10 @@ export default function mandelbrotIterationCalculator(
 
         // Increment the iteration counter
         iteration += 1;
-    } while (isWithinThreshold(z) && iteration < maxIterations);
+    } while (
+        Math.abs(z.x) + Math.abs(z.y) <= THRESHOLD_VALUE &&
+        iteration < maxIterations
+    );
 
     return iteration;
-}
-
-/**
- * Checks if the absolute value of both parts of the given complex number are within the threshold.
- * @param {ComplexNumber} z - The complex number to check.
- * @returns {boolean} - True if the absolute value of both parts of z are less than or equal to 2, otherwise false.
- */
-function isWithinThreshold(z: ComplexNumber): boolean {
-    return Math.abs(z.x) + Math.abs(z.y) <= THRESHOLD_VALUE;
 }
