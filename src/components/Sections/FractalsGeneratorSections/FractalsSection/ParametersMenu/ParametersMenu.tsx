@@ -7,6 +7,8 @@ import PerlinNoiseParametersMenu from "./PerlinNoiseParametersMenu/PerlinNoisePa
 import ColorModeMenu from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
 import { isParametersMenuInputValid } from "@/utils/parametersValidation";
 import InputError from "./InputError";
+import React from "react";
+
 export default function ParametersMenu({
     generate,
     isImageGenerated,
@@ -23,27 +25,25 @@ export default function ParametersMenu({
             <Styled.MenusContainer>
                 <DefaultParametersMenu />
                 <ColorModeMenu />
-                {typedParameters.algorithm === "mandelbrot" && (
-                    <MandelbrotParametersMenu />
-                )}
-                {typedParameters.algorithm === "julia" && (
-                    <JuliaParametersMenu />
-                )}
-                {typedParameters.algorithm === "perlin" && (
-                    <PerlinNoiseParametersMenu />
-                )}
+                {typedParameters.algorithm === "mandelbrot" && <MandelbrotParametersMenu />}
+                {typedParameters.algorithm === "julia" && <JuliaParametersMenu />}
+                {typedParameters.algorithm === "perlin" && <PerlinNoiseParametersMenu />}
             </Styled.MenusContainer>
             <Styled.ButtonsContainer>
                 <InputError />
                 <Styled.HorizontalButtonsContainer>
-                    <Styled.ControlButton onClick={() => {}}>
-                        undo zoom
-                        <Styled.UndoZoomIcon />
-                    </Styled.ControlButton>
-                    <Styled.ControlButton onClick={() => {}}>
-                        reset zoom
-                        <Styled.ResetZoomIcon />
-                    </Styled.ControlButton>
+                    {typedParameters.algorithm !== "perlin" && (
+                        <React.Fragment>
+                            <Styled.ControlButton onClick={() => {}}>
+                                undo zoom
+                                <Styled.UndoZoomIcon />
+                            </Styled.ControlButton>
+                            <Styled.ControlButton onClick={() => {}}>
+                                reset zoom
+                                <Styled.ResetZoomIcon />
+                            </Styled.ControlButton>
+                        </React.Fragment>
+                    )}
                 </Styled.HorizontalButtonsContainer>
                 <Styled.HorizontalButtonsContainer>
                     <Styled.ControlButton
@@ -58,10 +58,7 @@ export default function ParametersMenu({
                         generate
                         <Styled.PlayIcon />
                     </Styled.ControlButton>
-                    <Styled.ControlButton
-                        onClick={stopGeneration}
-                        disabled={isImageGenerated}
-                    >
+                    <Styled.ControlButton onClick={stopGeneration} disabled={isImageGenerated}>
                         stop
                         <Styled.StopIcon />
                     </Styled.ControlButton>

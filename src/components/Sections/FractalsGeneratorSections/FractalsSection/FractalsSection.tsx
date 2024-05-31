@@ -6,7 +6,11 @@ import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import { randomWithinBounds } from "@/utils/random";
 import * as noise from "@/utils/algorithms/perlinNoise";
-import { createMandelbrotWorker, createJuliaWorker } from "@/utils/workers/workers";
+import {
+    createMandelbrotWorker,
+    createJuliaWorker,
+    createPerlinWorker,
+} from "@/utils/workers/workers";
 
 export default function FractalsSection() {
     const [isImageGenerated, setIsImageGenerated] = useState(true);
@@ -36,7 +40,7 @@ export default function FractalsSection() {
         }
     }
 
-    function drawPixel(x: number, y: number, iterations: number) {
+    function drawFractalPixel(x: number, y: number, iterations: number) {
         const ctx = contextRef.current;
         if (!ctx) return;
 
@@ -69,42 +73,45 @@ export default function FractalsSection() {
         ctx.fillRect(x, y, 1, 1);
     }
 
-    function drawColumn(column: number, columnValues: number[]) {
+    function drawFractalColumn(column: number, columnValues: number[]) {
         if (!canvasRef.current || !isGeneratingRef.current) return;
 
-        if (columnIndicesRef.current.length > 0) {
-            const nextColumn = columnIndicesRef.current.pop();
-            if (nextColumn !== undefined) {
-                const data = {
-                    column: nextColumn,
-                    boundaries: complexPlaneBoundaries,
-                    width: typedParameters.width,
-                    height: typedParameters.height,
-                    maxIterations: typedParameters.maxIterations,
-                    selectedComplexNumber:
-                        typedParameters.algorithm === "julia"
-                            ? typedParameters.customCValueSelected
-                                ? {
-                                      x: typedParameters.customCRealValue,
-                                      y: typedParameters.customCImaginaryValue,
-                                  }
-                                : typedParameters.valueOfC
-                            : null,
-                };
-                workerRef.current?.postMessage(data);
-            }
+        const nextColumn = columnIndicesRef.current.pop();
+        if (nextColumn !== undefined) {
+            const data = {
+                column: nextColumn,
+                boundaries: complexPlaneBoundaries,
+                width: typedParameters.width,
+                height: typedParameters.height,
+                maxIterations: typedParameters.maxIterations,
+                selectedComplexNumber:
+                    typedParameters.algorithm === "julia"
+                        ? typedParameters.customCValueSelected
+                            ? {
+                                  x: typedParameters.customCRealValue,
+                                  y: typedParameters.customCImaginaryValue,
+                              }
+                            : typedParameters.valueOfC
+                        : null,
+            };
+            workerRef.current?.postMessage(data);
         } else {
             setIsImageGenerated(true);
             isGeneratingRef.current = false;
         }
 
-        for (let y = 0; y < canvasRef.current.height; y++) {
-            drawPixel(column, y, columnValues[y]);
+        for (let row = 0; row < typedParameters.height; row++) {
+            drawFractalPixel(column, row, columnValues[row]);
         }
     }
 
     function generateFractal() {
         if (workerRef.current) workerRef.current.terminate();
+
+        columnIndicesRef.current = Array.from(
+            { length: typedParameters.width },
+            (_, i) => i
+        ).reverse();
 
         workerRef.current =
             typedParameters.algorithm === "mandelbrot"
@@ -112,7 +119,7 @@ export default function FractalsSection() {
                 : createJuliaWorker();
 
         workerRef.current.onmessage = (event) => {
-            drawColumn(event.data.column, event.data.columnValues);
+            drawFractalColumn(event.data.column, event.data.columnValues);
         };
 
         const initialData = {
@@ -135,6 +142,25 @@ export default function FractalsSection() {
     }
 
     function generatePerlinNoise() {
+        if (workerRef.current) workerRef.current.terminate();
+
+        const numberOfColumnsAfterScale = Math.floor(typedParameters.width / typedParameters.scale);
+        const numberOfRowsAfterScale = Math.floor(typedParameters.height / typedParameters.scale);
+
+        columnIndicesRef.current = Array.from(
+            { length: numberOfColumnsAfterScale },
+            (_, i) => i
+        ).reverse();
+
+        workerRef.current = createPerlinWorker();
+        workerRef.current.onmessage = (event) => {
+            drawPerlinColumn(
+                event.data.columnIndex,
+                numberOfRowsAfterScale,
+                event.data.columnValues
+            );
+        };
+
         const seed = isNaN(typedParameters.customSeed)
             ? randomWithinBounds(Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
             : typedParameters.customSeed;
@@ -144,30 +170,44 @@ export default function FractalsSection() {
             seed: String(seed),
         });
 
-        noise.seed(seed);
+        const initialData = {
+            columnIndex: columnIndicesRef.current.pop(),
+            numberOfRows: numberOfRowsAfterScale,
+            scale: typedParameters.scale,
+            zoomOutFactor: typedParameters.zoomOut / 100,
+            isInitialising: true,
+            seed: seed,
+        };
+        workerRef.current.postMessage(initialData);
+    }
 
-        const columns = Math.floor(typedParameters.width / typedParameters.scale);
-        const rows = Math.floor(typedParameters.height / typedParameters.scale);
-        const zoomOutFactor = typedParameters.zoomOut / 100;
+    function drawPerlinColumn(
+        columnIndex: number,
+        numberOfRowsAfterScale: number,
+        columnValues: number[][]
+    ) {
+        if (!canvasRef.current || !isGeneratingRef.current) return;
 
-        for (let col = 0; col < columns; col++) {
-            let xChange = 0;
-            let yChange = col * zoomOutFactor;
-            for (let row = 0; row < rows; row++) {
-                const pointValues = noise.computeEndPoints(
-                    col,
-                    row,
-                    typedParameters.scale,
-                    xChange,
-                    yChange
-                );
-                drawPerlinPoint(row, col, pointValues);
-                xChange += zoomOutFactor;
-            }
+        const nextColumn = columnIndicesRef.current.pop();
+        if (nextColumn !== undefined) {
+            const data = {
+                columnIndex: nextColumn,
+                numberOfRows: numberOfRowsAfterScale,
+                scale: typedParameters.scale,
+                zoomOutFactor: typedParameters.zoomOut / 100,
+            };
+            workerRef.current?.postMessage(data);
+        } else {
+            setIsImageGenerated(true);
+            isGeneratingRef.current = false;
+        }
+
+        for (let rowIndex = 0; rowIndex < numberOfRowsAfterScale; rowIndex++) {
+            drawPerlinPixel(columnIndex, rowIndex, columnValues[rowIndex]);
         }
     }
 
-    function drawPerlinPoint(row: number, col: number, pointValues: number[]) {
+    function drawPerlinPixel(columnIndex: number, rowIndex: number, pointValues: number[]) {
         const ctx = contextRef.current;
         if (!ctx) return;
 
@@ -182,7 +222,7 @@ export default function FractalsSection() {
                   },${absNoise * typedColorModeParameters.rgbWeights.b * 255})`;
 
         ctx.beginPath();
-        ctx.moveTo(col * typedParameters.scale, row * typedParameters.scale);
+        ctx.moveTo(columnIndex * typedParameters.scale, rowIndex * typedParameters.scale);
         ctx.lineTo(xEnd, yEnd);
         ctx.stroke();
     }
@@ -192,10 +232,6 @@ export default function FractalsSection() {
         setIsImageGenerated(false);
         isGeneratingRef.current = true;
 
-        columnIndicesRef.current = Array.from(
-            { length: typedParameters.width },
-            (_, i) => i
-        ).reverse();
         randomColorsRef.current = Array.from(
             { length: typedColorModeParameters.numberOfRandomColors },
             () => randomWithinBounds(0, 360)

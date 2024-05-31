@@ -1,26 +1,24 @@
 import * as noise from "@/utils/algorithms/perlinNoise";
 
 self.onmessage = (event) => {
-    const { columns, rows, scale, zoomOutFactor, customSeed } = event.data;
-
-    noise.seed(customSeed);
-
-    let xChange;
-    let yChange;
-
-    for (let col = 0; col < columns; col++) {
-        xChange = 0;
-        yChange = col * zoomOutFactor;
-        for (let row = 0; row < rows; row++) {
-            const pointValues = noise.computeEndPoints(
-                col,
-                row,
-                scale,
-                xChange,
-                yChange
-            );
-            self.postMessage({ row, col, pointValues });
-            xChange += zoomOutFactor;
-        }
+    const { isInitialising } = event.data;
+    if (isInitialising) {
+        const { seed } = event.data;
+        noise.seed(seed);
     }
+    const { columnIndex, numberOfRows, scale, zoomOutFactor } = event.data;
+
+    const columnValues: number[][] = [];
+    let xChange = 0;
+    let yChange = columnIndex * zoomOutFactor;
+
+    for (let row = 0; row < numberOfRows; row++) {
+        const endPointsResult = noise.computeEndPoints(columnIndex, row, scale, xChange, yChange);
+
+        columnValues.push(endPointsResult);
+
+        xChange += zoomOutFactor;
+    }
+
+    postMessage({ columnIndex, columnValues });
 };
