@@ -20,5 +20,6 @@ export const ButtonDefault = styled.button`
     &:not(:disabled):active {
         box-shadow: ${({ theme }) =>
             `inset 5px 5px 5px -1px ${theme.colors.orange_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.orange}`};
+        background-color: ${({ theme }) => theme.colors.orange};
     }
 `;

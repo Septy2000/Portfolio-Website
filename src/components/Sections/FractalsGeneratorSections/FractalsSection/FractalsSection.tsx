@@ -1,15 +1,19 @@
 import * as Styled from "./FractalsSection.styled";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ComplexPlaneBoundary } from "@/_types/math";
-import mandelbrotIterationCalculator from "@/utils/algorithms/mandelbrotFunction";
-import juliaIterationCalculator from "@/utils/algorithms/juliaFunction";
-import { complexPlanePoint } from "@/utils/complexNumbers";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import { randomWithinBounds } from "@/utils/random";
 import * as noise from "@/utils/algorithms/perlinNoise";
+import {
+    createMandelbrotWorker,
+    createJuliaWorker,
+    createPerlinWorker,
+} from "@/utils/workers/workers";
+
 export default function FractalsSection() {
+    const [isImageGenerated, setIsImageGenerated] = useState(true);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
     const {
@@ -26,6 +30,9 @@ export default function FractalsSection() {
         IM_MAX: 1.5,
     };
     let randomColorsList: number[] = [];
+
+    let worker: Worker | null = null;
+    let columnList: number[] = [];
 
     // Scaling factor for taking into account resolution difference between the actual canvas
     // and the displayed canvas
@@ -50,7 +57,30 @@ export default function FractalsSection() {
     }, []);
 
     function drawColumn(column: number, columnValues: number[]) {
-        if (!canvasRef.current) return;
+        // console.log(isImageGenerated);
+
+        if (!canvasRef.current || !worker || !isImageGenerated) return;
+        if (columnList.length > 0) {
+            const data = {
+                column: columnList.pop(),
+                boundaries: complexPlaneBoundaries,
+                width: typedParameters.width,
+                height: typedParameters.height,
+                maxIterations: typedParameters.maxIterations,
+                selectedComplexNumber:
+                    typedParameters.algorithm === "julia"
+                        ? typedParameters.customCValueSelected
+                            ? {
+                                  x: typedParameters.customCRealValue,
+                                  y: typedParameters.customCImaginaryValue,
+                              }
+                            : typedParameters.valueOfC
+                        : null,
+            };
+            worker.postMessage(data);
+        } else {
+            setIsImageGenerated(true);
+        }
 
         for (let row = 0; row < canvasRef.current.height; row++) {
             draw(column, row, columnValues[row]);
@@ -94,55 +124,51 @@ export default function FractalsSection() {
 
     function generate() {
         setupCanvas();
+        setIsImageGenerated(false);
+        columnList = [];
+        for (let i = typedParameters.width - 1; i >= 0; i--) {
+            columnList.push(i);
+        }
         randomColorsList = new Array(
             typedColorModeParameters.numberOfRandomColors
         )
             .fill(0)
             .map((_) => randomWithinBounds(0, 360));
         if (typedParameters.algorithm !== "perlin") {
-            generateMandelbrotAndJulia();
+            generateMandelbrotOrJulia();
         } else {
             generatePerlin();
         }
     }
 
-    function generateMandelbrotAndJulia() {
-        for (let column = 0; column < typedParameters.width; column++) {
-            let columnValues: number[] = [];
-            for (let row = 0; row < typedParameters.height; row++) {
-                let complexPoint = complexPlanePoint(
-                    column,
-                    row,
-                    complexPlaneBoundaries,
-                    typedParameters.width,
-                    typedParameters.height
-                );
-                let iterationsReached = 0;
-                if (typedParameters.algorithm === "mandelbrot") {
-                    iterationsReached = mandelbrotIterationCalculator(
-                        complexPoint,
-                        typedParameters.maxIterations
-                    );
-                } else {
-                    const selectedComplexNumber =
-                        typedParameters.customCValueSelected
-                            ? {
-                                  x: typedParameters.customCRealValue,
-                                  y: typedParameters.customCImaginaryValue,
-                              }
-                            : typedParameters.valueOfC;
-                    iterationsReached = juliaIterationCalculator(
-                        complexPoint,
-                        selectedComplexNumber,
-                        typedParameters.maxIterations
-                    );
-                }
+    function generateMandelbrotOrJulia() {
+        if (worker) worker.terminate();
+        worker =
+            typedParameters.algorithm === "mandelbrot"
+                ? createMandelbrotWorker()
+                : createJuliaWorker();
+        const data = {
+            column: columnList.pop(),
+            boundaries: complexPlaneBoundaries,
+            width: typedParameters.width,
+            height: typedParameters.height,
+            maxIterations: typedParameters.maxIterations,
+            selectedComplexNumber:
+                typedParameters.algorithm === "julia"
+                    ? typedParameters.customCValueSelected
+                        ? {
+                              x: typedParameters.customCRealValue,
+                              y: typedParameters.customCImaginaryValue,
+                          }
+                        : typedParameters.valueOfC
+                    : null,
+        };
+        worker.postMessage(data);
+        console.log(isImageGenerated);
 
-                columnValues.push(iterationsReached);
-            }
-
-            drawColumn(column, columnValues);
-        }
+        worker.onmessage = (event) => {
+            drawColumn(event.data.column, event.data.columnValues);
+        };
     }
 
     function generatePerlin() {
@@ -188,6 +214,15 @@ export default function FractalsSection() {
         }
     }
 
+    useEffect(() => {
+        // console.log(isImageGenerated);
+    }, [isImageGenerated]);
+
+    function stopGeneration() {
+        if (worker) worker.terminate();
+        setIsImageGenerated(true);
+    }
+
     function drawPerlinPoint(row: number, col: number, pointValues: number[]) {
         const ctx = contextRef.current;
         if (!ctx) return;
@@ -223,7 +258,11 @@ export default function FractalsSection() {
         <Styled.Container>
             <Styled.Canvas ref={canvasRef} />
             <Styled.MenuContainer>
-                <ParametersMenu generate={generate} />
+                <ParametersMenu
+                    generate={generate}
+                    stopGeneration={stopGeneration}
+                    isImageGenerated={isImageGenerated}
+                />
             </Styled.MenuContainer>
         </Styled.Container>
     );

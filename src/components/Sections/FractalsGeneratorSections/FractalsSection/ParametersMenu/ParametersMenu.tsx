@@ -7,7 +7,15 @@ import PerlinNoiseParametersMenu from "./PerlinNoiseParametersMenu/PerlinNoisePa
 import ColorModeMenu from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
 import { isParametersMenuInputValid } from "@/utils/parametersValidation";
 import InputError from "./InputError";
-export default function ParametersMenu({ generate }: { generate: () => void }) {
+export default function ParametersMenu({
+    generate,
+    isImageGenerated,
+    stopGeneration,
+}: {
+    generate: () => void;
+    isImageGenerated: boolean;
+    stopGeneration: () => void;
+}) {
     const { typedColorModeParameters, typedParameters } = useParameters();
 
     return (
@@ -27,25 +35,37 @@ export default function ParametersMenu({ generate }: { generate: () => void }) {
             </Styled.MenusContainer>
             <Styled.ButtonsContainer>
                 <InputError />
-                <Styled.ZoomButtonsContainer>
-                    <Styled.ZoomControlButton onClick={() => {}}>
+                <Styled.HorizontalButtonsContainer>
+                    <Styled.ControlButton onClick={() => {}}>
                         undo zoom
-                    </Styled.ZoomControlButton>
-                    <Styled.ZoomControlButton onClick={() => {}}>
+                        <Styled.UndoZoomIcon />
+                    </Styled.ControlButton>
+                    <Styled.ControlButton onClick={() => {}}>
                         reset zoom
-                    </Styled.ZoomControlButton>
-                </Styled.ZoomButtonsContainer>
-                <Styled.GenerateButton
-                    onClick={generate}
-                    disabled={
-                        !isParametersMenuInputValid(
-                            typedParameters,
-                            typedColorModeParameters
-                        )
-                    }
-                >
-                    generate
-                </Styled.GenerateButton>
+                        <Styled.ResetZoomIcon />
+                    </Styled.ControlButton>
+                </Styled.HorizontalButtonsContainer>
+                <Styled.HorizontalButtonsContainer>
+                    <Styled.ControlButton
+                        onClick={generate}
+                        disabled={
+                            !isParametersMenuInputValid(
+                                typedParameters,
+                                typedColorModeParameters
+                            ) || !isImageGenerated
+                        }
+                    >
+                        generate
+                        <Styled.PlayIcon />
+                    </Styled.ControlButton>
+                    <Styled.ControlButton
+                        onClick={stopGeneration}
+                        disabled={isImageGenerated}
+                    >
+                        stop
+                        <Styled.StopIcon />
+                    </Styled.ControlButton>
+                </Styled.HorizontalButtonsContainer>
             </Styled.ButtonsContainer>
         </Styled.Container>
     );
