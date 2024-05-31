@@ -6,88 +6,37 @@ import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import { randomWithinBounds } from "@/utils/random";
 import * as noise from "@/utils/algorithms/perlinNoise";
-import {
-    createMandelbrotWorker,
-    createJuliaWorker,
-    createPerlinWorker,
-} from "@/utils/workers/workers";
+import { createMandelbrotWorker, createJuliaWorker } from "@/utils/workers/workers";
 
 export default function FractalsSection() {
     const [isImageGenerated, setIsImageGenerated] = useState(true);
+    const isGeneratingRef = useRef(false);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
-    const {
-        parameters,
-        setParameters,
-        typedParameters,
-        typedColorModeParameters,
-    } = useParameters();
+    const workerRef = useRef<Worker | null>(null);
+    const columnIndicesRef = useRef<number[]>([]);
+    const randomColorsRef = useRef<number[]>([]);
 
-    let complexPlaneBoundaries: ComplexPlaneBoundary = {
+    const { parameters, setParameters, typedParameters, typedColorModeParameters } =
+        useParameters();
+
+    const complexPlaneBoundaries: ComplexPlaneBoundary = {
         RE_MIN: -2,
         RE_MAX: 2,
         IM_MIN: -1.5,
         IM_MAX: 1.5,
     };
-    let randomColorsList: number[] = [];
 
-    let worker: Worker | null = null;
-    let columnList: number[] = [];
-
-    // Scaling factor for taking into account resolution difference between the actual canvas
-    // and the displayed canvas
-    let scalingFactor = 1;
-
-    function setupCanvas() {
+    function initializeCanvas() {
         const canvas = canvasRef.current;
-
         if (canvas) {
-            // resolution of canvas
             canvas.width = typedParameters.width;
             canvas.height = typedParameters.height;
-
-            const ctx = canvas.getContext("2d");
-            contextRef.current = ctx;
+            contextRef.current = canvas.getContext("2d");
         }
     }
 
-    // generate a canvas image on first load
-    useEffect(() => {
-        generate();
-    }, []);
-
-    function drawColumn(column: number, columnValues: number[]) {
-        // console.log(isImageGenerated);
-
-        if (!canvasRef.current || !worker || !isImageGenerated) return;
-        if (columnList.length > 0) {
-            const data = {
-                column: columnList.pop(),
-                boundaries: complexPlaneBoundaries,
-                width: typedParameters.width,
-                height: typedParameters.height,
-                maxIterations: typedParameters.maxIterations,
-                selectedComplexNumber:
-                    typedParameters.algorithm === "julia"
-                        ? typedParameters.customCValueSelected
-                            ? {
-                                  x: typedParameters.customCRealValue,
-                                  y: typedParameters.customCImaginaryValue,
-                              }
-                            : typedParameters.valueOfC
-                        : null,
-            };
-            worker.postMessage(data);
-        } else {
-            setIsImageGenerated(true);
-        }
-
-        for (let row = 0; row < canvasRef.current.height; row++) {
-            draw(column, row, columnValues[row]);
-        }
-    }
-
-    function draw(column: number, row: number, iterations: number) {
+    function drawPixel(x: number, y: number, iterations: number) {
         const ctx = contextRef.current;
         if (!ctx) return;
 
@@ -112,43 +61,62 @@ export default function FractalsSection() {
                 ctx.fillStyle = getRandomHSLColor(
                     iterations,
                     typedParameters.maxIterations,
-                    randomColorsList
+                    randomColorsRef.current
                 );
                 break;
         }
 
-        let rect_width = scalingFactor < 1 ? 1 / scalingFactor : 1;
-        let rect_height = scalingFactor < 1 ? 1 / scalingFactor : 1;
-        ctx.fillRect(column, row, rect_width, rect_height);
+        ctx.fillRect(x, y, 1, 1);
     }
 
-    function generate() {
-        setupCanvas();
-        setIsImageGenerated(false);
-        columnList = [];
-        for (let i = typedParameters.width - 1; i >= 0; i--) {
-            columnList.push(i);
-        }
-        randomColorsList = new Array(
-            typedColorModeParameters.numberOfRandomColors
-        )
-            .fill(0)
-            .map((_) => randomWithinBounds(0, 360));
-        if (typedParameters.algorithm !== "perlin") {
-            generateMandelbrotOrJulia();
+    function drawColumn(column: number, columnValues: number[]) {
+        if (!canvasRef.current || !isGeneratingRef.current) return;
+
+        if (columnIndicesRef.current.length > 0) {
+            const nextColumn = columnIndicesRef.current.pop();
+            if (nextColumn !== undefined) {
+                const data = {
+                    column: nextColumn,
+                    boundaries: complexPlaneBoundaries,
+                    width: typedParameters.width,
+                    height: typedParameters.height,
+                    maxIterations: typedParameters.maxIterations,
+                    selectedComplexNumber:
+                        typedParameters.algorithm === "julia"
+                            ? typedParameters.customCValueSelected
+                                ? {
+                                      x: typedParameters.customCRealValue,
+                                      y: typedParameters.customCImaginaryValue,
+                                  }
+                                : typedParameters.valueOfC
+                            : null,
+                };
+                workerRef.current?.postMessage(data);
+            }
         } else {
-            generatePerlin();
+            setIsImageGenerated(true);
+            isGeneratingRef.current = false;
+        }
+
+        for (let y = 0; y < canvasRef.current.height; y++) {
+            drawPixel(column, y, columnValues[y]);
         }
     }
 
-    function generateMandelbrotOrJulia() {
-        if (worker) worker.terminate();
-        worker =
+    function generateFractal() {
+        if (workerRef.current) workerRef.current.terminate();
+
+        workerRef.current =
             typedParameters.algorithm === "mandelbrot"
                 ? createMandelbrotWorker()
                 : createJuliaWorker();
-        const data = {
-            column: columnList.pop(),
+
+        workerRef.current.onmessage = (event) => {
+            drawColumn(event.data.column, event.data.columnValues);
+        };
+
+        const initialData = {
+            column: columnIndicesRef.current.pop(),
             boundaries: complexPlaneBoundaries,
             width: typedParameters.width,
             height: typedParameters.height,
@@ -163,104 +131,103 @@ export default function FractalsSection() {
                         : typedParameters.valueOfC
                     : null,
         };
-        worker.postMessage(data);
-        console.log(isImageGenerated);
-
-        worker.onmessage = (event) => {
-            drawColumn(event.data.column, event.data.columnValues);
-        };
+        workerRef.current.postMessage(initialData);
     }
 
-    function generatePerlin() {
-        if (Number.isNaN(typedParameters.customSeed)) {
-            let perlinNoiseSeed = randomWithinBounds(
-                Number.MIN_SAFE_INTEGER,
-                Number.MAX_SAFE_INTEGER
-            );
-            setParameters({
-                ...parameters,
-                seed: String(perlinNoiseSeed),
-            });
-            // Set the perlin noise seed
-            noise.seed(perlinNoiseSeed);
-        } else {
-            parameters.seed = String(typedParameters.customSeed);
-            noise.seed(typedParameters.customSeed);
-        }
+    function generatePerlinNoise() {
+        const seed = isNaN(typedParameters.customSeed)
+            ? randomWithinBounds(Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+            : typedParameters.customSeed;
 
-        let columns = Math.floor(typedParameters.width / typedParameters.scale);
-        let rows = Math.floor(typedParameters.height / typedParameters.scale);
+        setParameters({
+            ...parameters,
+            seed: String(seed),
+        });
 
-        // Add variance on x and y axes, so the perlin noise is different
-        let xChange;
-        let yChange;
+        noise.seed(seed);
 
-        let zoomOutFactor = typedParameters.zoomOut / 100;
+        const columns = Math.floor(typedParameters.width / typedParameters.scale);
+        const rows = Math.floor(typedParameters.height / typedParameters.scale);
+        const zoomOutFactor = typedParameters.zoomOut / 100;
+
         for (let col = 0; col < columns; col++) {
-            xChange = 0;
-            yChange = col * zoomOutFactor;
+            let xChange = 0;
+            let yChange = col * zoomOutFactor;
             for (let row = 0; row < rows; row++) {
-                let pointValues = noise.computeEndPoints(
+                const pointValues = noise.computeEndPoints(
                     col,
                     row,
                     typedParameters.scale,
                     xChange,
                     yChange
                 );
-
                 drawPerlinPoint(row, col, pointValues);
                 xChange += zoomOutFactor;
             }
         }
     }
 
-    useEffect(() => {
-        // console.log(isImageGenerated);
-    }, [isImageGenerated]);
-
-    function stopGeneration() {
-        if (worker) worker.terminate();
-        setIsImageGenerated(true);
-    }
-
     function drawPerlinPoint(row: number, col: number, pointValues: number[]) {
         const ctx = contextRef.current;
         if (!ctx) return;
 
-        let [x_end, y_end, perlin_noise] = pointValues;
+        const [xEnd, yEnd, perlinNoise] = pointValues;
+        const absNoise = Math.abs(perlinNoise);
 
-        // Color the image based on the user selection
-        if (typedColorModeParameters.colorMode === "smooth") {
-            // Get the absolute value of perlin noise and multiply by 360 the number is in hue range
-            ctx.strokeStyle = `hsl(${
-                Math.abs(perlin_noise) *
-                360 *
-                typedColorModeParameters.colorIntensity
-            }, 100%, 50%)`;
-        } else {
-            // Multiply each value by 255 to get a value in RGB range
-            let abs_noise = Math.abs(perlin_noise);
-            ctx.strokeStyle = `rgb(${
-                abs_noise * typedColorModeParameters.rgbWeights.r * 255
-            },${abs_noise * typedColorModeParameters.rgbWeights.g * 255},${
-                abs_noise * typedColorModeParameters.rgbWeights.b * 255
-            })`;
-        }
+        ctx.strokeStyle =
+            typedColorModeParameters.colorMode === "smooth"
+                ? `hsl(${absNoise * 360 * typedColorModeParameters.colorIntensity}, 100%, 50%)`
+                : `rgb(${absNoise * typedColorModeParameters.rgbWeights.r * 255},${
+                      absNoise * typedColorModeParameters.rgbWeights.g * 255
+                  },${absNoise * typedColorModeParameters.rgbWeights.b * 255})`;
 
-        // Draw the line
         ctx.beginPath();
         ctx.moveTo(col * typedParameters.scale, row * typedParameters.scale);
-        ctx.lineTo(x_end, y_end);
+        ctx.lineTo(xEnd, yEnd);
         ctx.stroke();
     }
+
+    function generateImage() {
+        initializeCanvas();
+        setIsImageGenerated(false);
+        isGeneratingRef.current = true;
+
+        columnIndicesRef.current = Array.from(
+            { length: typedParameters.width },
+            (_, i) => i
+        ).reverse();
+        randomColorsRef.current = Array.from(
+            { length: typedColorModeParameters.numberOfRandomColors },
+            () => randomWithinBounds(0, 360)
+        );
+
+        if (typedParameters.algorithm !== "perlin") {
+            generateFractal();
+        } else {
+            generatePerlinNoise();
+        }
+    }
+
+    function stopImageGeneration() {
+        if (workerRef.current) workerRef.current.terminate();
+        setIsImageGenerated(true);
+        isGeneratingRef.current = false;
+    }
+
+    useEffect(() => {
+        generateImage();
+        return () => {
+            if (workerRef.current) workerRef.current.terminate();
+        };
+    }, []);
 
     return (
         <Styled.Container>
             <Styled.Canvas ref={canvasRef} />
             <Styled.MenuContainer>
                 <ParametersMenu
-                    generate={generate}
-                    stopGeneration={stopGeneration}
+                    generate={generateImage}
+                    stopGeneration={stopImageGeneration}
                     isImageGenerated={isImageGenerated}
                 />
             </Styled.MenuContainer>
