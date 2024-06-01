@@ -13,10 +13,16 @@ export default function ParametersMenu({
     generate,
     isImageGenerated,
     stopGeneration,
+    undoZoom,
+    resetZoom,
+    areZoomButtonsDisabled,
 }: {
     generate: () => void;
     isImageGenerated: boolean;
     stopGeneration: () => void;
+    undoZoom: () => void;
+    resetZoom: () => void;
+    areZoomButtonsDisabled: boolean;
 }) {
     const { typedColorModeParameters, typedParameters } = useParameters();
 
@@ -34,11 +40,17 @@ export default function ParametersMenu({
                 <Styled.HorizontalButtonsContainer>
                     {typedParameters.algorithm !== "perlin" && (
                         <React.Fragment>
-                            <Styled.ControlButton onClick={() => {}}>
+                            <Styled.ControlButton
+                                onClick={undoZoom}
+                                disabled={areZoomButtonsDisabled}
+                            >
                                 undo zoom
                                 <Styled.UndoZoomIcon />
                             </Styled.ControlButton>
-                            <Styled.ControlButton onClick={() => {}}>
+                            <Styled.ControlButton
+                                onClick={resetZoom}
+                                disabled={areZoomButtonsDisabled}
+                            >
                                 reset zoom
                                 <Styled.ResetZoomIcon />
                             </Styled.ControlButton>
