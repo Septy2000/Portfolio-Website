@@ -409,6 +409,8 @@ export default function FractalsSection() {
     }
 
     function undoZoom() {
+        if (zoomHistory.current.length === 0) return;
+
         const previousBoundaries = zoomHistory.current.pop();
 
         if (previousBoundaries) {
@@ -418,6 +420,8 @@ export default function FractalsSection() {
     }
 
     function resetZoom() {
+        if (zoomHistory.current.length === 0) return;
+
         complexPlaneBoundariesRef.current = defaultComplexPlaneBoundaries;
         zoomHistory.current = [];
         generateImage();

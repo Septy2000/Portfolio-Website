@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import GlobalStyles from "@/styles/GlobalStyles";
 import React from "react";
 import ThemeClient from "@/styles/theme/ThemeClient";
@@ -9,9 +9,13 @@ export const metadata: Metadata = {
     description: "Created by Septimiu-Iulian Calin",
 };
 
-export default function RootLayout({
-    children,
-}: Readonly<{ children: React.ReactNode }>) {
+export const viewport: Viewport = {
+    width: "device-width ",
+    initialScale: 1,
+    minimumScale: 1,
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
             <StyledComponentsRegistry>
