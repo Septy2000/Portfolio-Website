@@ -1,9 +1,9 @@
 "use client";
 import React, { useRef } from "react";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
-import MainInformationSection from "@/components/MainInformationSection/MainInformationSction";
-import ExperienceContainer from "@/components/ExperienceSection/ExperienceSection";
-import ProjectsSection from "@/components/ProjectsSection/ProjectsSection";
+import MainInformationSection from "@/components/Sections/LandingPageSections/MainInformationSection/MainInformationSction";
+import ExperienceContainer from "@/components/Sections/LandingPageSections/ExperienceSection/ExperienceSection";
+import ProjectsSection from "@/components/Sections/LandingPageSections/ProjectsSection/ProjectsSection";
 
 export default function AboutMePage() {
     const aboutRef = useRef<HTMLDivElement | null>(null);

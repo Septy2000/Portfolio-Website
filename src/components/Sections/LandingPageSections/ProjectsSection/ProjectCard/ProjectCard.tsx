@@ -1,6 +1,6 @@
 "use client";
 import * as Styled from "./ProjectCard.styled";
-import { Project } from "@/components/ProjectsSection/ProjectsSection";
+import { Project } from "@/components/Sections/LandingPageSections/ProjectsSection/ProjectsSection";
 import { missing_image_src } from "@/components/images/Images";
 import { ProjectImage } from "@/components/images/Images.styled";
 
