@@ -1,7 +1,6 @@
 "use client";
 import styled, { css } from "styled-components";
 
-// Styled component with conditional animation
 export const Container = styled.div<{ $inView: boolean }>`
     display: flex;
     flex-direction: column;
