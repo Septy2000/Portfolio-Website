@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef } from "react";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import MainInformationSection from "@/components/Sections/LandingPageSections/MainInformationSection/MainInformationSction";
