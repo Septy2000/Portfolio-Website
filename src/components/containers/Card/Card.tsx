@@ -1,6 +1,6 @@
 import React from "react";
 import * as Styled from "./Card.styled";
-import { missing_image_src } from "@/components/images/Images";
+import { missing_image_src } from "@/components/Images/Images";
 
 type CardProps = {
     imagePath?: string;

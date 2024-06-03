@@ -96,11 +96,11 @@ export const TimelineIconItemRight = styled(TimelineIconItem)`
         content: "";
         position: absolute;
         width: 64px;
-        z-index: -1;
         height: 4px;
         top: 50%;
         right: 0;
         background: ${({ theme }) => theme.colors.surface.secondary};
+        z-index: -1;
     }
 `;
 
@@ -110,11 +110,11 @@ export const TimelineIconItemLeft = styled(TimelineIconItem)`
             content: "";
             position: absolute;
             width: 64px;
-            z-index: -1;
             height: 4px;
             top: 50%;
             left: 0;
             background: ${({ theme }) => theme.colors.surface.secondary};
+            z-index: -1;
         }
     }
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
@@ -122,11 +122,11 @@ export const TimelineIconItemLeft = styled(TimelineIconItem)`
             content: "";
             position: absolute;
             width: 64px;
-            z-index: -1;
             height: 4px;
             top: 50%;
             right: 0;
             background: ${({ theme }) => theme.colors.surface.secondary};
+            z-index: -1;
         }
     }
 `;

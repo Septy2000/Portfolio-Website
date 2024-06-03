@@ -2,7 +2,7 @@
 import React, { forwardRef, useState } from "react";
 import * as Styled from "./ProjectsSection.styled";
 import ProjectCard from "./ProjectCard/ProjectCard";
-import { mandelbrot_image_src, a_star_image_src } from "@/components/images/Images";
+import { mandelbrot_image_src, a_star_image_src } from "@/components/Images/Images";
 import { SpacerSmall } from "@/components/Spacer/Spacer.styled";
 import { useInView } from "react-intersection-observer";
 

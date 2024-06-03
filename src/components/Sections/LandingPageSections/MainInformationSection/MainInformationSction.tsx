@@ -1,7 +1,7 @@
 import * as Styled from "./MainInformationSection.styled";
 import HeroInformation from "./HeroInformation/HeroInformation";
-import { PortraitImage } from "@/components/images/Images.styled";
-import { portrait_src } from "@/components/images/Images";
+import { PortraitImage } from "@/components/Images/Images.styled";
+import { portrait_src } from "@/components/Images/Images";
 import { useInView } from "react-intersection-observer";
 import { forwardRef } from "react";
 import React from "react";

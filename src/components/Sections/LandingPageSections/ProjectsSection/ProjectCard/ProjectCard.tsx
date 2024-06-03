@@ -1,8 +1,8 @@
 "use client";
 import * as Styled from "./ProjectCard.styled";
 import { Project } from "@/components/Sections/LandingPageSections/ProjectsSection/ProjectsSection";
-import { missing_image_src } from "@/components/images/Images";
-import { ProjectImage } from "@/components/images/Images.styled";
+import { missing_image_src } from "@/components/Images/Images";
+import { ProjectImage } from "@/components/Images/Images.styled";
 
 export default function ProjectCard({ project }: { project: Project }) {
     return (
@@ -18,17 +18,13 @@ export default function ProjectCard({ project }: { project: Project }) {
             <Styled.Body>{project.description}</Styled.Body>
             <Styled.ButtonsContainer>
                 {project.slug ? (
-                    <Styled.ButtonLink href={`/${project.slug}`}>
-                        view project
-                    </Styled.ButtonLink>
+                    <Styled.ButtonLink href={`/${project.slug}`}>view project</Styled.ButtonLink>
                 ) : (
                     <Styled.Button disabled>view project</Styled.Button>
                 )}
 
                 {project.code_url ? (
-                    <Styled.ButtonLink href={project.code_url}>
-                        view code
-                    </Styled.ButtonLink>
+                    <Styled.ButtonLink href={project.code_url}>view code</Styled.ButtonLink>
                 ) : (
                     <Styled.Button disabled>view code</Styled.Button>
                 )}
