@@ -6,10 +6,8 @@ export const Container = styled.div<{ $index: number }>`
     display: flex;
     flex-direction: column;
     background-color: ${({ theme }) => theme.colors.surface.primary};
-    border: ${({ theme }) =>
-        `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
-    box-shadow: ${({ theme }) =>
-        `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}`};
+    border: ${({ theme }) => `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
+    box-shadow: ${({ theme }) => `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}`};
     height: 100%;
     padding: ${({ theme }) => theme.padding.small};
     justify-self: ${({ $index }) => ($index % 2 === 0 ? "start" : "end")};
@@ -38,10 +36,11 @@ export const Location = styled.h4`
     font-size: 1.5rem;
 `;
 
-export const Description = styled.p`
+export const Responsibilities = styled.ul`
     color: ${({ theme }) => theme.colors.text.primary};
     font-size: 1.4rem;
     line-height: 1.2;
+    padding: ${({ theme }) => theme.padding.small};
 `;
 
 export const Divider = styled.div`

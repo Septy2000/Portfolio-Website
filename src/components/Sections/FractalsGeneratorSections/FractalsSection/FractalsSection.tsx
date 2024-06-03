@@ -5,6 +5,8 @@ import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import { randomWithinBounds } from "@/utils/random";
+import GeneratorInformationSection from "@/components/Sections/FractalsGeneratorSections/GeneratorInformationSection/GeneratorInformationSection";
+
 import {
     createMandelbrotWorker,
     createJuliaWorker,
@@ -426,17 +428,20 @@ export default function FractalsSection() {
 
     return (
         <Styled.Container>
-            <Styled.Canvas ref={canvasRef} />
-            <Styled.MenuContainer>
-                <ParametersMenu
-                    generate={generateImageFromButton}
-                    stopGeneration={stopImageGeneration}
-                    isImageGenerated={isImageGenerated}
-                    undoZoom={undoZoom}
-                    resetZoom={resetZoom}
-                    areZoomButtonsDisabled={zoomHistory.current.length === 0}
-                />
-            </Styled.MenuContainer>
+            <GeneratorInformationSection />
+            <Styled.GeneratorContainer>
+                <Styled.Canvas ref={canvasRef} />
+                <Styled.MenuContainer>
+                    <ParametersMenu
+                        generate={generateImageFromButton}
+                        stopGeneration={stopImageGeneration}
+                        isImageGenerated={isImageGenerated}
+                        undoZoom={undoZoom}
+                        resetZoom={resetZoom}
+                        areZoomButtonsDisabled={zoomHistory.current.length === 0}
+                    />
+                </Styled.MenuContainer>
+            </Styled.GeneratorContainer>
         </Styled.Container>
     );
 }

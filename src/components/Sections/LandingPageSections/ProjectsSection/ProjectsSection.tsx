@@ -19,9 +19,13 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
         {
             title: "Fractals Explorer",
             imagePath: mandelbrot_image_src,
-            description: "Explore the Mandelbrot set and experiment with Perlin noise art",
+            description: `Create and explore mathematically generated images using different algorithms 
+                            such as the Mandelbrot set, Julia set and Perlin noise. 
+                            This project defines my starting point with web development as part 
+                            of the 3rd year individual project.`,
             slug: "fractals-explorer",
-            code_url: "https://github.com/Septy2000/Portfolio-Website",
+            code_url:
+                "https://github.com/Septy2000/Portfolio-Website/tree/main/src/components/Sections/FractalsGeneratorSections/FractalsSection",
         },
 
         // {

@@ -1,9 +1,9 @@
 "use client";
-import * as Styled from "./AboutSection.styled";
+import * as Styled from "./HeroInformation.styled";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 
-export default function AboutContainer() {
+export default function HeroInformation() {
     const nameHeaderText = "hi, I'm Septi";
     const bodyText = "i'm a junior software engineer based in London, UK.";
     const connectCta = "Let's connect and get in touch!";

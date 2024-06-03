@@ -13,7 +13,7 @@ export type TimelineItemAttributes = {
     website: string;
     date: string;
     location: string;
-    description: string;
+    responsibilities: string[];
     icon: string;
 };
 
@@ -29,8 +29,16 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
             website: "https://gocity.com/",
             date: "Sep 2023 - Feb 2024",
             location: "London, United Kingdom",
-            description:
-                "Worked on a project to develop a mobile application for a client using React Native and TypeScript",
+            responsibilities: [
+                "Worked on the Go City iOS app using MVVM+C architecture.",
+                "Participated in Agile processes: Stand-Ups, Sprint Planning, and Reviews.",
+                "Collaborated with Product, Design, and Development teams.",
+                "Engaged in code reviews and paired programming for feature development.",
+                "Enhanced understanding of iOS architecture, UI/UX design, and best practices.",
+                "Improved code testability through acquired testing skills.",
+                "Implemented production features including customer itineraries and checkout.",
+            ],
+
             icon: gocity_icon_src,
         },
         {
@@ -39,8 +47,10 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
             website: "https://www.kcl.ac.uk/",
             date: "Sep 2019 - Jun 2023",
             location: "London, United Kingdom",
-            description:
-                "Worked on a project to develop a mobile application for a client using React Native and TypeScript",
+            responsibilities: [
+                "Achieved a First-Class Honours degree in Computer Science",
+                "Acquired a strong foundation in computer science, including software engineering, data structures and algorithms, and artificial intelligence.",
+            ],
             icon: kcl_icon_src,
         },
     ];
@@ -61,9 +71,7 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
                                 <Styled.TimelineItemGroup $index={index}>
                                     <Styled.GridFiller />
                                     <Styled.TimelineIconItemRight>
-                                        <PlainLinkWrapper
-                                            href={timelineItem.website}
-                                        >
+                                        <PlainLinkWrapper href={timelineItem.website}>
                                             <ExperienceImage
                                                 src={timelineItem.icon}
                                                 alt="Experience icon"
@@ -86,9 +94,7 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
                                         index={index}
                                     />
                                     <Styled.TimelineIconItemLeft>
-                                        <PlainLinkWrapper
-                                            href={timelineItem.website}
-                                        >
+                                        <PlainLinkWrapper href={timelineItem.website}>
                                             <ExperienceImage
                                                 src={timelineItem.icon}
                                                 alt="Experience icon"

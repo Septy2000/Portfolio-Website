@@ -16,7 +16,11 @@ export default function TimelineDescriptionItem({
             <Styled.Date>{attributes.date}</Styled.Date>
             <Styled.Location>{attributes.location}</Styled.Location>
             <Styled.Divider />
-            <Styled.Description>{attributes.description}</Styled.Description>
+            <Styled.Responsibilities>
+                {attributes.responsibilities.map((responsibility, id) => (
+                    <li key={id}>{responsibility}</li>
+                ))}
+            </Styled.Responsibilities>
         </Styled.Container>
     );
 }

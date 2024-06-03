@@ -2,7 +2,8 @@
 import React, { useRef } from "react";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
 import MainInformationSection from "@/components/Sections/LandingPageSections/MainInformationSection/MainInformationSction";
-import ExperienceContainer from "@/components/Sections/LandingPageSections/ExperienceSection/ExperienceSection";
+// import AboutSection from "@/components/Sections/LandingPageSections/AboutSection/AboutSection";
+import ExperienceSection from "@/components/Sections/LandingPageSections/ExperienceSection/ExperienceSection";
 import ProjectsSection from "@/components/Sections/LandingPageSections/ProjectsSection/ProjectsSection";
 
 export default function AboutMePage() {
@@ -18,8 +19,9 @@ export default function AboutMePage() {
                 experienceRef={experienceRef}
             />
             <MainInformationSection ref={aboutRef} />
-            <ExperienceContainer ref={experienceRef} />
+            <ExperienceSection ref={experienceRef} />
             <ProjectsSection ref={projectsRef} />
+            {/* <AboutSection ref={aboutRef} /> */}
         </React.Fragment>
     );
 }

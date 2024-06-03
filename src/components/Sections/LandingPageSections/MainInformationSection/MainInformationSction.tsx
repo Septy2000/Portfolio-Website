@@ -1,5 +1,5 @@
 import * as Styled from "./MainInformationSection.styled";
-import AboutContainer from "./AboutSection/AboutSection";
+import HeroInformation from "./HeroInformation/HeroInformation";
 import { PortraitImage } from "@/components/images/Images.styled";
 import { portrait_src } from "@/components/images/Images";
 import { useInView } from "react-intersection-observer";
@@ -13,7 +13,7 @@ const MainInformationSection = forwardRef<HTMLDivElement>((props, aboutRef) => {
     return (
         <Styled.Container ref={ref} $inView={inView}>
             <Styled.InfoFlexContainer ref={aboutRef}>
-                <AboutContainer />
+                <HeroInformation />
                 <PortraitImage
                     src={portrait_src}
                     alt="Me. Image could not load"
