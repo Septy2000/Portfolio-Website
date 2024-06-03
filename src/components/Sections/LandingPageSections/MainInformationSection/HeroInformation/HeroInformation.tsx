@@ -1,4 +1,3 @@
-"use client";
 import * as Styled from "./HeroInformation.styled";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";

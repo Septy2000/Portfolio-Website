@@ -1,8 +1,8 @@
+"use client";
 import styled from "styled-components";
 
 export const ButtonDefault = styled.button`
-    background-color: ${({ theme }) =>
-        theme.colors.surface.secondary_shade.light_2};
+    background-color: ${({ theme }) => theme.colors.surface.secondary_shade.light_2};
     font-size: 1.3rem;
     color: ${({ theme }) => theme.colors.text.secondary};
     padding: 8px;

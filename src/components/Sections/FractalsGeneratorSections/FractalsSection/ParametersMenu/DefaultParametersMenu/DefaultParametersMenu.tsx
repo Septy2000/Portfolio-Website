@@ -1,5 +1,4 @@
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
-
 import * as Styled from "./DefaultParametersMenu.styled";
 import { HorizontalLabelledInputsContainer } from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput.styled";
 import HorizontalLabelledInput from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput";
@@ -38,9 +37,7 @@ export default function DefaultParametersMenu() {
                         setParameters({
                             ...parameters,
                             width: e.target.value,
-                            height: String(
-                                Math.round((parseInt(e.target.value) * 3) / 4)
-                            ),
+                            height: String(Math.round((parseInt(e.target.value) * 3) / 4)),
                         })
                     }
                 />
@@ -53,9 +50,7 @@ export default function DefaultParametersMenu() {
                     onChange={(e) =>
                         setParameters({
                             ...parameters,
-                            width: String(
-                                Math.round((parseInt(e.target.value) * 4) / 3)
-                            ),
+                            width: String(Math.round((parseInt(e.target.value) * 4) / 3)),
                             height: e.target.value,
                         })
                     }

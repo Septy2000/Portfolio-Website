@@ -1,3 +1,4 @@
+"use client";
 import styled from "styled-components";
 import { ButtonDefault } from "@/components/Button/Button.styled";
 import { BsFillPlayFill } from "react-icons/bs";

@@ -1,11 +1,11 @@
+"use client";
 import styled from "styled-components";
 
 export const SelectDefault = styled.select`
     width: 100%;
     padding: 2px;
     font-size: 1.1rem;
-    border: ${({ theme }) =>
-        `${theme.border.small} solid ${theme.colors.surface.secondary}`};
+    border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
     border-radius: 4px;
     background-color: ${({ theme }) => theme.colors.surface.primary};
     color: ${({ theme }) => theme.colors.text.primary};

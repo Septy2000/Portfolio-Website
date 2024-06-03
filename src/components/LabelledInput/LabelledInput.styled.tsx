@@ -1,3 +1,4 @@
+"use client";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -13,8 +14,7 @@ export const Input = styled.input`
     width: 100%;
     padding: 2px;
     font-size: 1.2rem;
-    border: ${({ theme }) =>
-        `${theme.border.small} solid ${theme.colors.surface.secondary}`};
+    border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
     border-radius: 4px;
     background-color: ${({ theme }) => theme.colors.surface.primary};
     color: ${({ theme }) => theme.colors.text.primary};

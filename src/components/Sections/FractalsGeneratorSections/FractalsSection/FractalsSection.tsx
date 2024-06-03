@@ -1,3 +1,4 @@
+"use client";
 import * as Styled from "./FractalsSection.styled";
 import React, { useEffect, useRef, useState } from "react";
 import { ComplexPlaneBoundary } from "@/_types/math";

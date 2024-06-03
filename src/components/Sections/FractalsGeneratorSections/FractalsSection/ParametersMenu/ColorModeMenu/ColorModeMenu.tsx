@@ -1,3 +1,4 @@
+"use client";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import React, { useEffect } from "react";
 import * as Styled from "./ColorModeMenu.styled";
@@ -6,8 +7,7 @@ import HorizontalLabelledInput from "@/components/LabelledInput/HorizontalLabell
 import LabelledSelect from "@/components/LabelledSelect/LabelledSelect";
 import { HorizontalLabelledInputsContainer } from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput.styled";
 export default function ColorModeMenu() {
-    const { colorModeParameters, setColorModeParameters, parameters } =
-        useParameters();
+    const { colorModeParameters, setColorModeParameters, parameters } = useParameters();
 
     const handleColorModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setColorModeParameters({
@@ -16,10 +16,7 @@ export default function ColorModeMenu() {
         });
     };
 
-    const handleRGBChange = (
-        e: React.ChangeEvent<HTMLInputElement>,
-        color: "r" | "g" | "b"
-    ) => {
+    const handleRGBChange = (e: React.ChangeEvent<HTMLInputElement>, color: "r" | "g" | "b") => {
         setColorModeParameters({
             ...colorModeParameters,
             rgbWeights: {
@@ -58,9 +55,7 @@ export default function ColorModeMenu() {
             >
                 <option value="smooth">Smooth</option>
                 <option value="rgb">RGB</option>
-                {parameters.algorithm !== "perlin" && (
-                    <option value="random">Random</option>
-                )}
+                {parameters.algorithm !== "perlin" && <option value="random">Random</option>}
             </LabelledSelect>
             {colorModeParameters.colorMode === "smooth" && (
                 <LabelledInput

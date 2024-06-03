@@ -1,3 +1,4 @@
+"use client";
 import * as Styled from "./MainInformationSection.styled";
 import HeroInformation from "./HeroInformation/HeroInformation";
 import { PortraitImage } from "@/components/Images/Images.styled";

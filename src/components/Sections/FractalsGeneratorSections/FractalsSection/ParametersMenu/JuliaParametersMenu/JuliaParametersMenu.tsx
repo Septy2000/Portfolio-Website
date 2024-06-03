@@ -1,3 +1,4 @@
+"use client";
 import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
 import React, { useState } from "react";
 import { ComplexNumber } from "@/_types/math";
@@ -25,9 +26,7 @@ export default function JuliaParametersMenu() {
         "Custom",
     ];
 
-    const [selectedCValue, setSelectedCValue] = useState<string>(
-        COMPLEX_LIST_OPTIONS_STRINGS[0]
-    );
+    const [selectedCValue, setSelectedCValue] = useState<string>(COMPLEX_LIST_OPTIONS_STRINGS[0]);
 
     function handleCValueChange(e: React.ChangeEvent<HTMLSelectElement>) {
         setSelectedCValue(e.target.value);
@@ -60,12 +59,7 @@ export default function JuliaParametersMenu() {
                     })
                 }
             />
-            <LabelledSelect
-                id="c"
-                label="C:"
-                value={selectedCValue}
-                onChange={handleCValueChange}
-            >
+            <LabelledSelect id="c" label="C:" value={selectedCValue} onChange={handleCValueChange}>
                 {COMPLEX_LIST_OPTIONS_STRINGS.map((complexNumber, id) => (
                     <option key={id} value={complexNumber}>
                         {complexNumber}

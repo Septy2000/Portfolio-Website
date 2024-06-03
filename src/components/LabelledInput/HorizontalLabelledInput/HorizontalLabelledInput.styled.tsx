@@ -1,9 +1,6 @@
+"use client";
 import styled from "styled-components";
-import {
-    Container,
-    Label,
-    Input,
-} from "@/components/LabelledInput/LabelledInput.styled";
+import { Container, Label, Input } from "@/components/LabelledInput/LabelledInput.styled";
 
 export const HorizontalContainer = styled(Container)`
     flex-direction: row;
