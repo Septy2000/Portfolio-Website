@@ -43,3 +43,4 @@ const AboutSection = forwardRef<HTMLDivElement>((props, aboutRef) => {
 });
 
 export default AboutSection;
+AboutSection.displayName = "AboutSection";
