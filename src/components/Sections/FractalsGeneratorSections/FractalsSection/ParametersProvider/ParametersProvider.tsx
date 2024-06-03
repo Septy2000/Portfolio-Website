@@ -1,11 +1,5 @@
 "use client";
-import {
-    createContext,
-    useContext,
-    useState,
-    useEffect,
-    ReactNode,
-} from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import {
     Parameters,
     ParametersContextType,
@@ -13,14 +7,9 @@ import {
     TypedColorModeParameters,
     ColorModeParameters,
 } from "@/_types/common";
-import {
-    convertParameters,
-    convertColorModeParameters,
-} from "@/utils/parametersTypeConversion";
+import { convertParameters, convertColorModeParameters } from "@/utils/parametersTypeConversion";
 
-const ParametersContext = createContext<ParametersContextType | undefined>(
-    undefined
-);
+const ParametersContext = createContext<ParametersContextType | undefined>(undefined);
 
 export const ParametersProvider = ({ children }: { children: ReactNode }) => {
     const [parameters, setParameters] = useState<Parameters>({
@@ -38,30 +27,25 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
         seed: "",
     });
 
-    const [colorModeParameters, setColorModeParameters] =
-        useState<ColorModeParameters>({
-            colorMode: "smooth",
-            colorIntensity: "1",
-            rgbWeights: { r: "1", g: "1", b: "1" },
-            numberOfRandomColors: "16",
-        });
+    const [colorModeParameters, setColorModeParameters] = useState<ColorModeParameters>({
+        colorMode: "smooth",
+        colorIntensity: "1",
+        rgbWeights: { r: "1", g: "1", b: "1" },
+        numberOfRandomColors: "16",
+    });
 
     const [typedParameters, setTypedParameters] = useState<TypedParameters>(
         convertParameters(parameters)
     );
     const [typedColorModeParameters, setTypedColorModeParameters] =
-        useState<TypedColorModeParameters>(
-            convertColorModeParameters(colorModeParameters)
-        );
+        useState<TypedColorModeParameters>(convertColorModeParameters(colorModeParameters));
 
     useEffect(() => {
         setTypedParameters(convertParameters(parameters));
     }, [parameters]);
 
     useEffect(() => {
-        setTypedColorModeParameters(
-            convertColorModeParameters(colorModeParameters)
-        );
+        setTypedColorModeParameters(convertColorModeParameters(colorModeParameters));
     }, [colorModeParameters]);
 
     return (
@@ -83,9 +67,7 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
 export const useParameters = () => {
     const context = useContext(ParametersContext);
     if (!context) {
-        throw new Error(
-            "useParameters must be used within a ParametersProvider"
-        );
+        throw new Error("useParameters must be used within a ParametersProvider");
     }
     return context;
 };

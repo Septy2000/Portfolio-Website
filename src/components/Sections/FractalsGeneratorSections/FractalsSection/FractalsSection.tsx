@@ -269,7 +269,7 @@ export default function FractalsSection() {
         // Reset complex plane boundaries and scaling factor
         complexPlaneBoundariesRef.current = defaultComplexPlaneBoundaries;
         scalingFactorRef.current = canvasRef.current
-            ? localTypedParametersRef.current.width / 800
+            ? localTypedParametersRef.current.width / 1200
             : 1;
 
         const seed = isNaN(localTypedParametersRef.current.customSeed)
@@ -324,6 +324,7 @@ export default function FractalsSection() {
 
         isZoomingRef.current = true;
         zoomStartCoordinatesRef.current = { xStart, yStart };
+
         canvasImageDataRef.current =
             contextRef.current?.getImageData(
                 0,

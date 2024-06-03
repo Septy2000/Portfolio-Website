@@ -13,9 +13,8 @@ export const MenuContainer = styled.div`
     align-items: center;
 `;
 export const Canvas = styled.canvas`
-    width: 800px;
-    height: 600px;
+    width: 1200px;
+    height: 900px;
     border-radius: ${({ theme }) => theme.borderRadius.small};
-    border: ${({ theme }) =>
-        `${theme.border.small} solid ${theme.colors.surface.secondary}`};
+    border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
 `;
