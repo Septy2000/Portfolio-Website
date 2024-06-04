@@ -30,13 +30,13 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
                 "https://github.com/Septy2000/Portfolio-Website/tree/main/src/components/Sections/FractalsGeneratorSections/FractalsSection",
         },
 
-        // {
-        //     title: "A* Algorithm Visualiser",
-        //     imagePath: a_star_image_src,
-        //     description: "Visualise and experiment with the A* algorithm",
-        //     slug: undefined,
-        //     code_url: "https://github.com/Septy2000/Portfolio-Website",
-        // },
+        {
+            title: "A* Algorithm Visualiser",
+            imagePath: a_star_image_src,
+            description: "Visualise and experiment with the A* algorithm",
+            slug: undefined,
+            code_url: "https://github.com/Septy2000/Portfolio-Website",
+        },
     ];
     const [selectedProject, setSelectedProject] = useState<Project>(projects[0]);
 
@@ -63,12 +63,13 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
                             key={index}
                             onClick={() => handleProjectItemClick(project)}
                             $isSelected={selectedProject?.title === project.title}
+                            $inView={inView}
                         >
                             <Styled.ProjectItemTitle>{project.title}</Styled.ProjectItemTitle>
                         </Styled.ProjectItemContainer>
                     ))}
                 </Styled.ProjectsList>
-                <ProjectCard project={selectedProject} />
+                <ProjectCard project={selectedProject} inView={inView} />
             </Styled.ProjectsContainer>
             <SpacerSmall />
         </Styled.Container>

@@ -3,9 +3,9 @@ import { Project } from "@/components/Sections/LandingPageSections/ProjectsSecti
 import { missing_image_src } from "@/components/Images/Images";
 import { ProjectImage } from "@/components/Images/Images.styled";
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({ project, inView }: { project: Project; inView: boolean }) {
     return (
-        <Styled.Container>
+        <Styled.Container $inView={inView}>
             <ProjectImage
                 src={project.imagePath ?? missing_image_src}
                 width={400}

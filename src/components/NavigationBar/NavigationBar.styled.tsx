@@ -30,6 +30,7 @@ export const NavigationLink = styled.h2`
     margin: 0 ${({ theme }) => theme.margin.medium};
     text-decoration: none;
     color: ${({ theme }) => theme.colors.text.secondary};
+    cursor: pointer;
     &:after {
         content: "";
         position: relative;

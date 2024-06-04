@@ -46,23 +46,27 @@ export const ProjectsList = styled.div`
     align-items: center;
 `;
 
-export const ProjectItemContainer = styled.div<{ $isSelected: boolean }>`
+export const ProjectItemContainer = styled.div<{ $isSelected: boolean; $inView: boolean }>`
     padding: ${({ theme }) => theme.padding.small};
     cursor: pointer;
     user-select: none;
     width: 100%;
-    background: ${({ theme, $isSelected }) =>
-        $isSelected ? theme.colors.surface.primary_shade.dark_1 : theme.colors.surface.primary};
+    transition: box-shadow 0.5s, background 0.5s;
 
-    transition: ${({ $isSelected }) => ($isSelected ? "box-shadow 0.4s" : "box-shadow 1s")};
-    box-shadow: ${({ theme, $isSelected }) =>
-        $isSelected
+    background: ${({ theme, $inView, $isSelected }) =>
+        $isSelected || !$inView
+            ? theme.colors.surface.primary_shade.dark_1
+            : theme.colors.surface.primary};
+    box-shadow: ${({ theme, $inView, $isSelected }) =>
+        $isSelected && $inView
             ? `inset 5px 5px 5px -1px ${theme.colors.surface.primary_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.surface.primary_shade.dark_1}`
             : "none"};
     h2 {
-        transition: ${({ $isSelected }) => ($isSelected ? "text-shadow 0.4s" : "text-shadow 1s")};
-        text-shadow: ${({ theme, $isSelected }) =>
-            $isSelected ? `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}` : "none"};
+        transition: text-shadow 0.5s;
+        text-shadow: ${({ theme, $inView, $isSelected }) =>
+            $isSelected || !$inView
+                ? `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}`
+                : "none"};
     }
 `;
 

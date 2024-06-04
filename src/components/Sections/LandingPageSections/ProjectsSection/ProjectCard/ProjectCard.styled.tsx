@@ -3,17 +3,17 @@ import styled from "styled-components";
 import Link from "next/link";
 import { ButtonDefault } from "@/components/Button/Button.styled";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $inView: boolean }>`
     display: flex;
     flex-direction: column;
-    background-color: ${({ theme }) => theme.colors.surface.primary};
+    background-color: ${({ $inView, theme }) =>
+        $inView ? theme.colors.surface.primary : theme.colors.surface.primary_shade.dark_1};
     overflow: hidden;
 `;
 
 export const Header = styled.h2`
     color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: ${({ theme }) => theme.margin.small};
-    /* font-size: 2rem; */
 `;
 
 export const Body = styled.p`
