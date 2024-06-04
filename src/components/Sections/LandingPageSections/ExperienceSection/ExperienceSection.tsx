@@ -59,7 +59,7 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
         <Styled.Container ref={ref} $inView={inView}>
             {/* <SpacerSmall /> */}
             <Styled.ScrollToExperienceHeader ref={experienceRef} $inView={inView}>
-                Scroll to check my experience &darr;
+                scroll to check my experience &darr;
             </Styled.ScrollToExperienceHeader>
             <Styled.TimelineGridContainer>
                 <SpacerSmall />
