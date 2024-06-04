@@ -10,6 +10,7 @@ export type Project = {
     title: string;
     imagePath: string;
     description: string;
+    note?: string;
     slug?: string;
     code_url?: string;
 };
@@ -23,6 +24,7 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
                             such as the Mandelbrot set, Julia set and Perlin noise. 
                             This project defines my starting point with web development as part 
                             of the 3rd year individual project.`,
+            note: "Note: use a computer for the best experience.",
             slug: "fractals-explorer",
             code_url:
                 "https://github.com/Septy2000/Portfolio-Website/tree/main/src/components/Sections/FractalsGeneratorSections/FractalsSection",

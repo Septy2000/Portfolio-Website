@@ -15,6 +15,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             />
             <Styled.Header>{project.title}</Styled.Header>
             <Styled.Body>{project.description}</Styled.Body>
+            {project.note && <Styled.Note>{project.note}</Styled.Note>}
             <Styled.ButtonsContainer>
                 {project.slug ? (
                     <Styled.ButtonLink href={`/${project.slug}`}>view project</Styled.ButtonLink>

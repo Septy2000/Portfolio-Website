@@ -22,6 +22,12 @@ export const Body = styled.p`
     line-height: 1.2;
 `;
 
+export const Note = styled.p`
+    color: ${({ theme }) => theme.colors.text.primary};
+    line-height: 1.2;
+    margin: ${({ theme }) => theme.margin.small} 0;
+`;
+
 export const ButtonsContainer = styled.div`
     display: flex;
     justify-content: space-between;
