@@ -18,7 +18,7 @@ export const Container = styled.div<{ $inView: boolean }>`
         `}
 `;
 
-export const ScrollToExperienceHeader = styled.h1`
+export const ScrollToExperienceHeader = styled.h2`
     margin-bottom: ${({ theme }) => theme.margin.medium};
     color: ${({ theme }) => theme.colors.text.primary};
     text-shadow: ${({ theme }) => `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}`};

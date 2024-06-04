@@ -17,6 +17,10 @@ export const Container = styled.div<{ $inView: boolean }>`
             box-shadow: none;
             background: ${({ theme }) => theme.colors.surface.primary};
         `}
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        height: 80vh;
+    }
 `;
 
 export const InfoFlexContainer = styled.div`

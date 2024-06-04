@@ -11,21 +11,21 @@ export const Container = styled.div`
 `;
 
 export const NameHeader = styled.h1`
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: ${({ theme }) => theme.colors.orange};
     margin-bottom: ${({ theme }) => theme.margin.small};
 `;
 
 export const Body = styled.p`
+    font-size: 1.5rem;
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.6rem;
     line-height: 1.4;
     margin: 0 ${({ theme }) => theme.margin.small};
 `;
 
 export const ConnectCta = styled.p`
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin: ${({ theme }) => theme.margin.small};
 `;
 

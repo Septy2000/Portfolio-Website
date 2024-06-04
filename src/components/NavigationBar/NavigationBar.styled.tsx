@@ -11,7 +11,7 @@ export const Header = styled.header`
     background-color: ${({ theme }) => theme.colors.surface.secondary};
 `;
 
-export const Name = styled.h1`
+export const Name = styled.h2`
     color: ${({ theme }) => theme.colors.orange};
 `;
 
@@ -50,7 +50,7 @@ export const NavigationLink = styled.h2`
 export const HamburgerIcon = styled(FaBars)`
     display: none;
     color: ${({ theme }) => theme.colors.orange};
-    font-size: 2rem;
+    font-size: 1.5rem;
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         display: block;
@@ -60,7 +60,7 @@ export const HamburgerIcon = styled(FaBars)`
 export const CloseIcon = styled(FaTimes)`
     display: none;
     color: ${({ theme }) => theme.colors.orange};
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: ${({ theme }) => theme.margin.medium};
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         display: block;
@@ -91,6 +91,5 @@ export const MobileMenu = styled.div`
 `;
 
 export const MobileNavigationLink = styled(NavigationLink)`
-    font-size: 2rem;
-    margin: ${({ theme }) => theme.margin.medium} 0;
+    margin: ${({ theme }) => theme.margin.small} 0;
 `;
