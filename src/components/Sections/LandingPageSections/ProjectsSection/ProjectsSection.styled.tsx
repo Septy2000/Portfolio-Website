@@ -59,8 +59,7 @@ export const ProjectItemContainer = styled.div<{ $isSelected: boolean }>`
         $isSelected
             ? `inset 5px 5px 5px -1px ${theme.colors.surface.primary_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.surface.primary_shade.dark_1}`
             : "none"};
-    p {
-        font-size: 1.8rem;
+    h2 {
         transition: ${({ $isSelected }) => ($isSelected ? "text-shadow 0.4s" : "text-shadow 1s")};
         text-shadow: ${({ theme, $isSelected }) =>
             $isSelected ? `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}` : "none"};

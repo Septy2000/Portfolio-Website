@@ -29,14 +29,14 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const Button = styled(ButtonDefault)`
-    width: 45%;
+    width: 48%;
 `;
 
 export const ButtonLink = styled(Link)`
     background-color: ${({ theme }) => theme.colors.surface.secondary_shade.light_2};
     font-size: 1.3rem;
     color: ${({ theme }) => theme.colors.text.secondary};
-    width: 45%;
+    width: 48%;
     padding: ${({ theme }) => theme.padding.small};
     border: none;
     border-radius: ${({ theme }) => theme.borderRadius.small};
