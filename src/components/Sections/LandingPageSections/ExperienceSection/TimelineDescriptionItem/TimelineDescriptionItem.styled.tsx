@@ -16,31 +16,27 @@ export const Container = styled.div<{ $index: number }>`
 
 export const Title = styled.h2`
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.8rem;
 `;
 
-export const Company = styled.h3`
+export const Company = styled.h2`
     color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: ${({ theme }) => theme.margin.small};
-    font-size: 1.8rem;
 `;
 
 export const Date = styled.h4`
     color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: ${({ theme }) => theme.margin.small};
-    font-size: 1.5rem;
 `;
 
 export const Location = styled.h4`
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.5rem;
 `;
 
 export const Responsibilities = styled.ul`
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.4rem;
-    line-height: 1.2;
+    line-height: 1.3;
     padding: ${({ theme }) => theme.padding.small};
+    font-size: 1.1rem;
 `;
 
 export const Divider = styled.div`

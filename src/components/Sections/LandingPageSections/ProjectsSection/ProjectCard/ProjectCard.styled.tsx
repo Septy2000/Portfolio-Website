@@ -13,12 +13,12 @@ export const Container = styled.div`
 export const Header = styled.h2`
     color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: ${({ theme }) => theme.margin.small};
-    font-size: 2rem;
+    /* font-size: 2rem; */
 `;
 
 export const Body = styled.p`
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     line-height: 1.2;
 `;
 
@@ -33,8 +33,7 @@ export const Button = styled(ButtonDefault)`
 `;
 
 export const ButtonLink = styled(Link)`
-    background-color: ${({ theme }) =>
-        theme.colors.surface.secondary_shade.light_2};
+    background-color: ${({ theme }) => theme.colors.surface.secondary_shade.light_2};
     font-size: 1.3rem;
     color: ${({ theme }) => theme.colors.text.secondary};
     width: 45%;

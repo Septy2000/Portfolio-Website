@@ -21,8 +21,8 @@ export const MenuContainer = styled.div`
     align-items: center;
 `;
 export const Canvas = styled.canvas`
-    width: 1200px;
-    height: 900px;
+    width: 800;
+    height: 600px;
     border-radius: ${({ theme }) => theme.borderRadius.small};
     border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
 `;

@@ -6,8 +6,7 @@ export const Container = styled.div<{ $inView: boolean }>`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: ${({ theme }) =>
-        `${theme.padding.xlarge} ${theme.padding.medium}`};
+    padding: ${({ theme }) => `${theme.padding.xlarge} ${theme.padding.medium}`};
     box-shadow: ${({ theme }) =>
         `inset 10px 10px 10px -1px ${theme.colors.surface.primary_shade.dark_3}, inset -10px -10px 10px -1px ${theme.colors.surface.primary_shade.dark_1}`};
     background: ${({ theme }) => theme.colors.surface.primary_shade.dark_1};
@@ -21,7 +20,6 @@ export const Container = styled.div<{ $inView: boolean }>`
 `;
 
 export const ProjectsSectionTitle = styled.h1`
-    font-size: 2.5rem;
     color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: ${({ theme }) => theme.margin.medium};
 `;
@@ -54,28 +52,22 @@ export const ProjectItemContainer = styled.div<{ $isSelected: boolean }>`
     user-select: none;
     width: 100%;
     background: ${({ theme, $isSelected }) =>
-        $isSelected
-            ? theme.colors.surface.primary_shade.dark_1
-            : theme.colors.surface.primary};
+        $isSelected ? theme.colors.surface.primary_shade.dark_1 : theme.colors.surface.primary};
 
-    transition: ${({ $isSelected }) =>
-        $isSelected ? "box-shadow 0.4s" : "box-shadow 1s"};
+    transition: ${({ $isSelected }) => ($isSelected ? "box-shadow 0.4s" : "box-shadow 1s")};
     box-shadow: ${({ theme, $isSelected }) =>
         $isSelected
             ? `inset 5px 5px 5px -1px ${theme.colors.surface.primary_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.surface.primary_shade.dark_1}`
             : "none"};
     p {
         font-size: 1.8rem;
-        transition: ${({ $isSelected }) =>
-            $isSelected ? "text-shadow 0.4s" : "text-shadow 1s"};
+        transition: ${({ $isSelected }) => ($isSelected ? "text-shadow 0.4s" : "text-shadow 1s")};
         text-shadow: ${({ theme, $isSelected }) =>
-            $isSelected
-                ? `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}`
-                : "none"};
+            $isSelected ? `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}` : "none"};
     }
 `;
 
-export const ProjectItemTitle = styled.p`
-    font-size: 1.5rem;
+export const ProjectItemTitle = styled.h2`
+    font-weight: normal;
     color: ${({ theme }) => theme.colors.text.primary};
 `;

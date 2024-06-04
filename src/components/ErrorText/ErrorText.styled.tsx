@@ -15,5 +15,5 @@ export const ErrorText = styled.p`
 export const BsExclamationCircleIcon = styled(BsExclamationCircle)`
     color: ${({ theme }) => theme.colors.error};
     margin-right: 2px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 `;

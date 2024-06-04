@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const InfoIcon = styled(BsFillInfoCircleFill)`
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 2rem;
+    font-size: 1.4rem;
     margin-right: 4px;
 `;
 
@@ -25,5 +25,5 @@ export const InfoContainer = styled.div`
 
 export const InfoText = styled.p`
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.5rem;
+    font-size: 1rem;
 `;

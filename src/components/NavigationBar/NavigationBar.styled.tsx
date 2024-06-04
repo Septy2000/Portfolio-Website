@@ -11,7 +11,6 @@ export const Header = styled.header`
 `;
 
 export const Name = styled.h1`
-    font-size: 2rem;
     color: ${({ theme }) => theme.colors.orange};
 `;
 
@@ -21,8 +20,8 @@ export const NavigationContainer = styled.nav`
     margin-left: ${({ theme }) => theme.margin.medium};
 `;
 
-export const NavigationLink = styled.div`
-    font-size: 1.5rem;
+export const NavigationLink = styled.h2`
+    font-weight: normal;
     margin: 0 ${({ theme }) => theme.margin.medium};
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         margin: 0 ${({ theme }) => theme.margin.small};
