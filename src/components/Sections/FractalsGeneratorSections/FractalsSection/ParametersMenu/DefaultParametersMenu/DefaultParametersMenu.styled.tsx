@@ -8,6 +8,12 @@ export const Container = styled.div`
     justify-content: center;
 `;
 
+export const PseudoLabel = styled.p`
+    color: ${({ theme }) => theme.colors.text.primary};
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+`;
+
 export const HorizontalLabelledInputsContainer = styled.div`
     display: flex;
     flex-direction: row;

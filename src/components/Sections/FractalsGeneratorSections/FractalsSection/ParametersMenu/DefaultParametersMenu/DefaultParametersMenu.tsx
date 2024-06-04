@@ -26,7 +26,7 @@ export default function DefaultParametersMenu() {
                 <option value="julia">Julia Set</option>
                 <option value="perlin">Perlin Noise</option>
             </LabelledSelect>
-            <Label htmlFor="resolution">Resolution:</Label>
+            <Styled.PseudoLabel>Resolution:</Styled.PseudoLabel>
             <HorizontalLabelledInputsContainer>
                 <HorizontalLabelledInput
                     id="width"

@@ -35,7 +35,7 @@ export const Canvas = styled.canvas`
     border-radius: ${({ theme }) => theme.borderRadius.small};
     border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
 
-    @media (max-width: ${({ theme }) => theme.screen.small}) {
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
         width: 100%;
         height: auto;
     }
