@@ -67,10 +67,17 @@ export default function FractalsSection() {
         canvas.width = localTypedParametersRef.current.width;
         canvas.height = localTypedParametersRef.current.height;
         contextRef.current = canvas.getContext("2d");
+
         canvas.addEventListener("mousedown", handleMouseDown);
         canvas.addEventListener("mousemove", handleMouseMove);
         canvas.addEventListener("mouseup", handleMouseUp);
         canvas.addEventListener("mouseout", handleMouseOut);
+
+        // Added touch events for mobile devices
+        canvas.addEventListener("touchstart", handleMouseDown);
+        canvas.addEventListener("touchmove", handleMouseMove);
+        canvas.addEventListener("touchend", handleMouseUp);
+        canvas.addEventListener("touchcancel", handleMouseOut);
     }
 
     function drawFractalPixel(x: number, y: number, iterations: number) {
@@ -318,12 +325,15 @@ export default function FractalsSection() {
         isGeneratingRef.current = false;
     }
 
-    function handleMouseDown(e: MouseEvent) {
-        if (!canvasRef.current || !canZoom.current || e.button != 0) return;
+    function handleMouseDown(e: MouseEvent | TouchEvent) {
+        if (!canvasRef.current || !canZoom.current) return;
 
         const rect = canvasRef.current.getBoundingClientRect();
-        const xStart = (e.clientX - rect.left) * scalingFactorRef.current;
-        const yStart = (e.clientY - rect.top) * scalingFactorRef.current;
+        const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+        const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+
+        const xStart = (clientX - rect.left) * scalingFactorRef.current;
+        const yStart = (clientY - rect.top) * scalingFactorRef.current;
 
         isZoomingRef.current = true;
         zoomStartCoordinatesRef.current = { xStart, yStart };
@@ -337,7 +347,7 @@ export default function FractalsSection() {
             ) || null;
     }
 
-    function handleMouseMove(e: MouseEvent) {
+    function handleMouseMove(e: MouseEvent | TouchEvent) {
         if (!canvasRef.current || !zoomStartCoordinatesRef.current || !isZoomingRef.current) return;
 
         const ctx = contextRef.current;
@@ -347,9 +357,11 @@ export default function FractalsSection() {
         const yStart = zoomStartCoordinatesRef.current.yStart;
 
         const rect = canvasRef.current.getBoundingClientRect();
+        const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+        const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
 
-        const xMouse = (e.clientX - rect.left) * scalingFactorRef.current;
-        const yMouse = (e.clientY - rect.top) * scalingFactorRef.current;
+        const xMouse = (clientX - rect.left) * scalingFactorRef.current;
+        const yMouse = (clientY - rect.top) * scalingFactorRef.current;
 
         ctx.putImageData(canvasImageDataRef.current, 0, 0);
 
@@ -363,7 +375,7 @@ export default function FractalsSection() {
         );
     }
 
-    function handleMouseUp(e: MouseEvent) {
+    function handleMouseUp(e: MouseEvent | TouchEvent) {
         if (!canvasRef.current || !zoomStartCoordinatesRef.current || !isZoomingRef.current) return;
 
         isZoomingRef.current = false;
@@ -371,12 +383,14 @@ export default function FractalsSection() {
         zoomHistory.current = [...zoomHistory.current, complexPlaneBoundariesRef.current];
 
         const rect = canvasRef.current.getBoundingClientRect();
+        const clientX = "changedTouches" in e ? e.changedTouches[0].clientX : e.clientX;
+        const clientY = "changedTouches" in e ? e.changedTouches[0].clientY : e.clientY;
 
         const xStart = zoomStartCoordinatesRef.current.xStart;
         const yStart = zoomStartCoordinatesRef.current.yStart;
 
-        const xMouse = (e.clientX - rect.left) * scalingFactorRef.current;
-        const yMouse = (e.clientY - rect.top) * scalingFactorRef.current;
+        const xMouse = (clientX - rect.left) * scalingFactorRef.current;
+        const yMouse = (clientY - rect.top) * scalingFactorRef.current;
 
         const xEnd = xStart + (((xMouse > xStart ? 1 : -1) * 4) / 3) * Math.abs(yMouse - yStart);
         const yEnd = yMouse;

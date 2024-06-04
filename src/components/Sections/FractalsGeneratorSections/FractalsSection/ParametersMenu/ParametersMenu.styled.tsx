@@ -15,6 +15,12 @@ export const Container = styled.div`
     border-radius: ${({ theme }) => theme.borderRadius.small};
     max-width: 300px;
     height: 100%;
+
+    @media (max-width: ${({ theme }) => theme.screen.small}) {
+        margin: ${({ theme }) => theme.margin.small} 0;
+        width: 100%;
+        max-width: none;
+    }
 `;
 
 export const MenusContainer = styled.div`
@@ -32,6 +38,16 @@ export const HorizontalButtonsContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin: 8px 0;
+
+    @media (max-width: ${({ theme }) => theme.screen.small}) {
+        flex-direction: column;
+        align-items: center;
+
+        button {
+            width: 100%;
+            margin-bottom: ${({ theme }) => theme.margin.small};
+        }
+    }
 `;
 
 export const ControlButton = styled(ButtonDefault)`
@@ -40,6 +56,10 @@ export const ControlButton = styled(ButtonDefault)`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: ${({ theme }) => theme.screen.small}) {
+        width: 100%;
+    }
 `;
 
 export const PlayIcon = styled(BsFillPlayFill)`
