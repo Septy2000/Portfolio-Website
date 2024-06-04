@@ -6,7 +6,7 @@ export const Header = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: ${({ theme }) => theme.padding.medium};
+    padding: ${({ theme }) => theme.padding.small};
     background-color: ${({ theme }) => theme.colors.surface.secondary};
 `;
 

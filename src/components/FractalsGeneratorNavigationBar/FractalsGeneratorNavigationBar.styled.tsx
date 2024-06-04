@@ -1,17 +1,7 @@
 "use client";
 import styled from "styled-components";
 import { BsArrowLeft } from "react-icons/bs";
-
 import Link from "next/link";
-
-export const Header = styled.header`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: ${({ theme }) => theme.padding.medium};
-    background-color: ${({ theme }) => theme.colors.surface.secondary};
-`;
 
 export const BackButtonContainer = styled.div`
     display: flex;
