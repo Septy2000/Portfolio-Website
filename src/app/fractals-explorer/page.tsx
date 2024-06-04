@@ -7,7 +7,6 @@ export default function FractalsExplorerPage() {
     return (
         <ParametersProvider>
             <FractalsGeneratorNavigationBar />
-            <SpacerMedium />
             <FractalsSection />
             <SpacerMedium />
         </ParametersProvider>
