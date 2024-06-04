@@ -18,16 +18,16 @@ export type Project = {
 const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) => {
     const projects: Project[] = [
         {
-            title: "Fractals Explorer",
+            title: "Procedural Art Generator",
             imagePath: mandelbrot_image_src,
             description: `Create and explore mathematically generated images using different algorithms 
                             such as the Mandelbrot set, Julia set and Perlin noise. 
                             This project defines my starting point with web development as part 
                             of the 3rd year individual project.`,
             note: "Note: for the best experience, use a desktop browser.",
-            slug: "fractals-explorer",
+            slug: "procedural-art-generator",
             code_url:
-                "https://github.com/Septy2000/Portfolio-Website/tree/main/src/components/Sections/FractalsGeneratorSections/FractalsSection",
+                "https://github.com/Septy2000/Portfolio-Website/tree/main/src/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection",
         },
 
         // {

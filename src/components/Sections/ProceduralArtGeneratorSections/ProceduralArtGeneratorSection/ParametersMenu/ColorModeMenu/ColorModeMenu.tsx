@@ -1,5 +1,5 @@
 "use client";
-import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
 import React, { useEffect } from "react";
 import * as Styled from "./ColorModeMenu.styled";
 import LabelledInput from "@/components/LabelledInput/LabelledInput";

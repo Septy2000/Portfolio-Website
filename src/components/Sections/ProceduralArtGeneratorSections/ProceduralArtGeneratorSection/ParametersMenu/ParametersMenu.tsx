@@ -1,10 +1,10 @@
-import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
 import * as Styled from "./ParametersMenu.styled";
 import DefaultParametersMenu from "./DefaultParametersMenu/DefaultParametersMenu";
 import MandelbrotParametersMenu from "./MandelbrotParametersMenu/MandelbrotParametersMenu";
 import JuliaParametersMenu from "./JuliaParametersMenu/JuliaParametersMenu";
 import PerlinNoiseParametersMenu from "./PerlinNoiseParametersMenu/PerlinNoiseParametersMenu";
-import ColorModeMenu from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
+import ColorModeMenu from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
 import { isParametersMenuInputValid } from "@/utils/parametersValidation";
 import InputError from "./InputError";
 import React from "react";

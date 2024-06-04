@@ -1,4 +1,4 @@
-import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
 import React from "react";
 import * as Styled from "./PerlinNoiseParametersMenu.styled";
 import LabelledInput from "@/components/LabelledInput/LabelledInput";
@@ -38,7 +38,7 @@ export default function PerlinNoiseParametersMenu() {
                 type="number"
                 value={parameters.customSeed}
                 onChange={(e) =>
-                    setParameters({ 
+                    setParameters({
                         ...parameters,
                         customSeed: e.target.value,
                         seed: e.target.value,

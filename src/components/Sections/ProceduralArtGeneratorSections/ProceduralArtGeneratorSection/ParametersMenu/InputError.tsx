@@ -1,7 +1,7 @@
 import ErrorText from "@/components/ErrorText/ErrorText";
 import React from "react";
 import * as InputValidation from "@/utils/parametersValidation";
-import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
 
 export default function InputError() {
     const { typedColorModeParameters, typedParameters, parameters } = useParameters();

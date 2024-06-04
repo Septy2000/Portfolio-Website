@@ -1,12 +1,12 @@
 "use client";
-import * as Styled from "./FractalsSection.styled";
+import * as Styled from "./ProceduralArtGeneratorSection.styled";
 import React, { useEffect, useRef, useState } from "react";
 import { ComplexPlaneBoundary } from "@/_types/math";
 import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
-import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
 import { randomWithinBounds } from "@/utils/random";
-import GeneratorInformationSection from "@/components/Sections/FractalsGeneratorSections/GeneratorInformationSection/GeneratorInformationSection";
+import GeneratorInformationSection from "@/components/Sections/ProceduralArtGeneratorSections/GeneratorInformationSection/GeneratorInformationSection";
 
 import {
     createMandelbrotWorker,
@@ -15,7 +15,7 @@ import {
 } from "@/utils/workers/workers";
 import { TypedParameters } from "@/_types/common";
 
-export default function FractalsSection() {
+export default function ProceduralArtGeneratorSection() {
     const [isImageGenerated, setIsImageGenerated] = useState(true);
 
     const isGeneratingRef = useRef(false);

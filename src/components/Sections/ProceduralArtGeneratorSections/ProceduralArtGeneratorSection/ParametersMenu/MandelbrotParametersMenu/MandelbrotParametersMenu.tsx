@@ -1,4 +1,4 @@
-import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
 import React from "react";
 import * as Styled from "./MandelbrotParametersMenu.styled";
 import LabelledInput from "@/components/LabelledInput/LabelledInput";

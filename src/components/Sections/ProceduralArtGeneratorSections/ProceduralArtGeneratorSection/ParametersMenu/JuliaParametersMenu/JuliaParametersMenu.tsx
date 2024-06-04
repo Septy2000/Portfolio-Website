@@ -1,5 +1,5 @@
 "use client";
-import { useParameters } from "@/components/Sections/FractalsGeneratorSections/FractalsSection/ParametersProvider/ParametersProvider";
+import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
 import React, { useState } from "react";
 import { ComplexNumber } from "@/_types/math";
 import * as Styled from "./JuliaParametersMenu.styled";
