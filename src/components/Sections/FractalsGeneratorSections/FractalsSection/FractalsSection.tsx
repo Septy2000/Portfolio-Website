@@ -326,6 +326,8 @@ export default function FractalsSection() {
     }
 
     function handleMouseDown(e: MouseEvent | TouchEvent) {
+        e.preventDefault();
+
         if (!canvasRef.current || !canZoom.current) return;
 
         const rect = canvasRef.current.getBoundingClientRect();
@@ -348,6 +350,8 @@ export default function FractalsSection() {
     }
 
     function handleMouseMove(e: MouseEvent | TouchEvent) {
+        e.preventDefault();
+
         if (!canvasRef.current || !zoomStartCoordinatesRef.current || !isZoomingRef.current) return;
 
         const ctx = contextRef.current;
@@ -376,6 +380,8 @@ export default function FractalsSection() {
     }
 
     function handleMouseUp(e: MouseEvent | TouchEvent) {
+        e.preventDefault();
+
         if (!canvasRef.current || !zoomStartCoordinatesRef.current || !isZoomingRef.current) return;
 
         isZoomingRef.current = false;
