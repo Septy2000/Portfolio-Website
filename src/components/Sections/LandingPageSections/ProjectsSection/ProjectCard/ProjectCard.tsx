@@ -17,8 +17,12 @@ export default function ProjectCard({ project, inView }: { project: Project; inV
             <Styled.Body>{project.description}</Styled.Body>
             {project.note && <Styled.Note>{project.note}</Styled.Note>}
             <Styled.ButtonsContainer>
-                {project.slug ? (
-                    <Styled.ButtonLink href={`/${project.slug}`}>view project</Styled.ButtonLink>
+                {project.url ? (
+                    <Styled.ButtonLink
+                        href={project.url.startsWith("http") ? project.url : `/${project.url}`}
+                    >
+                        view project
+                    </Styled.ButtonLink>
                 ) : (
                     <Styled.Button disabled>view project</Styled.Button>
                 )}

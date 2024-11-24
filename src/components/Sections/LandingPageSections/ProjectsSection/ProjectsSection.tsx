@@ -2,7 +2,7 @@
 import React, { forwardRef, useState } from "react";
 import * as Styled from "./ProjectsSection.styled";
 import ProjectCard from "./ProjectCard/ProjectCard";
-import { mandelbrot_image_src, a_star_image_src } from "@/components/Images/Images";
+import { mandelbrot_image_src, a_star_image_src, wpf_image_src } from "@/components/Images/Images";
 import { SpacerSmall } from "@/components/Spacer/Spacer.styled";
 import { useInView } from "react-intersection-observer";
 
@@ -11,7 +11,7 @@ export type Project = {
     imagePath: string;
     description: string;
     note?: string;
-    slug?: string;
+    url?: string;
     code_url?: string;
 };
 
@@ -25,9 +25,17 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
                             This project defines my starting point with web development as part 
                             of the 3rd year individual project.`,
             note: "Note: for the best experience, use a desktop browser.",
-            slug: "procedural-art-generator",
+            url: "procedural-art-generator",
             code_url:
                 "https://github.com/Septy2000/Portfolio-Website/tree/main/src/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection",
+        },
+        {
+            title: "Wild Poppy Films",
+            imagePath: wpf_image_src,
+            description: `Wild Poppy Films is an independent production company dedicated to 
+                supporting emerging storytellers to develop conversation-sparking-question-raising films.`,
+            url: "https://www.wildpoppyfilms.com",
+            code_url: "https://www.google.com",
         },
 
         // {

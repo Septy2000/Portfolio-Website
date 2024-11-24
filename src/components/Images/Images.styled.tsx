@@ -26,6 +26,7 @@ export const ExperienceImage = styled(Image)`
 export const ProjectImage = styled(Image)`
     width: 100%;
     height: 100%;
+    aspect-ratio: 4/3;
     border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
     margin-bottom: ${({ theme }) => theme.margin.small};
     border-radius: ${({ theme }) => theme.borderRadius.small};

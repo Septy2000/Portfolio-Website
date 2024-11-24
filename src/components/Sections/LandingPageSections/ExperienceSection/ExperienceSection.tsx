@@ -57,60 +57,43 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
 
     return (
         <Styled.Container ref={ref} $inView={inView}>
-            {/* <SpacerSmall /> */}
             <Styled.ScrollToExperienceHeader ref={experienceRef} $inView={inView}>
-                scroll to check my experience &darr;
+                scroll to check my experience &rarr;
             </Styled.ScrollToExperienceHeader>
-            <Styled.TimelineGridContainer>
+            <Styled.HorizontalScrollContainer>
                 <SpacerSmall />
 
-                {timelineItems.map((timelineItem, index) => {
-                    return (
-                        <React.Fragment key={index}>
-                            {index % 2 === 0 ? (
-                                <Styled.TimelineItemGroup $index={index}>
-                                    <Styled.GridFiller />
-                                    <Styled.TimelineIconItemRight>
-                                        <PlainLinkWrapper href={timelineItem.website}>
-                                            <ExperienceImage
-                                                src={timelineItem.icon}
-                                                alt="Experience icon"
-                                                width={80}
-                                                height={80}
-                                                priority
-                                            />
-                                        </PlainLinkWrapper>
-                                    </Styled.TimelineIconItemRight>
-
-                                    <TimelineDescriptionItem
-                                        attributes={timelineItem}
-                                        index={index}
+                {timelineItems.map((item, index) => (
+                    <Styled.TimelineCard key={index}>
+                        <Styled.CardHeader>
+                            <Styled.TimelineIcon>
+                                <PlainLinkWrapper href={item.website}>
+                                    <ExperienceImage
+                                        src={item.icon}
+                                        alt="Experience icon"
+                                        width={50}
+                                        height={50}
+                                        priority
                                     />
-                                </Styled.TimelineItemGroup>
-                            ) : (
-                                <Styled.TimelineItemGroup $index={index}>
-                                    <TimelineDescriptionItem
-                                        attributes={timelineItem}
-                                        index={index}
-                                    />
-                                    <Styled.TimelineIconItemLeft>
-                                        <PlainLinkWrapper href={timelineItem.website}>
-                                            <ExperienceImage
-                                                src={timelineItem.icon}
-                                                alt="Experience icon"
-                                                width={80}
-                                                height={80}
-                                                priority
-                                            />
-                                        </PlainLinkWrapper>
-                                    </Styled.TimelineIconItemLeft>
-                                    <Styled.GridFiller />
-                                </Styled.TimelineItemGroup>
-                            )}
-                        </React.Fragment>
-                    );
-                })}
-            </Styled.TimelineGridContainer>
+                                </PlainLinkWrapper>
+                            </Styled.TimelineIcon>
+                            <div>
+                                <h3>{item.title}</h3>
+                                <h4>{item.company}</h4>
+                            </div>
+                        </Styled.CardHeader>
+                        <Styled.CardBody>
+                            <p>{item.date}</p>
+                            <p>{item.location}</p>
+                            <ul>
+                                {item.responsibilities.map((resp, idx) => (
+                                    <li key={idx}>{resp}</li>
+                                ))}
+                            </ul>
+                        </Styled.CardBody>
+                    </Styled.TimelineCard>
+                ))}
+            </Styled.HorizontalScrollContainer>
             <SpacerSmall />
         </Styled.Container>
     );
