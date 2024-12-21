@@ -31,11 +31,11 @@ export const HorizontalScrollContainer = styled.div`
     -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none; /* Firefox */
     padding: 0 calc(50vw - 10rem);
-    gap: 1.5rem;
+    gap: 2rem;
 
     @media (min-width: ${({ theme }) => theme.screen.large}) {
         padding: 0 calc(50vw - 17.5rem);
-        gap: 3rem;
+        gap: 4rem;
     }
 `;
 
