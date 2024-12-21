@@ -60,38 +60,10 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
             <Styled.ScrollToExperienceHeader ref={experienceRef} $inView={inView}>
                 scroll to check my experience &rarr;
             </Styled.ScrollToExperienceHeader>
-            <Styled.HorizontalScrollContainer>
-                <SpacerSmall />
 
+            <Styled.HorizontalScrollContainer>
                 {timelineItems.map((item, index) => (
-                    <Styled.TimelineCard key={index}>
-                        <Styled.CardHeader>
-                            <Styled.TimelineIcon>
-                                <PlainLinkWrapper href={item.website}>
-                                    <ExperienceImage
-                                        src={item.icon}
-                                        alt="Experience icon"
-                                        width={50}
-                                        height={50}
-                                        priority
-                                    />
-                                </PlainLinkWrapper>
-                            </Styled.TimelineIcon>
-                            <div>
-                                <h3>{item.title}</h3>
-                                <h4>{item.company}</h4>
-                            </div>
-                        </Styled.CardHeader>
-                        <Styled.CardBody>
-                            <p>{item.date}</p>
-                            <p>{item.location}</p>
-                            <ul>
-                                {item.responsibilities.map((resp, idx) => (
-                                    <li key={idx}>{resp}</li>
-                                ))}
-                            </ul>
-                        </Styled.CardBody>
-                    </Styled.TimelineCard>
+                    <TimelineDescriptionItem item={item} key={index} />
                 ))}
             </Styled.HorizontalScrollContainer>
             <SpacerSmall />

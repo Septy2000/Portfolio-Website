@@ -1,39 +1,39 @@
 "use client";
 import styled from "styled-components";
-export const Container = styled.div<{ $index: number }>`
-    width: 100%; /* Adjusted for responsiveness */
-    max-width: 800px; /* Ensure cards don't get too wide */
-    min-height: 300px; /* Ensure a consistent height */
+
+export const TimelineCard = styled.div`
+    flex: 0 0 auto;
+    width: 20rem;
+    background: ${({ theme }) => theme.colors.surface.primary_shade.dark_1};
     border-radius: ${({ theme }) => theme.borderRadius.medium};
+    box-shadow: ${({ theme }) =>
+        `inset 5px 5px 5px -1px ${theme.colors.surface.primary_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.surface.primary_shade.dark_1}`};
+    padding: ${({ theme }) => theme.padding.medium};
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Ensures content is distributed nicely */
-    background-color: ${({ theme }) => theme.colors.surface.primary};
-    border: ${({ theme }) => `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
-    box-shadow: ${({ theme }) => `5px 5px 10px ${theme.colors.surface.primary_shade.dark_3}`};
-    padding: ${({ theme }) => theme.padding.medium}; /* Increased padding for better spacing */
-    margin: 16px auto; /* Add spacing between cards */
+    align-items: flex-start;
+
+    @media (min-width: ${({ theme }) => theme.screen.large}) {
+        width: 35rem;
+    }
 `;
 
 export const Title = styled.h2`
     color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.5rem;
-    margin-bottom: ${({ theme }) => theme.margin.small};
+    font-size: 1.25rem;
 `;
 
 export const Company = styled.h3`
-    color: ${({ theme }) => theme.colors.text.secondary};
-    margin-bottom: ${({ theme }) => theme.margin.small};
+    font-size: 1rem;
+    color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 export const Date = styled.h4`
-    color: ${({ theme }) => theme.colors.text.tertiary};
-    margin-bottom: ${({ theme }) => theme.margin.small};
+    color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 export const Location = styled.h4`
-    color: ${({ theme }) => theme.colors.text.tertiary};
-    margin-bottom: ${({ theme }) => theme.margin.small};
+    color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 export const Responsibilities = styled.ul`
@@ -49,5 +49,28 @@ export const Divider = styled.div`
     height: 2px;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     background-color: ${({ theme }) => theme.colors.surface.secondary};
-    margin: ${({ theme }) => theme.margin.medium} 0;
+    margin: ${({ theme }) => theme.margin.small} 0;
 `;
+
+export const CardHeader = styled.div`
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.padding.small};
+    margin-bottom: ${({ theme }) => theme.margin.small};
+`;
+
+export const CardInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* gap: ${({ theme }) => theme.padding.small}; */
+    margin: ${({ theme }) => theme.margin.small} 0;
+`;
+
+export const CardBody = styled.div`
+    margin-top: ${({ theme }) => theme.margin.small};
+    color: ${({ theme }) => theme.colors.text.primary};
+    font-size: 0.9rem;
+`;
+
+export const TimelineIcon = styled.div``;
