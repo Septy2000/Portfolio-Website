@@ -3,8 +3,6 @@ import * as Styled from "./ExperienceSection.styled";
 import TimelineDescriptionItem from "./TimelineDescriptionItem/TimelineDescriptionItem";
 import React, { forwardRef } from "react";
 import { gocity_icon_src, kcl_icon_src } from "@/components/Images/Images";
-import { ExperienceImage } from "@/components/Images/Images.styled";
-import { PlainLinkWrapper } from "@/components/PlainLinkWrapper/PlainLinkWrapper.styled";
 import { useInView } from "react-intersection-observer";
 import { SpacerSmall } from "../../../Spacer/Spacer.styled";
 export type TimelineItemAttributes = {
