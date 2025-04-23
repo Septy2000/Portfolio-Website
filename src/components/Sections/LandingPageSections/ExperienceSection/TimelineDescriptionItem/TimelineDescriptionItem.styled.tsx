@@ -1,13 +1,16 @@
 "use client";
 import styled from "styled-components";
 
-export const TimelineCard = styled.div`
+export const TimelineCard = styled.div<{ $inView: boolean }>`
     flex: 0 0 auto;
     width: 20rem;
+    transition: box-shadow 0.5s, background 0.5s;
     background: ${({ theme }) => theme.colors.surface.primary_shade.dark_1};
     border-radius: ${({ theme }) => theme.borderRadius.medium};
-    box-shadow: ${({ theme }) =>
-        `inset 5px 5px 5px -1px ${theme.colors.surface.primary_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.surface.primary_shade.dark_1}`};
+    box-shadow: ${({ theme, $inView }) =>
+        $inView
+            ? `inset 5px 5px 5px -1px ${theme.colors.surface.primary_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.surface.primary_shade.dark_1}`
+            : "none"};
     padding: ${({ theme }) => theme.padding.medium};
     display: flex;
     flex-direction: column;
@@ -46,10 +49,9 @@ export const Responsibilities = styled.ul`
 
 export const Divider = styled.div`
     width: 100%;
-    height: 2px;
+    height: 1px;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     background-color: ${({ theme }) => theme.colors.surface.secondary};
-    margin: ${({ theme }) => theme.margin.small} 0;
 `;
 
 export const CardHeader = styled.div`
@@ -63,7 +65,6 @@ export const CardInfo = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* gap: ${({ theme }) => theme.padding.small}; */
     margin: ${({ theme }) => theme.margin.small} 0;
 `;
 

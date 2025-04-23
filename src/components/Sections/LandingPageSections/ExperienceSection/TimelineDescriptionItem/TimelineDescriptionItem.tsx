@@ -3,9 +3,15 @@ import { TimelineItemAttributes } from "../ExperienceSection";
 import * as Styled from "./TimelineDescriptionItem.styled";
 import { PlainLinkWrapper } from "@/components/PlainLinkWrapper/PlainLinkWrapper.styled";
 import { ExperienceImage } from "@/components/Images/Images.styled";
-export default function TimelineDescriptionItem({ item }: { item: TimelineItemAttributes }) {
+export default function TimelineDescriptionItem({
+    item,
+    inView,
+}: {
+    item: TimelineItemAttributes;
+    inView: boolean;
+}) {
     return (
-        <Styled.TimelineCard>
+        <Styled.TimelineCard $inView={inView}>
             <Styled.CardHeader>
                 <Styled.TimelineIcon>
                     <PlainLinkWrapper href={item.website}>
@@ -26,7 +32,8 @@ export default function TimelineDescriptionItem({ item }: { item: TimelineItemAt
                 <Styled.Date>{item.date}</Styled.Date>
                 <Styled.Location>{item.location}</Styled.Location>
             </Styled.CardInfo>
-            <Styled.Divider />
+
+            {item.responsibilities.length > 0 && <Styled.Divider />}
 
             <Styled.CardBody>
                 <ul>
