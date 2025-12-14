@@ -14,11 +14,11 @@ export const PortraitImage = styled(Image)`
 `;
 
 export const ExperienceImage = styled(Image)`
-    border: ${({ theme }) => `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
+    border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
     border-radius: 50%;
     transition: transform 0.2s, border 0.2s;
     &:hover {
-        transform: scale(1.2);
+        transform: scale(1.05);
     }
     object-fit: cover;
 `;
