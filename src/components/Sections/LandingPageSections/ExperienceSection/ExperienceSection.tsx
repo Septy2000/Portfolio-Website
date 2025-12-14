@@ -27,12 +27,17 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
 
     const timelineItems: TimelineItemAttributes[] = [
         {
-            title: "Engineer III",
+            title: "Software Engineer",
             company: "American Express",
             website: "https://www.americanexpress.com/",
             date: "Mar 2025 - Present",
             location: "London, United Kingdom",
-            responsibilities: [],
+            responsibilities: [
+                "Delivered 5 customer-facing insurance products to 100,000+ US-based users, meeting strict deadlines through full-stack development across React, TypeScript, Java, and Kotlin.",
+                "Built and modernised backend APIs using Java and Kotlin with Vert.x, including a policy creation system for internal agents.",
+                "Managed production deployments via Jenkins and GitHub Actions, executing blue-green deployments and environment validation.",
+                "Contributed to architectural decisions for front-end and back-end systems.",
+            ],
             icon: amex_icon_src,
         },
         {
