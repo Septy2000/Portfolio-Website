@@ -26,8 +26,6 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
                             of the 3rd year individual project.`,
             note: "Note: for the best experience, use a desktop browser.",
             url: "procedural-art-generator",
-            code_url:
-                "https://github.com/Septy2000/Portfolio-Website/tree/main/src/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection",
         },
         {
             title: "Wild Poppy Films",
@@ -35,7 +33,7 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
             description: `Wild Poppy Films is an independent production company dedicated to 
                 supporting emerging storytellers to develop conversation-sparking-question-raising films.`,
             url: "https://www.wildpoppyfilms.com",
-            code_url: "https://www.google.com",
+            code_url: "https://github.com/Septy2000/Wild-Poppy-Films-Website",
         },
 
         // {

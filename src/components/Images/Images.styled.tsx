@@ -37,13 +37,11 @@ export const PortraitImage = styled(Image)`
 `;
 
 export const ExperienceImage = styled(Image)`
+    width: 50px;
+    height: 50px;
     border-radius: ${({ theme }) => theme.borderRadius.xsmall};
     transition: all 0.3s ease;
-    object-fit: cover;
-
-    &:hover {
-        transform: scale(1.08);
-    }
+    object-fit: contain;
 `;
 
 export const ProjectImage = styled(Image)`

@@ -161,15 +161,7 @@ export const HamburgerIcon = styled(FaBars)`
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         display: block;
-    }
-`;
-
-const slideIn = keyframes`
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0);
+        font-size: 2.5rem;
     }
 `;
 
@@ -203,6 +195,7 @@ export const CloseIcon = styled(FaTimes)`
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         display: block;
+        font-size: 2.5rem;
     }
 `;
 

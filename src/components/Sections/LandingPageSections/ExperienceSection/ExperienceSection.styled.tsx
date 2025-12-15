@@ -196,15 +196,14 @@ export const CardHeader = styled.div`
 `;
 
 export const IconWrapper = styled.div`
-    width: 56px;
-    height: 56px;
-    border-radius: ${({ theme }) => theme.borderRadius.small};
+    width: 50px;
+    height: 50px;
+    border-radius: ${({ theme }) => theme.borderRadius.xsmall};
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    background: ${({ theme }) => theme.colors.surface.primary_shade.dark_1};
-    box-shadow: ${({ theme }) => theme.shadows.neumorphic.subtle};
+    background: ${({ theme }) => theme.colors.surface.primary};
     overflow: hidden;
     transition: ${({ theme }) => theme.transitions.normal};
 
