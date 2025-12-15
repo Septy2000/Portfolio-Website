@@ -1,6 +1,6 @@
 "use client";
 import styled from "styled-components";
-import { ButtonDefault } from "@/components/Button/Button.styled";
+import { ButtonClassic, ButtonDefault } from "@/components/Button/Button.styled";
 import { BsFillPlayFill } from "react-icons/bs";
 import { BsFillStopFill } from "react-icons/bs";
 import { BsArrow90DegLeft } from "react-icons/bs";
@@ -31,13 +31,13 @@ export const MenusContainer = styled.div`
 export const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 8px;
 `;
 
 export const HorizontalButtonsContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 8px 0;
 
     @media (max-width: ${({ theme }) => theme.screen.small}) {
         flex-direction: column;
@@ -50,7 +50,7 @@ export const HorizontalButtonsContainer = styled.div`
     }
 `;
 
-export const ControlButton = styled(ButtonDefault)`
+export const ControlButton = styled(ButtonClassic)`
     width: 48%;
     display: flex;
     flex-direction: column;

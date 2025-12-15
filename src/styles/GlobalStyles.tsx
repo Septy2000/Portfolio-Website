@@ -20,7 +20,6 @@ const GlobalStyles = createGlobalStyle`
         font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
         background: ${({ theme }) => theme.colors.surface.primary};
         color: ${({ theme }) => theme.colors.text.primary};
-        line-height: 1.6;
         overflow-x: hidden;
         position: relative;
         
