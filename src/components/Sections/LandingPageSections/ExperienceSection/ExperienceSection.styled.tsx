@@ -83,6 +83,7 @@ export const ScrollWrapper = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
+    max-width: ${({ theme }) => theme.screen.xxlarge};
 `;
 
 export const NavButton = styled.button<{ $position: "left" | "right" }>`
@@ -340,24 +341,18 @@ export const DotsContainer = styled.div`
 `;
 
 export const Dot = styled.button<{ $isActive: boolean }>`
-    width: ${({ $isActive }) => ($isActive ? "28px" : "10px")};
+    width: ${({ $isActive }) => ($isActive ? "24px" : "10px")};
     height: 10px;
     border-radius: 5px;
     background: ${({ theme, $isActive }) =>
-        $isActive
-            ? `linear-gradient(90deg, ${theme.colors.orange}, ${theme.colors.accent.warm})`
-            : theme.colors.surface.primary_shade.dark_2};
+        $isActive ? theme.colors.orange : theme.colors.surface.primary_shade.dark_2};
     border: none;
+    padding: 0;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: ${({ $isActive, theme }) =>
-        $isActive ? `0 2px 8px ${theme.colors.orange}50` : "none"};
+    transition: width 0.25s ease, background 0.25s ease;
 
     &:hover {
         background: ${({ theme, $isActive }) =>
-            $isActive
-                ? `linear-gradient(90deg, ${theme.colors.orange}, ${theme.colors.accent.warm})`
-                : theme.colors.surface.primary_shade.dark_3};
-        transform: scale(1.1);
+            $isActive ? theme.colors.orange : theme.colors.surface.primary_shade.dark_3};
     }
 `;
