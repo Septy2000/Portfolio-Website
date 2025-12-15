@@ -1,32 +1,81 @@
 "use client";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-export const Container = styled.div`
+const fadeInUp = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
+
+export const Container = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: ${({ theme }) => theme.padding.large} 0;
+    padding: ${({ theme }) => `${theme.padding.xxlarge} ${theme.padding.medium}`};
     background: ${({ theme }) => theme.colors.surface.primary};
+    position: relative;
+
+    /* Subtle top border fade */
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            ${({ theme }) => theme.colors.surface.primary_shade.dark_2} 20%,
+            ${({ theme }) => theme.colors.surface.primary_shade.dark_2} 80%,
+            transparent
+        );
+    }
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        padding: ${({ theme }) => `${theme.padding.large} ${theme.padding.small}`};
+    }
 `;
 
 export const Header = styled.div`
     text-align: center;
-    margin-bottom: ${({ theme }) => theme.margin.medium};
-    padding: 0 ${({ theme }) => theme.padding.medium};
+    margin-bottom: ${({ theme }) => theme.margin.large};
+    max-width: 600px;
 `;
 
 export const Title = styled.h2`
-    font-size: 2rem;
+    font-family: "Nunito", sans-serif;
+    font-size: ${({ theme }) => theme.typography.h1};
     color: ${({ theme }) => theme.colors.text.primary};
-    margin: 0 0 8px 0;
-    font-weight: 600;
+    margin: 0 0 12px 0;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+
+    /* Decorative underline */
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: ${({ theme }) => theme.colors.orange};
+        border-radius: 2px;
+    }
 `;
 
 export const Subtitle = styled.p`
-    font-size: 0.95rem;
-    color: ${({ theme }) => theme.colors.text.primary};
-    opacity: 0.6;
-    margin: 0;
+    font-size: 1rem;
+    color: ${({ theme }) => theme.colors.text.muted};
+    margin: ${({ theme }) => theme.margin.small} 0 0;
+    line-height: 1.6;
 `;
 
 export const ScrollWrapper = styled.div`
@@ -38,70 +87,128 @@ export const ScrollWrapper = styled.div`
 
 export const NavButton = styled.button<{ $position: "left" | "right" }>`
     position: absolute;
-    ${({ $position }) => ($position === "left" ? "left: 16px;" : "right: 16px;")}
+    ${({ $position }) => ($position === "left" ? "left: 8px;" : "right: 8px;")}
     z-index: 10;
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     border: none;
     background: ${({ theme, disabled }) =>
         disabled ? theme.colors.surface.primary_shade.dark_1 : theme.colors.surface.secondary};
     color: ${({ theme, disabled }) =>
         disabled ? theme.colors.surface.primary_shade.dark_3 : theme.colors.text.secondary};
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.2s;
+    box-shadow: ${({ theme, disabled }) => (disabled ? "none" : theme.shadows.medium)};
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 
     &:hover:not(:disabled) {
         background: ${({ theme }) => theme.colors.orange};
+        transform: scale(1.08);
+        box-shadow: ${({ theme }) => theme.shadows.glow};
+    }
+
+    &:active:not(:disabled) {
+        transform: scale(0.95);
+    }
+
+    @media (max-width: ${({ theme }) => theme.screen.small}) {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
     }
 `;
 
 export const ScrollContainer = styled.div`
     display: flex;
     overflow-x: auto;
-    gap: 24px;
-    padding: 16px calc(50vw - 170px);
+    gap: 28px;
+    padding: 24px calc(50vw - 180px);
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
         display: none;
     }
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        padding: 20px calc(50vw - 160px);
+        gap: 20px;
+    }
 `;
 
-export const Card = styled.div`
+export const Card = styled.article`
     flex: 0 0 auto;
-    width: 340px;
+    width: 360px;
     background: ${({ theme }) => theme.colors.surface.primary};
-    border-radius: ${({ theme }) => theme.borderRadius.small};
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
     padding: ${({ theme }) => theme.padding.medium};
-    box-shadow: ${({ theme }) => `0 8px 10px ${theme.colors.surface.primary_shade.dark_3}50`};
+    box-shadow: ${({ theme }) => theme.shadows.neumorphic.raised};
     scroll-snap-align: center;
-    border: 1px solid ${({ theme }) => theme.colors.surface.primary_shade.dark_1};
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    /* Top accent bar */
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+            90deg,
+            ${({ theme }) => theme.colors.orange},
+            ${({ theme }) => theme.colors.accent.warm}
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: ${({ theme }) => theme.shadows.strong};
+
+        &::before {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        width: 320px;
+        padding: ${({ theme }) => theme.padding.small};
+    }
 `;
 
 export const CardHeader = styled.div`
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     margin-bottom: ${({ theme }) => theme.margin.small};
 `;
 
 export const IconWrapper = styled.div`
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: ${({ theme }) => theme.borderRadius.xsmall};
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
     flex-shrink: 0;
+    background: ${({ theme }) => theme.colors.surface.primary};
+    overflow: hidden;
+    transition: ${({ theme }) => theme.transitions.normal};
+
+    &:hover {
+        transform: scale(1.05);
+    }
 `;
 
 export const TitleWrapper = styled.div`
@@ -110,26 +217,37 @@ export const TitleWrapper = styled.div`
 `;
 
 export const CardTitle = styled.h3`
-    font-size: 1.1rem;
+    font-family: "Nunito", sans-serif;
+    font-size: 1.15rem;
     color: ${({ theme }) => theme.colors.text.primary};
     margin: 0 0 4px 0;
-    font-weight: 600;
+    font-weight: 700;
 `;
 
 export const Company = styled.a`
+    font-family: "Nunito", sans-serif;
     font-size: 0.95rem;
     color: ${({ theme }) => theme.colors.orange};
     font-weight: 500;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: ${({ theme }) => theme.transitions.fast};
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 
     &:hover {
-        text-decoration: underline;
+        color: ${({ theme }) => theme.colors.orange_shade.dark_1};
+
+        &::after {
+            content: "↗";
+            font-size: 0.8em;
+        }
     }
 `;
 
 export const MetaInfo = styled.div`
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     margin-bottom: ${({ theme }) => theme.margin.small};
     padding-bottom: ${({ theme }) => theme.padding.small};
@@ -137,9 +255,24 @@ export const MetaInfo = styled.div`
 `;
 
 export const MetaItem = styled.span`
+    font-family: "Nunito", sans-serif;
     font-size: 0.85rem;
-    color: ${({ theme }) => theme.colors.text.primary};
-    opacity: 0.7;
+    color: ${({ theme }) => theme.colors.text.muted};
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    &::before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        background: ${({ theme }) => theme.colors.surface.primary_shade.dark_3};
+        border-radius: 50%;
+    }
+
+    &:first-child::before {
+        display: none;
+    }
 `;
 
 export const ResponsibilitiesList = styled.ul`
@@ -150,18 +283,22 @@ export const ResponsibilitiesList = styled.ul`
 
 export const ResponsibilityItem = styled.li`
     position: relative;
-    padding-left: 18px;
+    padding-left: 20px;
     margin-bottom: 10px;
-    font-size: 0.88rem;
-    line-height: 1.5;
+    font-family: "Nunito", sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.6;
     color: ${({ theme }) => theme.colors.text.primary};
 
     &::before {
-        content: "▸";
+        content: "";
         position: absolute;
         left: 0;
-        color: ${({ theme }) => theme.colors.orange};
-        font-weight: bold;
+        top: 8px;
+        width: 6px;
+        height: 6px;
+        background: ${({ theme }) => theme.colors.orange};
+        border-radius: 50%;
     }
 
     &:last-child {
@@ -178,18 +315,26 @@ export const SkillsContainer = styled.div`
 `;
 
 export const SkillTag = styled.span`
-    background: ${({ theme }) => theme.colors.surface.secondary_shade.light_2};
+    font-family: "Nunito", sans-serif;
+    background: ${({ theme }) => theme.colors.surface.secondary};
     color: ${({ theme }) => theme.colors.text.secondary};
-    padding: 5px 12px;
-    border-radius: 14px;
+    padding: 6px 14px;
+    border-radius: ${({ theme }) => theme.borderRadius.large};
     font-size: 0.75rem;
     font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: ${({ theme }) => theme.transitions.fast};
+
+    &:hover {
+        background: ${({ theme }) => theme.colors.orange};
+        transform: translateY(-2px);
+    }
 `;
 
 export const DotsContainer = styled.div`
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     margin-top: ${({ theme }) => theme.margin.medium};
 `;
 
@@ -200,8 +345,9 @@ export const Dot = styled.button<{ $isActive: boolean }>`
     background: ${({ theme, $isActive }) =>
         $isActive ? theme.colors.orange : theme.colors.surface.primary_shade.dark_2};
     border: none;
+    padding: 0;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: width 0.25s ease, background 0.25s ease;
 
     &:hover {
         background: ${({ theme, $isActive }) =>

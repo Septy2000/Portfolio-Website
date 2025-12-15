@@ -6,7 +6,7 @@ import kcl_icon from "../../../public/images/experience/kcl_icon.png";
 import gocity_icon from "../../../public/images/experience/gocity_icon.png";
 import wpf_image from "../../../public/images/projects/wpf_image.jpeg";
 import dd_icon from "../../../public/images/experience/dd_icon.jpeg";
-import amex_icon from "../../../public/images/experience/amex_icon.png";
+import amex_icon from "../../../public/images/experience/amex_icon.jpeg";
 
 export const mandelbrot_image_src = mandelbrot_image.src;
 export const missing_image_src = missing_image.src;

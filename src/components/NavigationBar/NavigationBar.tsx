@@ -6,6 +6,8 @@ type Page = {
     ref: React.RefObject<HTMLDivElement>;
 };
 
+const NAVBAR_HEIGHT = 70; // Approximate height of the navbar
+
 export default function NavigationBar({
     aboutRef,
     projectsRef,
@@ -34,19 +36,24 @@ export default function NavigationBar({
 
     const topLeftText = "me.";
 
+    const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+        if (ref.current) {
+            const elementPosition = ref.current.getBoundingClientRect().top + window.scrollY;
+            const offsetPosition = elementPosition - NAVBAR_HEIGHT;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+            });
+        }
+    };
+
     return (
         <Styled.Header>
             <Styled.Name>{topLeftText}</Styled.Name>
             <Styled.NavigationContainer>
                 {pages.map((page, id) => (
-                    <Styled.NavigationLink
-                        key={id}
-                        onClick={() => {
-                            page.ref.current?.scrollIntoView({
-                                behavior: "smooth",
-                            });
-                        }}
-                    >
+                    <Styled.NavigationLink key={id} onClick={() => scrollToSection(page.ref)}>
                         {page.name}
                     </Styled.NavigationLink>
                 ))}
@@ -59,9 +66,7 @@ export default function NavigationBar({
                         key={id}
                         onClick={() => {
                             setMenuOpen(false);
-                            page.ref.current?.scrollIntoView({
-                                behavior: "smooth",
-                            });
+                            scrollToSection(page.ref);
                         }}
                     >
                         {page.name}

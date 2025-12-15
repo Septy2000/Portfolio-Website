@@ -1,50 +1,221 @@
 "use client";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 
+const fadeInUp = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
+
 export const Container = styled.div`
-    margin: ${({ theme }) => theme.margin.small};
     display: flex;
     flex-direction: column;
-    max-width: ${({ theme }) => theme.screen.medium};
-    text-align: center;
+    max-width: 550px;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        align-items: center;
+        text-align: center;
+    }
+`;
+
+export const Greeting = styled.span`
+    font-family: "Nunito", sans-serif;
+    font-size: ${({ theme }) => theme.typography.body};
+    color: ${({ theme }) => theme.colors.text.muted};
+    letter-spacing: 0.05em;
+    margin-bottom: ${({ theme }) => theme.margin.xsmall};
+    animation: ${fadeInUp} 0.6s ease-out;
 `;
 
 export const NameHeader = styled.h1`
-    font-size: 2.5rem;
-    color: ${({ theme }) => theme.colors.orange};
+    font-family: "Nunito", sans-serif;
+    font-size: ${({ theme }) => theme.typography.hero};
+    font-weight: 700;
+    line-height: 1.1;
     margin-bottom: ${({ theme }) => theme.margin.small};
+    animation: ${fadeInUp} 0.6s ease-out 0.1s backwards;
+    color: ${({ theme }) => theme.colors.orange};
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: ${({ theme }) => theme.colors.orange_shade.dark_1};
+    }
+`;
+
+export const RoleTag = styled.div`
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: ${({ theme }) => theme.colors.surface.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
+    padding: 8px 16px;
+    border-radius: ${({ theme }) => theme.borderRadius.large};
+    font-size: ${({ theme }) => theme.typography.small};
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-bottom: ${({ theme }) => theme.margin.medium};
+    animation: ${fadeInUp} 0.6s ease-out 0.2s backwards;
+    width: fit-content;
+
+    &::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: ${({ theme }) => theme.colors.green};
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.6;
+            transform: scale(1.2);
+        }
+    }
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        margin-left: auto;
+        margin-right: auto;
+    }
 `;
 
 export const Body = styled.p`
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: ${({ theme }) => theme.colors.text.primary};
-    line-height: 1.4;
-    margin: 0 ${({ theme }) => theme.margin.small};
+    line-height: 1.7;
+    margin-bottom: ${({ theme }) => theme.margin.medium};
+    animation: ${fadeInUp} 0.6s ease-out 0.3s backwards;
+
+    strong {
+        color: ${({ theme }) => theme.colors.orange};
+        font-weight: 600;
+    }
 `;
 
 export const ConnectCta = styled.p`
-    color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.5rem;
-    margin: ${({ theme }) => theme.margin.small};
+    font-family: "Nunito", sans-serif;
+    color: ${({ theme }) => theme.colors.text.muted};
+    font-size: ${({ theme }) => theme.typography.body};
+    margin-bottom: ${({ theme }) => theme.margin.small};
+    animation: ${fadeInUp} 0.6s ease-out 0.4s backwards;
 `;
 
 export const ConnectLinks = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    margin-top: ${({ theme }) => theme.margin.small};
+    gap: ${({ theme }) => theme.margin.small};
+    animation: ${fadeInUp} 0.6s ease-out 0.5s backwards;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        justify-content: center;
+    }
 `;
 
 export const LinkWrapper = styled(Link)`
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
+    background: ${({ theme }) => theme.colors.surface.primary_shade.dark_1};
+    box-shadow: ${({ theme }) => theme.shadows.neumorphic.raised};
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    /* Hover effect background */
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: ${({ theme }) => theme.colors.orange};
+        opacity: 0;
+        transition: ${({ theme }) => theme.transitions.normal};
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: ${({ theme }) => theme.shadows.medium}, ${({ theme }) => theme.shadows.glow};
+
+        &::before {
+            opacity: 1;
+        }
+
+        svg {
+            color: ${({ theme }) => theme.colors.text.secondary};
+            transform: scale(1.1);
+        }
+    }
+
+    &:active {
+        transform: translateY(-2px);
+        box-shadow: ${({ theme }) => theme.shadows.neumorphic.inset};
+    }
 `;
 
 export const Icon = styled.div`
     color: ${({ theme }) => theme.colors.surface.secondary};
-    font-size: 3rem;
-    transition: transform 0.2s;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const CTAButton = styled(Link)`
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: ${({ theme }) => theme.colors.surface.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
+    padding: 14px 28px;
+    border-radius: ${({ theme }) => theme.borderRadius.small};
+    font-family: "Nunito", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    margin-top: ${({ theme }) => theme.margin.small};
+    animation: ${fadeInUp} 0.6s ease-out 0.6s backwards;
+    transition: all 0.3s ease;
+    box-shadow: ${({ theme }) => theme.shadows.soft};
+
+    &::after {
+        content: "→";
+        transition: transform 0.3s ease;
+    }
+
     &:hover {
-        transform: scale(1.2);
+        background: ${({ theme }) => theme.colors.orange};
+        transform: translateY(-2px);
+        box-shadow: ${({ theme }) => theme.shadows.medium};
+
+        &::after {
+            transform: translateX(4px);
+        }
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        width: 100%;
+        justify-content: center;
     }
 `;
