@@ -83,7 +83,6 @@ export const ScrollWrapper = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: ${({ theme }) => theme.screen.xxlarge};
 `;
 
 export const NavButton = styled.button<{ $position: "left" | "right" }>`
