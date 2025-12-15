@@ -69,16 +69,16 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Header = styled.h2`
-    font-family: "Playfair Display", serif;
+    font-family: "Nunito", sans-serif;
     font-size: 1.5rem;
     color: ${({ theme }) => theme.colors.text.primary};
     margin: 0;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.3;
 `;
 
 export const Body = styled.p`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     color: ${({ theme }) => theme.colors.text.primary};
     font-size: 1rem;
     line-height: 1.7;
@@ -86,7 +86,7 @@ export const Body = styled.p`
 `;
 
 export const Note = styled.p`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     color: ${({ theme }) => theme.colors.text.muted};
     font-size: 0.875rem;
     line-height: 1.5;
@@ -105,7 +105,7 @@ export const TagsContainer = styled.div`
 `;
 
 export const Tag = styled.span`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: 0.75rem;
     font-weight: 500;
     padding: 4px 12px;
@@ -143,9 +143,9 @@ export const ButtonLink = styled(Link)`
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: ${({ theme }) => theme.colors.surface.secondary};
-    font-family: "DM Sans", sans-serif;
-    font-size: 0.95rem;
+    background: ${({ theme }) => theme.colors.surface.secondary_shade.light_2};
+    font-family: "Nunito", sans-serif;
+    font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.02em;
     color: ${({ theme }) => theme.colors.text.secondary};
@@ -155,37 +155,15 @@ export const ButtonLink = styled(Link)`
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-
-    /* Hover effect */
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: ${({ theme }) => theme.colors.orange};
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-    }
-
-    span {
-        position: relative;
-        z-index: 1;
-    }
+    transition: background-color 0.3s ease, transform 0.2s ease;
 
     &:hover {
-        &::before {
-            transform: translateX(0);
-        }
+        background: ${({ theme }) => theme.colors.orange};
     }
 
     &:active {
         transform: scale(0.98);
+        box-shadow: ${({ theme }) =>
+            `inset 5px 5px 5px -1px ${theme.colors.orange_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.orange}`};
     }
-`;
-
-export const ButtonText = styled.span`
-    position: relative;
-    z-index: 1;
 `;

@@ -56,7 +56,7 @@ export const ControlButton = styled(ButtonDefault)`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    font-size: 1rem;
     @media (max-width: ${({ theme }) => theme.screen.small}) {
         width: 100%;
     }

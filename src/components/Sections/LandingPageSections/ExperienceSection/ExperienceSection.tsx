@@ -28,7 +28,6 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    // Just add new entries here - no other changes needed!
     const timelineItems: TimelineItemAttributes[] = [
         {
             title: "Software Engineer",

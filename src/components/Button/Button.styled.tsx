@@ -2,7 +2,7 @@
 import styled, { css } from "styled-components";
 
 const baseButtonStyles = css`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-weight: 600;
     letter-spacing: 0.02em;
     border: none;

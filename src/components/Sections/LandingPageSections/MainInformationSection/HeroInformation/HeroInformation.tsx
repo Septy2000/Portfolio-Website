@@ -24,14 +24,14 @@ export default function HeroInformation() {
     return (
         <Styled.Container>
             <Styled.Greeting>Hello there</Styled.Greeting>
-            <Styled.NameHeader>I'm Septi</Styled.NameHeader>
+            <Styled.NameHeader>I&apos;m Septi</Styled.NameHeader>
             <Styled.RoleTag>Software Engineer • London, UK</Styled.RoleTag>
             <Styled.Body>
                 A passionate developer crafting <strong>beautiful digital experiences</strong>. From
                 iOS apps to web platforms, I love bringing ideas to life through clean, thoughtful
                 code.
             </Styled.Body>
-            <Styled.ConnectCta>Let's connect and create something amazing</Styled.ConnectCta>
+            <Styled.ConnectCta>Let&apos;s connect and create something amazing</Styled.ConnectCta>
             <Styled.ConnectLinks>
                 {links.map((link, index) => (
                     <Styled.LinkWrapper

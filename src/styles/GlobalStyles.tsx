@@ -2,7 +2,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
     * {
         margin: 0;
@@ -17,7 +17,7 @@ const GlobalStyles = createGlobalStyle`
     }
     
     body {
-        font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
         background: ${({ theme }) => theme.colors.surface.primary};
         color: ${({ theme }) => theme.colors.text.primary};
         line-height: 1.6;
@@ -38,20 +38,18 @@ const GlobalStyles = createGlobalStyle`
             z-index: 9999;
         }
         
-        /* Decorative border */
-        border: ${({ theme }) => `${theme.border.xlarge} solid ${theme.colors.surface.secondary}`};
         min-height: 100vh;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-weight: 600;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 700;
         line-height: 1.2;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.01em;
     }
 
     p {
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Nunito', sans-serif;
         line-height: 1.7;
     }
 
@@ -61,7 +59,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     button {
-        font-family: 'DM Sans', sans-serif;
+        font-family: 'Nunito', sans-serif;
         cursor: pointer;
         border: none;
         outline: none;

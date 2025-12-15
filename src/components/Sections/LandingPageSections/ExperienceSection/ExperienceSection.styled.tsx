@@ -49,11 +49,11 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.h2`
-    font-family: "Playfair Display", serif;
+    font-family: "Nunito", sans-serif;
     font-size: ${({ theme }) => theme.typography.h1};
     color: ${({ theme }) => theme.colors.text.primary};
     margin: 0 0 12px 0;
-    font-weight: 600;
+    font-weight: 700;
     position: relative;
     display: inline-block;
 
@@ -83,7 +83,6 @@ export const ScrollWrapper = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: ${({ theme }) => theme.screen.xxlarge};
 `;
 
 export const NavButton = styled.button<{ $position: "left" | "right" }>`
@@ -219,15 +218,15 @@ export const TitleWrapper = styled.div`
 `;
 
 export const CardTitle = styled.h3`
-    font-family: "Playfair Display", serif;
+    font-family: "Nunito", sans-serif;
     font-size: 1.15rem;
     color: ${({ theme }) => theme.colors.text.primary};
     margin: 0 0 4px 0;
-    font-weight: 600;
+    font-weight: 700;
 `;
 
 export const Company = styled.a`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: 0.95rem;
     color: ${({ theme }) => theme.colors.orange};
     font-weight: 500;
@@ -257,7 +256,7 @@ export const MetaInfo = styled.div`
 `;
 
 export const MetaItem = styled.span`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: 0.85rem;
     color: ${({ theme }) => theme.colors.text.muted};
     display: flex;
@@ -287,7 +286,7 @@ export const ResponsibilityItem = styled.li`
     position: relative;
     padding-left: 20px;
     margin-bottom: 10px;
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: 0.9rem;
     line-height: 1.6;
     color: ${({ theme }) => theme.colors.text.primary};
@@ -317,7 +316,7 @@ export const SkillsContainer = styled.div`
 `;
 
 export const SkillTag = styled.span`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     background: ${({ theme }) => theme.colors.surface.secondary};
     color: ${({ theme }) => theme.colors.text.secondary};
     padding: 6px 14px;

@@ -13,15 +13,6 @@ const fadeInUp = keyframes`
     }
 `;
 
-const shimmer = keyframes`
-    0% {
-        background-position: -200% center;
-    }
-    100% {
-        background-position: 200% center;
-    }
-`;
-
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -34,46 +25,26 @@ export const Container = styled.div`
 `;
 
 export const Greeting = styled.span`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: ${({ theme }) => theme.typography.body};
     color: ${({ theme }) => theme.colors.text.muted};
     letter-spacing: 0.05em;
     margin-bottom: ${({ theme }) => theme.margin.xsmall};
     animation: ${fadeInUp} 0.6s ease-out;
-
-    &::before {
-        content: "👋";
-        margin-right: 8px;
-    }
 `;
 
 export const NameHeader = styled.h1`
-    font-family: "Playfair Display", serif;
+    font-family: "Nunito", sans-serif;
     font-size: ${({ theme }) => theme.typography.hero};
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: ${({ theme }) => theme.margin.small};
     animation: ${fadeInUp} 0.6s ease-out 0.1s backwards;
-
-    /* Gradient text with shimmer */
-    background: linear-gradient(
-        90deg,
-        ${({ theme }) => theme.colors.orange} 0%,
-        ${({ theme }) => theme.colors.orange_shade.light_1} 25%,
-        ${({ theme }) => theme.colors.accent.warm} 50%,
-        ${({ theme }) => theme.colors.orange_shade.light_1} 75%,
-        ${({ theme }) => theme.colors.orange} 100%
-    );
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-
-    /* Subtle animation on hover */
-    transition: ${({ theme }) => theme.transitions.normal};
+    color: ${({ theme }) => theme.colors.orange};
+    transition: color 0.3s ease;
 
     &:hover {
-        animation: ${shimmer} 2s linear infinite;
+        color: ${({ theme }) => theme.colors.orange_shade.dark_1};
     }
 `;
 
@@ -133,7 +104,7 @@ export const Body = styled.p`
 `;
 
 export const ConnectCta = styled.p`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     color: ${({ theme }) => theme.colors.text.muted};
     font-size: ${({ theme }) => theme.typography.body};
     margin-bottom: ${({ theme }) => theme.margin.small};
@@ -214,7 +185,7 @@ export const CTAButton = styled(Link)`
     color: ${({ theme }) => theme.colors.text.secondary};
     padding: 14px 28px;
     border-radius: ${({ theme }) => theme.borderRadius.small};
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.02em;

@@ -26,10 +26,10 @@ export default function ProjectCard({ project, inView }: { project: Project; inV
                             target={project.url.startsWith("http") ? "_blank" : undefined}
                             rel={project.url.startsWith("http") ? "noopener noreferrer" : undefined}
                         >
-                            <Styled.ButtonText>View Project</Styled.ButtonText>
+                            view project
                         </Styled.ButtonLink>
                     ) : (
-                        <Styled.Button disabled>View Project</Styled.Button>
+                        <Styled.Button disabled>view project</Styled.Button>
                     )}
 
                     {project.code_url ? (
@@ -38,10 +38,10 @@ export default function ProjectCard({ project, inView }: { project: Project; inV
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <Styled.ButtonText>View Code</Styled.ButtonText>
+                            view code
                         </Styled.ButtonLink>
                     ) : (
-                        <Styled.Button disabled>View Code</Styled.Button>
+                        <Styled.Button disabled>view code</Styled.Button>
                     )}
                 </Styled.ButtonsContainer>
             </Styled.ContentWrapper>

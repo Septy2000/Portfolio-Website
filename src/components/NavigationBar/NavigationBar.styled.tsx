@@ -56,7 +56,7 @@ export const Header = styled.header`
 `;
 
 export const Name = styled.h2`
-    font-family: "Playfair Display", serif;
+    font-family: "Nunito", sans-serif;
     color: ${({ theme }) => theme.colors.orange};
     font-size: 1.8rem;
     font-weight: 700;
@@ -85,7 +85,7 @@ export const NavigationContainer = styled.nav`
 `;
 
 export const NavigationLink = styled.h2`
-    font-family: "DM Sans", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-weight: 500;
     font-size: 1rem;
     letter-spacing: 0.03em;
