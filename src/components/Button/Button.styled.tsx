@@ -79,9 +79,8 @@ export const ButtonClassic = styled.button`
     border-radius: ${({ theme }) => theme.borderRadius.small};
     &:disabled {
         background-color: ${({ theme }) => theme.colors.surface.secondary};
-        color: ${({ theme }) => theme.colors.text.secondary};
         cursor: not-allowed;
-        color: ${({ theme }) => theme.colors.text.primary};
+        color: ${({ theme }) => theme.colors.text.muted};
     }
     &:not(:disabled):hover {
         background-color: ${({ theme }) => theme.colors.orange};

@@ -1,6 +1,6 @@
 "use client";
 import styled from "styled-components";
-import { ButtonClassic, ButtonDefault } from "@/components/Button/Button.styled";
+import { ButtonClassic } from "@/components/Button/Button.styled";
 import { BsFillPlayFill } from "react-icons/bs";
 import { BsFillStopFill } from "react-icons/bs";
 import { BsArrow90DegLeft } from "react-icons/bs";
