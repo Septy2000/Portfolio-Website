@@ -10,9 +10,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-    width: "device-width ",
+    width: "device-width",
     initialScale: 1,
     minimumScale: 1,
+    // Critical for iOS safe area support (notch/Dynamic Island)
+    viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

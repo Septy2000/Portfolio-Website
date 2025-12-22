@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Styled from "./NavigationBar.styled";
 
 type Page = {
@@ -18,6 +18,30 @@ export default function NavigationBar({
     experienceRef: React.RefObject<HTMLDivElement>;
 }) {
     const [menuOpen, setMenuOpen] = useState(false);
+
+    // Lock body scroll when menu is open
+    useEffect(() => {
+        if (menuOpen) {
+            // Store current scroll position
+            const scrollY = window.scrollY;
+            document.body.classList.add("menu-open");
+            document.body.style.top = `-${scrollY}px`;
+        } else {
+            // Restore scroll position
+            const scrollY = document.body.style.top;
+            document.body.classList.remove("menu-open");
+            document.body.style.top = "";
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || "0") * -1);
+            }
+        }
+
+        // Cleanup on unmount
+        return () => {
+            document.body.classList.remove("menu-open");
+            document.body.style.top = "";
+        };
+    }, [menuOpen]);
 
     const pages: Page[] = [
         {

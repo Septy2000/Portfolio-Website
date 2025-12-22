@@ -38,6 +38,16 @@ const GlobalStyles = createGlobalStyle`
         }
         
         min-height: 100vh;
+        /* Support for iOS dynamic viewport height */
+        min-height: 100dvh;
+    }
+
+    /* Prevent body scroll when mobile menu is open */
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
     }
 
     h1, h2, h3, h4, h5, h6 {

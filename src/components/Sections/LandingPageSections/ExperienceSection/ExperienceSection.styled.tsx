@@ -81,6 +81,7 @@ export const Subtitle = styled.p`
 export const ScrollWrapper = styled.div`
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     width: 100%;
 `;
@@ -88,6 +89,9 @@ export const ScrollWrapper = styled.div`
 export const NavButton = styled.button<{ $position: "left" | "right" }>`
     position: absolute;
     ${({ $position }) => ($position === "left" ? "left: 8px;" : "right: 8px;")}
+    /* Center vertically on the scroll container */
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 10;
     width: 52px;
     height: 52px;
@@ -108,18 +112,63 @@ export const NavButton = styled.button<{ $position: "left" | "right" }>`
 
     &:hover:not(:disabled) {
         background: ${({ theme }) => theme.colors.orange};
-        transform: scale(1.08);
+        transform: translateY(-50%) scale(1.08);
         box-shadow: ${({ theme }) => theme.shadows.glow};
     }
 
     &:active:not(:disabled) {
-        transform: scale(0.95);
+        transform: translateY(-50%) scale(0.95);
+    }
+
+    /* On mobile, move buttons below the cards */
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        position: static;
+        transform: none;
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+
+        &:hover:not(:disabled) {
+            transform: scale(1.08);
+        }
+
+        &:active:not(:disabled) {
+            transform: scale(0.95);
+        }
     }
 
     @media (max-width: ${({ theme }) => theme.screen.small}) {
         width: 44px;
         height: 44px;
         font-size: 1.1rem;
+    }
+`;
+
+/* Container for mobile navigation buttons */
+export const MobileNavContainer = styled.div`
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    margin-top: ${({ theme }) => theme.margin.small};
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: flex;
+    }
+`;
+
+/* Desktop scroll wrapper that contains the buttons */
+export const DesktopScrollWrapper = styled.div`
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    /* Hide navigation buttons on mobile - they'll be in MobileNavContainer */
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        ${NavButton} {
+            display: none;
+        }
     }
 `;
 

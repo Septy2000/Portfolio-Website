@@ -25,6 +25,9 @@ export const Header = styled.header`
     z-index: 100;
     animation: ${slideDown} 0.6s ease-out;
 
+    /* iOS safe area support - accounts for notch/Dynamic Island */
+    padding-top: calc(${({ theme }) => theme.padding.small} + env(safe-area-inset-top, 0px));
+
     /* Subtle gradient overlay */
     background: linear-gradient(
         135deg,
@@ -52,6 +55,7 @@ export const Header = styled.header`
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         padding: ${({ theme }) => `${theme.padding.small} ${theme.padding.small}`};
+        padding-top: calc(${({ theme }) => theme.padding.small} + env(safe-area-inset-top, 0px));
     }
 `;
 
@@ -182,7 +186,8 @@ export const CloseIcon = styled(FaTimes)`
     font-size: 1.8rem;
     cursor: pointer;
     position: absolute;
-    top: ${({ theme }) => theme.margin.medium};
+    /* Account for safe area on close button positioning */
+    top: calc(${({ theme }) => theme.margin.medium} + env(safe-area-inset-top, 0px));
     right: ${({ theme }) => theme.margin.medium};
     padding: 8px;
     border-radius: ${({ theme }) => theme.borderRadius.xsmall};
@@ -206,9 +211,18 @@ export const MobileMenu = styled.div`
     justify-content: center;
     position: fixed;
     top: 0;
+    left: 0;
     right: 0;
+    bottom: 0;
+    /* Use dvh for proper iOS viewport handling */
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    height: 100dvh;
+    /* Account for safe areas */
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
     background: linear-gradient(
         135deg,
         ${({ theme }) => theme.colors.surface.secondary} 0%,
@@ -217,6 +231,8 @@ export const MobileMenu = styled.div`
     z-index: 999;
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Ensure it covers everything including browser chrome */
+    overflow: hidden;
 
     /* Decorative elements */
     &::before {

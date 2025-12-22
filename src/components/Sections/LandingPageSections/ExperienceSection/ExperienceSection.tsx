@@ -114,70 +114,91 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
             </Styled.Header>
 
             <Styled.ScrollWrapper>
-                <Styled.NavButton
-                    $position="left"
-                    onClick={() => scrollToIndex(activeIndex - 1)}
-                    disabled={activeIndex === 0}
-                >
-                    ←
-                </Styled.NavButton>
+                {/* Desktop navigation - positioned absolutely over cards */}
+                <Styled.DesktopScrollWrapper>
+                    <Styled.NavButton
+                        $position="left"
+                        onClick={() => scrollToIndex(activeIndex - 1)}
+                        disabled={activeIndex === 0}
+                    >
+                        ←
+                    </Styled.NavButton>
 
-                <Styled.ScrollContainer ref={scrollRef} onScroll={handleScroll}>
-                    {timelineItems.map((item, index) => (
-                        <Styled.Card key={index}>
-                            <Styled.CardHeader>
-                                <Styled.IconWrapper>
-                                    <PlainLinkWrapper href={item.website}>
-                                        <ExperienceImage
-                                            src={item.icon}
-                                            alt={`${item.company} logo`}
-                                            width={50}
-                                            height={50}
-                                            priority
-                                        />
-                                    </PlainLinkWrapper>
-                                </Styled.IconWrapper>
-                                <Styled.TitleWrapper>
-                                    <Styled.CardTitle>{item.title}</Styled.CardTitle>
-                                    <Styled.Company
-                                        href={item.website}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        {item.company}
-                                    </Styled.Company>
-                                </Styled.TitleWrapper>
-                            </Styled.CardHeader>
+                    <Styled.ScrollContainer ref={scrollRef} onScroll={handleScroll}>
+                        {timelineItems.map((item, index) => (
+                            <Styled.Card key={index}>
+                                <Styled.CardHeader>
+                                    <Styled.IconWrapper>
+                                        <PlainLinkWrapper href={item.website}>
+                                            <ExperienceImage
+                                                src={item.icon}
+                                                alt={`${item.company} logo`}
+                                                width={50}
+                                                height={50}
+                                                priority
+                                            />
+                                        </PlainLinkWrapper>
+                                    </Styled.IconWrapper>
+                                    <Styled.TitleWrapper>
+                                        <Styled.CardTitle>{item.title}</Styled.CardTitle>
+                                        <Styled.Company
+                                            href={item.website}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {item.company}
+                                        </Styled.Company>
+                                    </Styled.TitleWrapper>
+                                </Styled.CardHeader>
 
-                            <Styled.MetaInfo>
-                                <Styled.MetaItem>{item.date}</Styled.MetaItem>
-                                <Styled.MetaItem>{item.location}</Styled.MetaItem>
-                            </Styled.MetaInfo>
+                                <Styled.MetaInfo>
+                                    <Styled.MetaItem>{item.date}</Styled.MetaItem>
+                                    <Styled.MetaItem>{item.location}</Styled.MetaItem>
+                                </Styled.MetaInfo>
 
-                            <Styled.ResponsibilitiesList>
-                                {item.responsibilities.map((resp, idx) => (
-                                    <Styled.ResponsibilityItem key={idx}>
-                                        {resp}
-                                    </Styled.ResponsibilityItem>
-                                ))}
-                            </Styled.ResponsibilitiesList>
+                                <Styled.ResponsibilitiesList>
+                                    {item.responsibilities.map((resp, idx) => (
+                                        <Styled.ResponsibilityItem key={idx}>
+                                            {resp}
+                                        </Styled.ResponsibilityItem>
+                                    ))}
+                                </Styled.ResponsibilitiesList>
 
-                            <Styled.SkillsContainer>
-                                {item.skills.map((skill, idx) => (
-                                    <Styled.SkillTag key={idx}>{skill}</Styled.SkillTag>
-                                ))}
-                            </Styled.SkillsContainer>
-                        </Styled.Card>
-                    ))}
-                </Styled.ScrollContainer>
+                                <Styled.SkillsContainer>
+                                    {item.skills.map((skill, idx) => (
+                                        <Styled.SkillTag key={idx}>{skill}</Styled.SkillTag>
+                                    ))}
+                                </Styled.SkillsContainer>
+                            </Styled.Card>
+                        ))}
+                    </Styled.ScrollContainer>
 
-                <Styled.NavButton
-                    $position="right"
-                    onClick={() => scrollToIndex(activeIndex + 1)}
-                    disabled={activeIndex === timelineItems.length - 1}
-                >
-                    →
-                </Styled.NavButton>
+                    <Styled.NavButton
+                        $position="right"
+                        onClick={() => scrollToIndex(activeIndex + 1)}
+                        disabled={activeIndex === timelineItems.length - 1}
+                    >
+                        →
+                    </Styled.NavButton>
+                </Styled.DesktopScrollWrapper>
+
+                {/* Mobile navigation - positioned below cards */}
+                <Styled.MobileNavContainer>
+                    <Styled.NavButton
+                        $position="left"
+                        onClick={() => scrollToIndex(activeIndex - 1)}
+                        disabled={activeIndex === 0}
+                    >
+                        ←
+                    </Styled.NavButton>
+                    <Styled.NavButton
+                        $position="right"
+                        onClick={() => scrollToIndex(activeIndex + 1)}
+                        disabled={activeIndex === timelineItems.length - 1}
+                    >
+                        →
+                    </Styled.NavButton>
+                </Styled.MobileNavContainer>
             </Styled.ScrollWrapper>
 
             <Styled.DotsContainer>
