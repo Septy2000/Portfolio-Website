@@ -21,7 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         // Inline style ensures the background is set immediately before any CSS loads
         // This prevents content from being visible in the notch/safe area on iOS
-        <html lang="en" style={{ background: "#1A1B25" }}>
+        <html lang="en" style={{ background: "#fff9f0" }}>
             <StyledComponentsRegistry>
                 <ThemeClient>
                     <GlobalStyles />
