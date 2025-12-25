@@ -203,31 +203,10 @@ export const Card = styled.article`
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-
-    /* Top accent bar */
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(
-            90deg,
-            ${({ theme }) => theme.colors.orange},
-            ${({ theme }) => theme.colors.accent.warm}
-        );
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
+    border: ${({ theme }) => `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
 
     &:hover {
         transform: translateY(-8px);
-        /* box-shadow: ${({ theme }) => theme.shadows.strong}; */
-
-        &::before {
-            opacity: 1;
-        }
     }
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
