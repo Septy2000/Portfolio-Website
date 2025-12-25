@@ -20,14 +20,8 @@ export const Header = styled.header`
     align-items: center;
     padding: ${({ theme }) => `${theme.padding.small} ${theme.padding.medium}`};
     background-color: ${({ theme }) => theme.colors.surface.secondary};
-    position: sticky;
-    /* Stick at the safe area boundary, not at absolute top */
-    top: 0;
     z-index: 100;
     animation: ${slideDown} 0.6s ease-out;
-
-    /* iOS safe area support - accounts for notch/Dynamic Island */
-    padding-top: calc(${({ theme }) => theme.padding.small} + env(safe-area-inset-top, 0px));
 
     /* Subtle gradient overlay */
     background: linear-gradient(
@@ -52,11 +46,6 @@ export const Header = styled.header`
             transparent
         );
         opacity: 0.6;
-    }
-
-    @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        padding: ${({ theme }) => `${theme.padding.small} ${theme.padding.small}`};
-        padding-top: calc(${({ theme }) => theme.padding.small} + env(safe-area-inset-top, 0px));
     }
 `;
 
