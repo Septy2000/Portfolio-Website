@@ -19,7 +19,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en">
+        // Inline style ensures the background is set immediately before any CSS loads
+        // This prevents content from being visible in the notch/safe area on iOS
+        <html lang="en" style={{ background: "#1A1B25" }}>
             <StyledComponentsRegistry>
                 <ThemeClient>
                     <GlobalStyles />
