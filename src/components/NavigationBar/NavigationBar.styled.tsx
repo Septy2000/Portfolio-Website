@@ -21,6 +21,7 @@ export const Header = styled.header`
     padding: ${({ theme }) => `${theme.padding.small} ${theme.padding.medium}`};
     background-color: ${({ theme }) => theme.colors.surface.secondary};
     position: sticky;
+    /* Stick at the safe area boundary, not at absolute top */
     top: 0;
     z-index: 100;
     animation: ${slideDown} 0.6s ease-out;

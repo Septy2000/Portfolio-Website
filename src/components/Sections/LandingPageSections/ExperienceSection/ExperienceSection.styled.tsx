@@ -223,7 +223,7 @@ export const Card = styled.article`
 
     &:hover {
         transform: translateY(-8px);
-        box-shadow: ${({ theme }) => theme.shadows.strong};
+        /* box-shadow: ${({ theme }) => theme.shadows.strong}; */
 
         &::before {
             opacity: 1;

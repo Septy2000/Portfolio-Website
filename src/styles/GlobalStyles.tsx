@@ -14,6 +14,9 @@ const GlobalStyles = createGlobalStyle`
         scroll-behavior: smooth;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        /* Ensure the background color extends into the safe area (notch area) */
+        /* This matches the navbar color so scrolling content behind is hidden */
+        background: ${({ theme }) => theme.colors.surface.secondary};
     }
     
     body {
