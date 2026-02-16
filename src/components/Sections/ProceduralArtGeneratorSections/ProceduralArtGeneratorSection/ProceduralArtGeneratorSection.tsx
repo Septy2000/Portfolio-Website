@@ -15,6 +15,13 @@ import {
 } from "@/utils/workers/workers";
 import { TypedParameters } from "@/_types/common";
 
+const DEFAULT_COMPLEX_PLANE_BOUNDARIES: ComplexPlaneBoundary = {
+    RE_MIN: -2,
+    RE_MAX: 2,
+    IM_MIN: -1.5,
+    IM_MAX: 1.5,
+};
+
 export default function ProceduralArtGeneratorSection() {
     const [isImageGenerated, setIsImageGenerated] = useState(true);
 
@@ -25,13 +32,7 @@ export default function ProceduralArtGeneratorSection() {
     const columnIndicesRef = useRef<number[]>([]);
     const randomColorsRef = useRef<number[]>([]);
 
-    const defaultComplexPlaneBoundaries: ComplexPlaneBoundary = {
-        RE_MIN: -2,
-        RE_MAX: 2,
-        IM_MIN: -1.5,
-        IM_MAX: 1.5,
-    };
-    const complexPlaneBoundariesRef = useRef<ComplexPlaneBoundary>(defaultComplexPlaneBoundaries);
+    const complexPlaneBoundariesRef = useRef<ComplexPlaneBoundary>(DEFAULT_COMPLEX_PLANE_BOUNDARIES);
     const canZoom = useRef(true);
     const isZoomingRef = useRef(false);
     const zoomHistory = useRef<ComplexPlaneBoundary[]>([]);
@@ -277,7 +278,7 @@ export default function ProceduralArtGeneratorSection() {
         zoomHistory.current = [];
 
         // Reset complex plane boundaries and scaling factor
-        complexPlaneBoundariesRef.current = defaultComplexPlaneBoundaries;
+        complexPlaneBoundariesRef.current = DEFAULT_COMPLEX_PLANE_BOUNDARIES;
         scalingFactorRef.current = canvasRef.current
             ? localTypedParametersRef.current.width /
               canvasRef.current.getBoundingClientRect().width
@@ -443,7 +444,7 @@ export default function ProceduralArtGeneratorSection() {
     }
 
     function resetZoom() {
-        complexPlaneBoundariesRef.current = defaultComplexPlaneBoundaries;
+        complexPlaneBoundariesRef.current = DEFAULT_COMPLEX_PLANE_BOUNDARIES;
         zoomHistory.current = [];
         generateImage();
     }

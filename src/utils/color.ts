@@ -1,5 +1,3 @@
-import { randomWithinBounds } from "./random";
-
 /**
  * Returns an HSL color based on the number of iterations.
  * @param {number} iterations - The number of iterations for the point.
@@ -64,15 +62,4 @@ export function getRandomHSLColor(
     }
     const hue = colors[iterations % colors.length];
     return `hsl(${hue}, 100%, 50%)`;
-}
-
-/**
- * Generates an array of random hue values for a color palette.
- * @param {number} numberOfColors - The number of colors to generate.
- * @returns {number[]} - An array of hue values (0-360) for the color palette.
- */
-function generateRandomColorPalette(numberOfColors: number): number[] {
-    return new Array(numberOfColors)
-        .fill(0)
-        .map(() => randomWithinBounds(0, 360));
 }

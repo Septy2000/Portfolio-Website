@@ -1,20 +1,11 @@
 import { TypedParameters, TypedColorModeParameters } from "@/_types/common";
-import { log } from "console";
 
 export function isColorIntensityValid(colorIntensity: number): boolean {
     return !Number.isNaN(colorIntensity) && colorIntensity !== 0;
 }
 
-export function isRedWeightValid(redWeight: number): boolean {
-    return !Number.isNaN(redWeight) && redWeight >= 0;
-}
-
-export function isGreenWeightValid(greenWeight: number): boolean {
-    return !Number.isNaN(greenWeight) && greenWeight >= 0;
-}
-
-export function isBlueWeightValid(blueWeight: number): boolean {
-    return !Number.isNaN(blueWeight) && blueWeight >= 0;
+export function isColorWeightValid(weight: number): boolean {
+    return !Number.isNaN(weight) && weight >= 0;
 }
 
 export function isColorsNumberValid(colorsNumber: number): boolean {
@@ -49,9 +40,9 @@ export function isParametersMenuInputValid(
         isMaxIterationsValid(typedParameters.maxIterations) &&
         isColorsNumberValid(typedColorModeParameters.numberOfRandomColors) &&
         isColorIntensityValid(typedColorModeParameters.colorIntensity) &&
-        isRedWeightValid(typedColorModeParameters.rgbWeights.r) &&
-        isGreenWeightValid(typedColorModeParameters.rgbWeights.g) &&
-        isBlueWeightValid(typedColorModeParameters.rgbWeights.b) &&
+        isColorWeightValid(typedColorModeParameters.rgbWeights.r) &&
+        isColorWeightValid(typedColorModeParameters.rgbWeights.g) &&
+        isColorWeightValid(typedColorModeParameters.rgbWeights.b) &&
         isWidthValid(typedParameters.width) &&
         isHeightValid(typedParameters.height)
     );
