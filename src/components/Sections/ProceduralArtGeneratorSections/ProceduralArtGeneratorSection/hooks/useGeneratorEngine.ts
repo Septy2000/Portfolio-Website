@@ -2,11 +2,12 @@ import { useRef, useState, useEffect, MutableRefObject, RefObject } from "react"
 import { ComplexPlaneBoundary } from "@/_types/math";
 import { TypedParameters } from "@/_types/common";
 import {
-    getHSLColor,
-    getRGBColor,
-    getRandomHSLColor,
+    getHSLColorRGBA,
+    getRGBColorRGBA,
+    getRandomHSLColorRGBA,
     getNoiseHSLColor,
     getNoiseRGBColor,
+    type RGBA,
 } from "@/utils/color";
 import { randomWithinBounds } from "@/utils/random";
 import { createFractalWorker, createPerlinWorker } from "@/utils/workers/workers";
@@ -29,6 +30,7 @@ export function useGeneratorEngine({
     const workerRef = useRef<Worker | null>(null);
     const columnIndicesRef = useRef<number[]>([]);
     const randomColorsRef = useRef<number[]>([]);
+    const imageDataRef = useRef<ImageData | null>(null);
     const scalingFactorRef = useRef(1);
 
     const { parameters, setParameters, typedParameters, typedColorModeParameters } =
@@ -52,37 +54,24 @@ export function useGeneratorEngine({
         contextRef.current = canvas.getContext("2d");
     }
 
-    function drawFractalPixel(x: number, y: number, iterations: number) {
-        const ctx = contextRef.current;
-        if (!ctx) return;
+    function getFractalPixelRGBA(iterations: number): RGBA {
+        const params = localTypedParametersRef.current;
+        const colorParams = localTypedColorModeParametersRef.current;
 
-        switch (localTypedColorModeParametersRef.current.colorMode) {
+        switch (colorParams.colorMode) {
             case "smooth":
-                ctx.fillStyle = getHSLColor(
-                    iterations,
-                    localTypedParametersRef.current.maxIterations,
-                    localTypedColorModeParametersRef.current.colorIntensity
-                );
-                break;
+                return getHSLColorRGBA(iterations, params.maxIterations, colorParams.colorIntensity);
             case "rgb":
-                ctx.fillStyle = getRGBColor(
+                return getRGBColorRGBA(
                     iterations,
-                    localTypedParametersRef.current.maxIterations,
-                    localTypedColorModeParametersRef.current.rgbWeights.r,
-                    localTypedColorModeParametersRef.current.rgbWeights.g,
-                    localTypedColorModeParametersRef.current.rgbWeights.b
+                    params.maxIterations,
+                    colorParams.rgbWeights.r,
+                    colorParams.rgbWeights.g,
+                    colorParams.rgbWeights.b
                 );
-                break;
             case "random":
-                ctx.fillStyle = getRandomHSLColor(
-                    iterations,
-                    localTypedParametersRef.current.maxIterations,
-                    randomColorsRef.current
-                );
-                break;
+                return getRandomHSLColorRGBA(iterations, params.maxIterations, randomColorsRef.current);
         }
-
-        ctx.fillRect(x, y, 1, 1);
     }
 
     function buildFractalWorkerMessage(column: number) {
@@ -114,9 +103,23 @@ export function useGeneratorEngine({
             isGeneratingRef.current = false;
         }
 
-        for (let row = 0; row < localTypedParametersRef.current.height; row++) {
-            drawFractalPixel(column, row, columnValues[row]);
+        const imageData = imageDataRef.current;
+        if (!imageData) return;
+
+        const width = localTypedParametersRef.current.width;
+        const height = localTypedParametersRef.current.height;
+        const data = imageData.data;
+
+        for (let row = 0; row < height; row++) {
+            const rgba = getFractalPixelRGBA(columnValues[row]);
+            const index = (row * width + column) * 4;
+            data[index] = rgba[0];
+            data[index + 1] = rgba[1];
+            data[index + 2] = rgba[2];
+            data[index + 3] = rgba[3];
         }
+
+        contextRef.current?.putImageData(imageData, 0, 0);
     }
 
     function generateFractal() {
@@ -265,6 +268,8 @@ export function useGeneratorEngine({
         }
 
         if (localTypedParametersRef.current.algorithm !== "perlin") {
+            const { width, height } = localTypedParametersRef.current;
+            imageDataRef.current = contextRef.current?.createImageData(width, height) || null;
             randomColorsRef.current = Array.from(
                 { length: localTypedColorModeParametersRef.current.numberOfRandomColors },
                 () => randomWithinBounds(0, 360)
