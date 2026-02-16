@@ -1,12 +1,6 @@
-export const createMandelbrotWorker = () => {
+export const createFractalWorker = () => {
     return new Worker(
-        new URL("@/utils/workers/mandelbrotWorker.ts", import.meta.url)
-    );
-};
-
-export const createJuliaWorker = () => {
-    return new Worker(
-        new URL("@/utils/workers/juliaWorker.ts", import.meta.url)
+        new URL("@/utils/workers/fractalWorker.ts", import.meta.url)
     );
 };
 

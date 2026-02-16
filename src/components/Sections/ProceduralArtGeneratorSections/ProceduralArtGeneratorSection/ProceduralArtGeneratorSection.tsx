@@ -8,11 +8,7 @@ import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSecti
 import { randomWithinBounds } from "@/utils/random";
 import GeneratorInformationSection from "@/components/Sections/ProceduralArtGeneratorSections/GeneratorInformationSection/GeneratorInformationSection";
 
-import {
-    createMandelbrotWorker,
-    createJuliaWorker,
-    createPerlinWorker,
-} from "@/utils/workers/workers";
+import { createFractalWorker, createPerlinWorker } from "@/utils/workers/workers";
 import { TypedParameters } from "@/_types/common";
 
 const DEFAULT_COMPLEX_PLANE_BOUNDARIES: ComplexPlaneBoundary = {
@@ -119,28 +115,30 @@ export default function ProceduralArtGeneratorSection() {
         ctx.fillRect(x, y, 1, 1);
     }
 
+    function buildFractalWorkerMessage(column: number) {
+        const params = localTypedParametersRef.current;
+        return {
+            column,
+            algorithm: params.algorithm,
+            boundaries: complexPlaneBoundariesRef.current,
+            width: params.width,
+            height: params.height,
+            maxIterations: params.maxIterations,
+            selectedComplexNumber:
+                params.algorithm === "julia"
+                    ? params.customCValueSelected
+                        ? { x: params.customCRealValue, y: params.customCImaginaryValue }
+                        : params.valueOfC
+                    : null,
+        };
+    }
+
     function drawFractalColumn(column: number, columnValues: number[]) {
         if (!canvasRef.current || !isGeneratingRef.current) return;
 
         const nextColumn = columnIndicesRef.current.pop();
         if (nextColumn !== undefined) {
-            const data = {
-                column: nextColumn,
-                boundaries: complexPlaneBoundariesRef.current,
-                width: localTypedParametersRef.current.width,
-                height: localTypedParametersRef.current.height,
-                maxIterations: localTypedParametersRef.current.maxIterations,
-                selectedComplexNumber:
-                    localTypedParametersRef.current.algorithm === "julia"
-                        ? localTypedParametersRef.current.customCValueSelected
-                            ? {
-                                  x: localTypedParametersRef.current.customCRealValue,
-                                  y: localTypedParametersRef.current.customCImaginaryValue,
-                              }
-                            : localTypedParametersRef.current.valueOfC
-                        : null,
-            };
-            workerRef.current?.postMessage(data);
+            workerRef.current?.postMessage(buildFractalWorkerMessage(nextColumn));
         } else {
             setIsImageGenerated(true);
             isGeneratingRef.current = false;
@@ -159,31 +157,13 @@ export default function ProceduralArtGeneratorSection() {
             (_, i) => i
         ).reverse();
 
-        workerRef.current =
-            localTypedParametersRef.current.algorithm === "mandelbrot"
-                ? createMandelbrotWorker()
-                : createJuliaWorker();
+        workerRef.current = createFractalWorker();
 
         workerRef.current.onmessage = (event) => {
             drawFractalColumn(event.data.column, event.data.columnValues);
         };
 
-        const initialData = {
-            column: columnIndicesRef.current.pop(),
-            boundaries: complexPlaneBoundariesRef.current,
-            width: localTypedParametersRef.current.width,
-            height: localTypedParametersRef.current.height,
-            maxIterations: localTypedParametersRef.current.maxIterations,
-            selectedComplexNumber:
-                localTypedParametersRef.current.algorithm === "julia"
-                    ? localTypedParametersRef.current.customCValueSelected
-                        ? {
-                              x: localTypedParametersRef.current.customCRealValue,
-                              y: localTypedParametersRef.current.customCImaginaryValue,
-                          }
-                        : localTypedParametersRef.current.valueOfC
-                    : null,
-        };
+        const initialData = buildFractalWorkerMessage(columnIndicesRef.current.pop()!);
         workerRef.current.postMessage(initialData);
     }
 
