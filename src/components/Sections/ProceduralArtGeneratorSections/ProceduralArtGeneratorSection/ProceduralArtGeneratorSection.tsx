@@ -2,7 +2,7 @@
 import * as Styled from "./ProceduralArtGeneratorSection.styled";
 import React, { useEffect, useRef, useState } from "react";
 import { ComplexPlaneBoundary } from "@/_types/math";
-import { getHSLColor, getRGBColor, getRandomHSLColor } from "@/utils/color";
+import { getHSLColor, getRGBColor, getRandomHSLColor, getNoiseHSLColor, getNoiseRGBColor } from "@/utils/color";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
 import { randomWithinBounds } from "@/utils/random";
@@ -235,14 +235,16 @@ export default function ProceduralArtGeneratorSection() {
         const [xEnd, yEnd, perlinNoise] = pointValues;
         const absNoise = Math.abs(perlinNoise);
 
+        const colorParams = localTypedColorModeParametersRef.current;
         ctx.strokeStyle =
-            localTypedColorModeParametersRef.current.colorMode === "smooth"
-                ? `hsl(${
-                      absNoise * 360 * localTypedColorModeParametersRef.current.colorIntensity
-                  }, 100%, 50%)`
-                : `rgb(${absNoise * localTypedColorModeParametersRef.current.rgbWeights.r * 255},${
-                      absNoise * localTypedColorModeParametersRef.current.rgbWeights.g * 255
-                  },${absNoise * localTypedColorModeParametersRef.current.rgbWeights.b * 255})`;
+            colorParams.colorMode === "smooth"
+                ? getNoiseHSLColor(absNoise, colorParams.colorIntensity)
+                : getNoiseRGBColor(
+                      absNoise,
+                      colorParams.rgbWeights.r,
+                      colorParams.rgbWeights.g,
+                      colorParams.rgbWeights.b
+                  );
 
         ctx.beginPath();
         ctx.moveTo(
