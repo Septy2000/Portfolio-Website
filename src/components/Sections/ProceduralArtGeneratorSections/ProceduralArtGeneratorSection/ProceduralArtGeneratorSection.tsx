@@ -33,7 +33,6 @@ export default function ProceduralArtGeneratorSection() {
     const randomColorsRef = useRef<number[]>([]);
 
     const complexPlaneBoundariesRef = useRef<ComplexPlaneBoundary>(DEFAULT_COMPLEX_PLANE_BOUNDARIES);
-    const canZoom = useRef(true);
     const isZoomingRef = useRef(false);
     const zoomHistory = useRef<ComplexPlaneBoundary[]>([]);
     const zoomStartCoordinatesRef = useRef<{ xStart: number; yStart: number } | null>(null);
@@ -54,12 +53,29 @@ export default function ProceduralArtGeneratorSection() {
     }, []);
 
     useEffect(() => {
-        if (localTypedParametersRef.current.algorithm !== "perlin" && !isGeneratingRef.current) {
-            canZoom.current = true;
-        } else {
-            canZoom.current = false;
-        }
-    }, [localTypedParametersRef.current.algorithm, isGeneratingRef.current]);
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        canvas.addEventListener("mousedown", handleMouseDown);
+        canvas.addEventListener("mousemove", handleMouseMove);
+        canvas.addEventListener("mouseup", handleMouseUp);
+        canvas.addEventListener("mouseout", handleMouseOut);
+        canvas.addEventListener("touchstart", handleMouseDown, { passive: false });
+        canvas.addEventListener("touchmove", handleMouseMove, { passive: false });
+        canvas.addEventListener("touchend", handleMouseUp);
+        canvas.addEventListener("touchcancel", handleMouseOut);
+
+        return () => {
+            canvas.removeEventListener("mousedown", handleMouseDown);
+            canvas.removeEventListener("mousemove", handleMouseMove);
+            canvas.removeEventListener("mouseup", handleMouseUp);
+            canvas.removeEventListener("mouseout", handleMouseOut);
+            canvas.removeEventListener("touchstart", handleMouseDown);
+            canvas.removeEventListener("touchmove", handleMouseMove);
+            canvas.removeEventListener("touchend", handleMouseUp);
+            canvas.removeEventListener("touchcancel", handleMouseOut);
+        };
+    }, []);
 
     function initializeCanvas() {
         const canvas = canvasRef.current;
@@ -68,17 +84,6 @@ export default function ProceduralArtGeneratorSection() {
         canvas.width = localTypedParametersRef.current.width;
         canvas.height = localTypedParametersRef.current.height;
         contextRef.current = canvas.getContext("2d");
-
-        canvas.addEventListener("mousedown", handleMouseDown);
-        canvas.addEventListener("mousemove", handleMouseMove);
-        canvas.addEventListener("mouseup", handleMouseUp);
-        canvas.addEventListener("mouseout", handleMouseOut);
-
-        // Added touch events for mobile devices
-        canvas.addEventListener("touchstart", handleMouseDown);
-        canvas.addEventListener("touchmove", handleMouseMove);
-        canvas.addEventListener("touchend", handleMouseUp);
-        canvas.addEventListener("touchcancel", handleMouseOut);
     }
 
     function drawFractalPixel(x: number, y: number, iterations: number) {
@@ -330,7 +335,7 @@ export default function ProceduralArtGeneratorSection() {
     function handleMouseDown(e: MouseEvent | TouchEvent) {
         e.preventDefault();
 
-        if (!canvasRef.current || !canZoom.current) return;
+        if (!canvasRef.current || localTypedParametersRef.current.algorithm === "perlin" || isGeneratingRef.current) return;
 
         const rect = canvasRef.current.getBoundingClientRect();
         const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
