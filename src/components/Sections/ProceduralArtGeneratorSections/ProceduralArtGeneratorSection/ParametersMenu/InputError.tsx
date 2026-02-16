@@ -10,13 +10,13 @@ export default function InputError() {
             {!InputValidation.isColorIntensityValid(typedColorModeParameters.colorIntensity) && (
                 <ErrorText>Color intensity must be a number different from 0</ErrorText>
             )}
-            {!InputValidation.isRedWeightValid(typedColorModeParameters.rgbWeights.r) && (
+            {!InputValidation.isColorWeightValid(typedColorModeParameters.rgbWeights.r) && (
                 <ErrorText>Red weight must be a number greater than or equal to 0</ErrorText>
             )}
-            {!InputValidation.isGreenWeightValid(typedColorModeParameters.rgbWeights.g) && (
+            {!InputValidation.isColorWeightValid(typedColorModeParameters.rgbWeights.g) && (
                 <ErrorText>Green weight must be a number greater than or equal to 0</ErrorText>
             )}
-            {!InputValidation.isBlueWeightValid(typedColorModeParameters.rgbWeights.b) && (
+            {!InputValidation.isColorWeightValid(typedColorModeParameters.rgbWeights.b) && (
                 <ErrorText>Blue weight must be a number greater than or equal to 0</ErrorText>
             )}
             {!InputValidation.isColorsNumberValid(

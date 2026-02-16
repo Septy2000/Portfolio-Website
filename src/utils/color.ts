@@ -1,5 +1,3 @@
-import { randomWithinBounds } from "./random";
-
 /**
  * Returns an HSL color based on the number of iterations.
  * @param {number} iterations - The number of iterations for the point.
@@ -67,12 +65,21 @@ export function getRandomHSLColor(
 }
 
 /**
- * Generates an array of random hue values for a color palette.
- * @param {number} numberOfColors - The number of colors to generate.
- * @returns {number[]} - An array of hue values (0-360) for the color palette.
+ * Returns an HSL color for a noise value in the range [0, 1].
  */
-function generateRandomColorPalette(numberOfColors: number): number[] {
-    return new Array(numberOfColors)
-        .fill(0)
-        .map(() => randomWithinBounds(0, 360));
+export function getNoiseHSLColor(noise: number, colorIntensity: number): string {
+    const hue = colorIntensity * 360 * noise;
+    return `hsl(${Math.floor(hue)}, 100%, 50%)`;
+}
+
+/**
+ * Returns an RGB color for a noise value in the range [0, 1].
+ */
+export function getNoiseRGBColor(
+    noise: number,
+    redWeight: number,
+    greenWeight: number,
+    blueWeight: number
+): string {
+    return `rgb(${Math.floor(noise * redWeight * 255)}, ${Math.floor(noise * greenWeight * 255)}, ${Math.floor(noise * blueWeight * 255)})`;
 }
