@@ -40,6 +40,17 @@ export const Container = styled.div<{ $variant?: string }>`
         max-width: none;
         width: 100%;
     `}
+
+    ${({ $variant }) =>
+        $variant === "menus-only" &&
+        `
+        margin-left: 0;
+        max-width: none;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        background: transparent;
+    `}
 `;
 
 export const MenusContainer = styled.div`

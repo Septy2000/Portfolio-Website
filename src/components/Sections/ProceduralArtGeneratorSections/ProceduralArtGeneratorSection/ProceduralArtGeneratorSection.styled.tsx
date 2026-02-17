@@ -23,31 +23,16 @@ export const GeneratorContainer = styled.div`
     }
 `;
 
-export const MenuContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-
-    @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        display: none;
-    }
-`;
 export const CanvasWrapper = styled.div`
     position: relative;
-    flex: 1;
-    min-width: 0;
     max-width: 800px;
+    width: 100%;
 `;
 
-export const MobileButtonsContainer = styled.div`
-    display: none;
+export const ButtonsUnderCanvas = styled.div`
     width: 100%;
-
-    @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        display: block;
-        margin-top: ${({ theme }) => theme.margin.small};
-    }
+    max-width: 800px;
+    margin-top: ${({ theme }) => theme.margin.small};
 `;
 
 export const Canvas = styled.canvas`
@@ -69,6 +54,103 @@ export const CoordinateOverlay = styled.div`
     border-radius: 8px;
     pointer-events: none;
     user-select: none;
+`;
+
+export const SidePanelToggle = styled.button`
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(100%, -50%);
+    width: 36px;
+    height: 72px;
+    border: none;
+    border-radius: 0 ${({ theme }) => theme.borderRadius.small} ${({ theme }) => theme.borderRadius.small} 0;
+    background: ${({ theme }) => theme.colors.surface.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
+    transition: background 0.2s ease;
+
+    &:hover {
+        background: ${({ theme }) => theme.colors.surface.secondary_shade.light_1};
+    }
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: none;
+    }
+`;
+
+const slideInFromRight = keyframes`
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+`;
+
+export const SidePanelOverlay = styled.div`
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 49;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: none;
+    }
+`;
+
+export const SidePanelContainer = styled.div`
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    background: ${({ theme }) => theme.colors.surface.secondary};
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 50;
+    overflow-y: auto;
+    animation: ${slideInFromRight} 0.25s ease;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: none;
+    }
+`;
+
+export const SidePanelHeader = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.surface.secondary_shade.light_2};
+`;
+
+export const SidePanelTitle = styled.span`
+    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 1rem;
+    font-weight: 600;
+`;
+
+export const SidePanelClose = styled.button`
+    background: none;
+    border: none;
+    color: ${({ theme }) => theme.colors.text.muted};
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+
+    &:hover {
+        color: ${({ theme }) => theme.colors.text.secondary};
+    }
 `;
 
 const slideUp = keyframes`

@@ -11,16 +11,16 @@ import { useParameters } from "./ParametersProvider/ParametersProvider";
 import { convertParameters, convertColorModeParameters } from "@/utils/parametersTypeConversion";
 
 export default function ProceduralArtGeneratorSection() {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
-        if (isMobileMenuOpen) {
+        if (isMenuOpen) {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "";
         }
         return () => { document.body.style.overflow = ""; };
-    }, [isMobileMenuOpen]);
+    }, [isMenuOpen]);
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -144,27 +144,42 @@ export default function ProceduralArtGeneratorSection() {
                             Re: {hoverCoords.re.toFixed(6)} Im: {hoverCoords.im.toFixed(6)}i
                         </Styled.CoordinateOverlay>
                     )}
+                    <Styled.SidePanelToggle onClick={() => setIsMenuOpen(true)}>
+                        <BsGearFill />
+                    </Styled.SidePanelToggle>
                 </Styled.CanvasWrapper>
-                <Styled.MenuContainer>
-                    <ParametersMenu {...menuProps} />
-                </Styled.MenuContainer>
             </Styled.GeneratorContainer>
 
-            <Styled.MobileButtonsContainer>
+            <Styled.ButtonsUnderCanvas>
                 <ParametersMenu {...menuProps} variant="buttons-only" />
-            </Styled.MobileButtonsContainer>
+            </Styled.ButtonsUnderCanvas>
 
-            <Styled.MobileMenuToggle onClick={() => setIsMobileMenuOpen(true)}>
+            {isMenuOpen && (
+                <React.Fragment>
+                    <Styled.SidePanelOverlay onClick={() => setIsMenuOpen(false)} />
+                    <Styled.SidePanelContainer>
+                        <Styled.SidePanelHeader>
+                            <Styled.SidePanelTitle>Parameters</Styled.SidePanelTitle>
+                            <Styled.SidePanelClose onClick={() => setIsMenuOpen(false)}>
+                                <BsXLg />
+                            </Styled.SidePanelClose>
+                        </Styled.SidePanelHeader>
+                        <ParametersMenu {...menuProps} variant="menus-only" />
+                    </Styled.SidePanelContainer>
+                </React.Fragment>
+            )}
+
+            <Styled.MobileMenuToggle onClick={() => setIsMenuOpen(true)}>
                 <BsGearFill />
             </Styled.MobileMenuToggle>
 
-            {isMobileMenuOpen && (
+            {isMenuOpen && (
                 <React.Fragment>
-                    <Styled.BottomSheetOverlay onClick={() => setIsMobileMenuOpen(false)} />
+                    <Styled.BottomSheetOverlay onClick={() => setIsMenuOpen(false)} />
                     <Styled.BottomSheetContainer>
                         <Styled.BottomSheetHeader>
                             <Styled.BottomSheetTitle>Parameters</Styled.BottomSheetTitle>
-                            <Styled.BottomSheetClose onClick={() => setIsMobileMenuOpen(false)}>
+                            <Styled.BottomSheetClose onClick={() => setIsMenuOpen(false)}>
                                 <BsXLg />
                             </Styled.BottomSheetClose>
                         </Styled.BottomSheetHeader>
