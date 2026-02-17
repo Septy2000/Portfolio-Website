@@ -41,6 +41,18 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
         useState<TypedColorModeParameters>(convertColorModeParameters(colorModeParameters));
 
     useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const paramsJson = searchParams.get("params");
+        const colorsJson = searchParams.get("colors");
+        if (paramsJson) {
+            try { setParameters(JSON.parse(paramsJson)); } catch {}
+        }
+        if (colorsJson) {
+            try { setColorModeParameters(JSON.parse(colorsJson)); } catch {}
+        }
+    }, []);
+
+    useEffect(() => {
         setTypedParameters(convertParameters(parameters));
     }, [parameters]);
 

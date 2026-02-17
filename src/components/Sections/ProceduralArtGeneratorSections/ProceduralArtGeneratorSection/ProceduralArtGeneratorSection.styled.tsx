@@ -29,6 +29,10 @@ export const MenuContainer = styled.div`
     flex-direction: column;
     align-items: center;
 `;
+export const CanvasWrapper = styled.div`
+    position: relative;
+`;
+
 export const Canvas = styled.canvas`
     width: 800px;
     height: 600px;
@@ -39,4 +43,18 @@ export const Canvas = styled.canvas`
         width: 100%;
         height: auto;
     }
+`;
+
+export const CoordinateOverlay = styled.div`
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.65);
+    color: white;
+    font-family: monospace;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 8px;
+    pointer-events: none;
+    user-select: none;
 `;

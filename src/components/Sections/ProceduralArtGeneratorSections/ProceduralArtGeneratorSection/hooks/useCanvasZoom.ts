@@ -1,4 +1,4 @@
-import { useRef, useEffect, MutableRefObject, RefObject } from "react";
+import { useRef, useState, useEffect, MutableRefObject, RefObject } from "react";
 import { ComplexPlaneBoundary } from "@/_types/math";
 import { TypedParameters } from "@/_types/common";
 
@@ -30,6 +30,7 @@ export function useCanvasZoom({
     const zoomHistory = useRef<ComplexPlaneBoundary[]>([]);
     const zoomStartCoordinatesRef = useRef<{ xStart: number; yStart: number } | null>(null);
     const canvasImageDataRef = useRef<ImageData | null>(null);
+    const [hoverCoords, setHoverCoords] = useState<{ re: number; im: number } | null>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -88,13 +89,7 @@ export function useCanvasZoom({
     function handleMouseMove(e: MouseEvent | TouchEvent) {
         e.preventDefault();
 
-        if (!canvasRef.current || !zoomStartCoordinatesRef.current || !isZoomingRef.current) return;
-
-        const ctx = contextRef.current;
-        if (!ctx || !canvasImageDataRef.current) return;
-
-        const xStart = zoomStartCoordinatesRef.current.xStart;
-        const yStart = zoomStartCoordinatesRef.current.yStart;
+        if (!canvasRef.current) return;
 
         const rect = canvasRef.current.getBoundingClientRect();
         const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
@@ -102,6 +97,21 @@ export function useCanvasZoom({
 
         const xMouse = (clientX - rect.left) * scalingFactorRef.current;
         const yMouse = (clientY - rect.top) * scalingFactorRef.current;
+
+        if (localTypedParametersRef.current.algorithm !== "perlin") {
+            setHoverCoords({
+                re: reComplexPlanePoint(xMouse),
+                im: imComplexPlanePoint(yMouse),
+            });
+        }
+
+        if (!zoomStartCoordinatesRef.current || !isZoomingRef.current) return;
+
+        const ctx = contextRef.current;
+        if (!ctx || !canvasImageDataRef.current) return;
+
+        const xStart = zoomStartCoordinatesRef.current.xStart;
+        const yStart = zoomStartCoordinatesRef.current.yStart;
 
         ctx.putImageData(canvasImageDataRef.current, 0, 0);
 
@@ -150,6 +160,8 @@ export function useCanvasZoom({
     }
 
     function handleMouseOut() {
+        setHoverCoords(null);
+
         if (!isZoomingRef.current || !canvasRef.current) return;
 
         isZoomingRef.current = false;
@@ -187,10 +199,22 @@ export function useCanvasZoom({
         zoomHistory.current = [];
     }
 
+    function getZoomHistory() {
+        return zoomHistory.current;
+    }
+
+    function loadZoomState(boundaries: ComplexPlaneBoundary, history: ComplexPlaneBoundary[]) {
+        complexPlaneBoundariesRef.current = boundaries;
+        zoomHistory.current = history;
+    }
+
     return {
         undoZoom,
         resetZoom,
         resetHistory,
         zoomHistoryLength: zoomHistory.current.length,
+        hoverCoords,
+        getZoomHistory,
+        loadZoomState,
     };
 }
