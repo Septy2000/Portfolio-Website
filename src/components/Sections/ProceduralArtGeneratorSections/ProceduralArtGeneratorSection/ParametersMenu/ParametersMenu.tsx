@@ -4,6 +4,8 @@ import DefaultParametersMenu from "./DefaultParametersMenu/DefaultParametersMenu
 import MandelbrotParametersMenu from "./MandelbrotParametersMenu/MandelbrotParametersMenu";
 import JuliaParametersMenu from "./JuliaParametersMenu/JuliaParametersMenu";
 import PerlinNoiseParametersMenu from "./PerlinNoiseParametersMenu/PerlinNoiseParametersMenu";
+import NewtonParametersMenu from "./NewtonParametersMenu/NewtonParametersMenu";
+import LyapunovParametersMenu from "./LyapunovParametersMenu/LyapunovParametersMenu";
 import ColorModeMenu from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
 import { isParametersMenuInputValid } from "@/utils/parametersValidation";
 import InputError from "./InputError";
@@ -35,9 +37,11 @@ export default function ParametersMenu({
         <Styled.Container>
             <Styled.MenusContainer>
                 <DefaultParametersMenu />
-                <ColorModeMenu />
-                {typedParameters.algorithm === "mandelbrot" && <MandelbrotParametersMenu />}
+                {typedParameters.algorithm !== "newton" && <ColorModeMenu />}
+                {(typedParameters.algorithm === "mandelbrot" || typedParameters.algorithm === "burning-ship" || typedParameters.algorithm === "tricorn") && <MandelbrotParametersMenu />}
                 {typedParameters.algorithm === "julia" && <JuliaParametersMenu />}
+                {typedParameters.algorithm === "newton" && <NewtonParametersMenu />}
+                {typedParameters.algorithm === "lyapunov" && <LyapunovParametersMenu />}
                 {typedParameters.algorithm === "perlin" && <PerlinNoiseParametersMenu />}
             </Styled.MenusContainer>
             <Styled.ButtonsContainer>

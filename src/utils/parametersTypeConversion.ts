@@ -15,6 +15,8 @@ export function convertParameters(params: Parameters): TypedParameters {
         customCRealValue: parseFloat(params.customCRealValue),
         customCImaginaryValue: parseFloat(params.customCImaginaryValue),
         customCValueSelected: params.customCValueSelected,
+        newtonDegree: parseInt(params.newtonDegree),
+        lyapunovSequence: params.lyapunovSequence,
         scale: parseFloat(params.scale),
         zoomOut: parseFloat(params.zoomOut),
         customSeed: parseInt(params.customSeed),

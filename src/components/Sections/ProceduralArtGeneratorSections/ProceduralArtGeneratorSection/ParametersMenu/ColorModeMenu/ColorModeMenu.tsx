@@ -39,7 +39,7 @@ export default function ColorModeMenu() {
                 <option value="rgb">RGB</option>
                 {parameters.algorithm !== "perlin" && <option value="random">Random</option>}
             </LabelledSelect>
-            {parameters.algorithm !== "perlin" && (
+            {parameters.algorithm !== "perlin" && parameters.algorithm !== "lyapunov" && (
                 <Styled.CheckboxRow>
                     <Styled.Checkbox
                         type="checkbox"

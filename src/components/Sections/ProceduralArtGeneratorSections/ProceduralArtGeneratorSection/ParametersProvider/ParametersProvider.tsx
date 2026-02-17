@@ -21,6 +21,8 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
         customCRealValue: "0.0",
         customCImaginaryValue: "0.0",
         customCValueSelected: false,
+        newtonDegree: "3",
+        lyapunovSequence: "AB",
         scale: "1",
         zoomOut: "2",
         customSeed: "",

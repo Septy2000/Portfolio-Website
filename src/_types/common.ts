@@ -1,7 +1,7 @@
 import { ComplexNumber } from "./math";
 
 export interface Parameters {
-    algorithm: "mandelbrot" | "julia" | "perlin";
+    algorithm: "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "perlin";
     width: string;
     height: string;
     maxIterations: string;
@@ -9,6 +9,8 @@ export interface Parameters {
     customCRealValue: string;
     customCImaginaryValue: string;
     customCValueSelected: boolean;
+    newtonDegree: string;
+    lyapunovSequence: string;
     scale: string;
     zoomOut: string;
     customSeed: string;
@@ -16,7 +18,7 @@ export interface Parameters {
 }
 
 export interface TypedParameters {
-    algorithm: "mandelbrot" | "julia" | "perlin";
+    algorithm: "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "perlin";
     width: number;
     height: number;
     maxIterations: number;
@@ -24,6 +26,8 @@ export interface TypedParameters {
     customCRealValue: number;
     customCImaginaryValue: number;
     customCValueSelected: boolean;
+    newtonDegree: number;
+    lyapunovSequence: string;
     scale: number;
     zoomOut: number;
     customSeed: number;

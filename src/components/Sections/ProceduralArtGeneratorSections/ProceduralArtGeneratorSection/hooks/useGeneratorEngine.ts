@@ -6,6 +6,7 @@ import {
     getRGBColorRGBA,
     getRandomHSLColorRGBA,
     getPaletteColorRGBA,
+    getNewtonColorRGBA,
     PALETTES,
     getNoiseHSLColor,
     getNoiseRGBColor,
@@ -14,7 +15,7 @@ import {
 import { randomWithinBounds } from "@/utils/random";
 import { createFractalWorker, createPerlinWorker } from "@/utils/workers/workers";
 import { useParameters } from "../ParametersProvider/ParametersProvider";
-import { DEFAULT_COMPLEX_PLANE_BOUNDARIES } from "./useCanvasZoom";
+import { DEFAULT_COMPLEX_PLANE_BOUNDARIES, LYAPUNOV_DEFAULT_BOUNDARIES } from "./useCanvasZoom";
 
 const MAX_WORKERS = 8;
 
@@ -103,10 +104,12 @@ export function useGeneratorEngine({
                         ? { x: params.customCRealValue, y: params.customCImaginaryValue }
                         : params.valueOfC
                     : null,
+            newtonDegree: params.newtonDegree,
+            lyapunovSequence: params.lyapunovSequence,
         };
     }
 
-    function drawFractalColumn(worker: Worker, column: number, columnValues: number[]) {
+    function drawFractalColumn(worker: Worker, column: number, columnValues: number[], rootIndices: number[] | null) {
         if (!canvasRef.current || !isGeneratingRef.current) return;
 
         const nextColumn = columnIndicesRef.current.pop();
@@ -123,12 +126,16 @@ export function useGeneratorEngine({
         const imageData = imageDataRef.current;
         if (!imageData) return;
 
-        const width = localTypedParametersRef.current.width;
-        const height = localTypedParametersRef.current.height;
+        const params = localTypedParametersRef.current;
+        const width = params.width;
+        const height = params.height;
         const data = imageData.data;
+        const isNewton = params.algorithm === "newton";
 
         for (let row = 0; row < height; row++) {
-            const rgba = getFractalPixelRGBA(columnValues[row]);
+            const rgba = isNewton && rootIndices
+                ? getNewtonColorRGBA(columnValues[row], params.maxIterations, rootIndices[row], params.newtonDegree)
+                : getFractalPixelRGBA(columnValues[row]);
             const index = (row * width + column) * 4;
             data[index] = rgba[0];
             data[index + 1] = rgba[1];
@@ -159,7 +166,7 @@ export function useGeneratorEngine({
             const worker = createFractalWorker();
             workersRef.current.push(worker);
             worker.onmessage = (event: MessageEvent) => {
-                drawFractalColumn(worker, event.data.column, event.data.columnValues);
+                drawFractalColumn(worker, event.data.column, event.data.columnValues, event.data.rootIndices);
             };
             worker.postMessage(buildFractalWorkerMessage(columnIndicesRef.current.pop()!));
         }
@@ -274,7 +281,10 @@ export function useGeneratorEngine({
 
         resetZoomHistoryRef.current();
 
-        complexPlaneBoundariesRef.current = DEFAULT_COMPLEX_PLANE_BOUNDARIES;
+        complexPlaneBoundariesRef.current =
+            localTypedParametersRef.current.algorithm === "lyapunov"
+                ? LYAPUNOV_DEFAULT_BOUNDARIES
+                : DEFAULT_COMPLEX_PLANE_BOUNDARIES;
         scalingFactorRef.current = canvasRef.current
             ? localTypedParametersRef.current.width /
               canvasRef.current.getBoundingClientRect().width

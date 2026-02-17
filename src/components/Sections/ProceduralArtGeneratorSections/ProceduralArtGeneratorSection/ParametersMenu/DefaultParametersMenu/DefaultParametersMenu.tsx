@@ -18,9 +18,9 @@ export default function DefaultParametersMenu() {
     const [selectedPreset, setSelectedPreset] = useState("800x600");
 
     const handleAlgorithmChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const algorithm = e.target.value as "mandelbrot" | "julia" | "perlin";
+        const algorithm = e.target.value as "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "perlin";
         setParameters({ ...parameters, algorithm });
-        if (algorithm === "perlin") {
+        if (algorithm === "perlin" || algorithm === "lyapunov") {
             setColorModeParameters({
                 colorMode: "smooth",
                 smoothColoring: false,
@@ -60,6 +60,10 @@ export default function DefaultParametersMenu() {
             >
                 <option value="mandelbrot">Mandelbrot Set</option>
                 <option value="julia">Julia Set</option>
+                <option value="burning-ship">Burning Ship</option>
+                <option value="tricorn">Tricorn</option>
+                <option value="newton">Newton Fractal</option>
+                <option value="lyapunov">Lyapunov Fractal</option>
                 <option value="perlin">Perlin Noise</option>
             </LabelledSelect>
             <Styled.PseudoLabel>Resolution:</Styled.PseudoLabel>

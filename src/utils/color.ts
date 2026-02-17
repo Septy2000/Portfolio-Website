@@ -18,6 +18,23 @@ export const PALETTES: Record<string, ColorPalette> = {
     vintage: [[40, 20, 10], [160, 60, 20], [200, 160, 100], [255, 235, 205]],
 };
 
+export function getNewtonColorRGBA(
+    iterations: number,
+    maxIterations: number,
+    rootIndex: number,
+    degree: number
+): RGBA {
+    const hue = (rootIndex * 360) / degree;
+    const brightness = 1 - 0.6 * (iterations / maxIterations);
+    const [r, g, b] = hslToRgb(hue);
+    return [
+        Math.round(r * brightness),
+        Math.round(g * brightness),
+        Math.round(b * brightness),
+        255,
+    ];
+}
+
 /**
  * Converts an HSL hue (with fixed s=100%, l=50%) to RGB values (0-255).
  */

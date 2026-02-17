@@ -9,6 +9,13 @@ export const DEFAULT_COMPLEX_PLANE_BOUNDARIES: ComplexPlaneBoundary = {
     IM_MAX: 1.5,
 };
 
+export const LYAPUNOV_DEFAULT_BOUNDARIES: ComplexPlaneBoundary = {
+    RE_MIN: 2,
+    RE_MAX: 4,
+    IM_MIN: 2,
+    IM_MAX: 4,
+};
+
 export function useCanvasZoom({
     canvasRef,
     contextRef,
@@ -190,7 +197,10 @@ export function useCanvasZoom({
     }
 
     function resetZoom() {
-        complexPlaneBoundariesRef.current = DEFAULT_COMPLEX_PLANE_BOUNDARIES;
+        complexPlaneBoundariesRef.current =
+            localTypedParametersRef.current.algorithm === "lyapunov"
+                ? LYAPUNOV_DEFAULT_BOUNDARIES
+                : DEFAULT_COMPLEX_PLANE_BOUNDARIES;
         zoomHistory.current = [];
         generateImageRef.current();
     }
