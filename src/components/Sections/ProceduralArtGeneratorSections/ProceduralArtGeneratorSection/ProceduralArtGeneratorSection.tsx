@@ -1,6 +1,7 @@
 "use client";
 import * as Styled from "./ProceduralArtGeneratorSection.styled";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { BsGearFill, BsXLg } from "react-icons/bs";
 import { ComplexPlaneBoundary } from "@/_types/math";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import GeneratorInformationSection from "@/components/Sections/ProceduralArtGeneratorSections/GeneratorInformationSection/GeneratorInformationSection";
@@ -10,6 +11,17 @@ import { useParameters } from "./ParametersProvider/ParametersProvider";
 import { convertParameters, convertColorModeParameters } from "@/utils/parametersTypeConversion";
 
 export default function ProceduralArtGeneratorSection() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => { document.body.style.overflow = ""; };
+    }, [isMobileMenuOpen]);
+
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
     const complexPlaneBoundariesRef = useRef<ComplexPlaneBoundary>(
@@ -23,6 +35,7 @@ export default function ProceduralArtGeneratorSection() {
 
     const {
         isImageGenerated,
+        progress,
         isGeneratingRef,
         localTypedParametersRef,
         scalingFactorRef,
@@ -108,6 +121,18 @@ export default function ProceduralArtGeneratorSection() {
         });
     }
 
+    const menuProps = {
+        generate: generateImageFromButton,
+        stopGeneration: stopImageGeneration,
+        isImageGenerated,
+        progress,
+        undoZoom,
+        resetZoom,
+        areZoomButtonsDisabled: zoomHistoryLength === 0,
+        onSave: handleSave,
+        onCopyLink: handleCopyLink,
+    };
+
     return (
         <Styled.Container>
             <GeneratorInformationSection />
@@ -121,18 +146,32 @@ export default function ProceduralArtGeneratorSection() {
                     )}
                 </Styled.CanvasWrapper>
                 <Styled.MenuContainer>
-                    <ParametersMenu
-                        generate={generateImageFromButton}
-                        stopGeneration={stopImageGeneration}
-                        isImageGenerated={isImageGenerated}
-                        undoZoom={undoZoom}
-                        resetZoom={resetZoom}
-                        areZoomButtonsDisabled={zoomHistoryLength === 0}
-                        onSave={handleSave}
-                        onCopyLink={handleCopyLink}
-                    />
+                    <ParametersMenu {...menuProps} />
                 </Styled.MenuContainer>
             </Styled.GeneratorContainer>
+
+            <Styled.MobileButtonsContainer>
+                <ParametersMenu {...menuProps} variant="buttons-only" />
+            </Styled.MobileButtonsContainer>
+
+            <Styled.MobileMenuToggle onClick={() => setIsMobileMenuOpen(true)}>
+                <BsGearFill />
+            </Styled.MobileMenuToggle>
+
+            {isMobileMenuOpen && (
+                <React.Fragment>
+                    <Styled.BottomSheetOverlay onClick={() => setIsMobileMenuOpen(false)} />
+                    <Styled.BottomSheetContainer>
+                        <Styled.BottomSheetHeader>
+                            <Styled.BottomSheetTitle>Parameters</Styled.BottomSheetTitle>
+                            <Styled.BottomSheetClose onClick={() => setIsMobileMenuOpen(false)}>
+                                <BsXLg />
+                            </Styled.BottomSheetClose>
+                        </Styled.BottomSheetHeader>
+                        <ParametersMenu {...menuProps} variant="menus-only" />
+                    </Styled.BottomSheetContainer>
+                </React.Fragment>
+            )}
         </Styled.Container>
     );
 }

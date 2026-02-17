@@ -33,6 +33,7 @@ export default function ColorModeMenu() {
                 label="Color Mode:"
                 value={colorModeParameters.colorMode}
                 onChange={handleColorModeChange}
+                tooltip="How iteration counts are mapped to colors"
             >
                 <option value="smooth">Smooth</option>
                 {parameters.algorithm !== "perlin" && <option value="palette">Palette</option>}
@@ -77,6 +78,7 @@ export default function ColorModeMenu() {
                     label="Intensity:"
                     type="number"
                     value={colorModeParameters.colorIntensity}
+                    tooltip="Controls how many color cycles appear across the fractal"
                     onChange={(e) =>
                         setColorModeParameters({
                             ...colorModeParameters,
@@ -118,6 +120,7 @@ export default function ColorModeMenu() {
                     label="Number of Random Colors:"
                     type="number"
                     value={colorModeParameters.numberOfRandomColors}
+                    tooltip="Number of distinct random hues to use"
                     onChange={(e) =>
                         setColorModeParameters({
                             ...colorModeParameters,

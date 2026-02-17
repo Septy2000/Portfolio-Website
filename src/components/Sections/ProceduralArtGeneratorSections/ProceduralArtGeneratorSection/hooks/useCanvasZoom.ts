@@ -79,8 +79,10 @@ export function useCanvasZoom({
         const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
         const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
 
-        const xStart = (clientX - rect.left) * scalingFactorRef.current;
-        const yStart = (clientY - rect.top) * scalingFactorRef.current;
+        const scaleX = canvasRef.current.width / rect.width;
+        const scaleY = canvasRef.current.height / rect.height;
+        const xStart = (clientX - rect.left) * scaleX;
+        const yStart = (clientY - rect.top) * scaleY;
 
         isZoomingRef.current = true;
         zoomStartCoordinatesRef.current = { xStart, yStart };
@@ -103,8 +105,10 @@ export function useCanvasZoom({
         const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
         const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
 
-        const xMouse = (clientX - rect.left) * scalingFactorRef.current;
-        const yMouse = (clientY - rect.top) * scalingFactorRef.current;
+        const scaleX = canvasRef.current.width / rect.width;
+        const scaleY = canvasRef.current.height / rect.height;
+        const xMouse = (clientX - rect.left) * scaleX;
+        const yMouse = (clientY - rect.top) * scaleY;
 
         if (localTypedParametersRef.current.algorithm !== "perlin" && localTypedParametersRef.current.algorithm !== "buddhabrot") {
             setHoverCoords({
@@ -149,8 +153,10 @@ export function useCanvasZoom({
         const xStart = zoomStartCoordinatesRef.current.xStart;
         const yStart = zoomStartCoordinatesRef.current.yStart;
 
-        const xMouse = (clientX - rect.left) * scalingFactorRef.current;
-        const yMouse = (clientY - rect.top) * scalingFactorRef.current;
+        const scaleX = canvasRef.current.width / rect.width;
+        const scaleY = canvasRef.current.height / rect.height;
+        const xMouse = (clientX - rect.left) * scaleX;
+        const yMouse = (clientY - rect.top) * scaleY;
 
         const xEnd = xStart + (((xMouse > xStart ? 1 : -1) * 4) / 3) * Math.abs(yMouse - yStart);
         const yEnd = yMouse;

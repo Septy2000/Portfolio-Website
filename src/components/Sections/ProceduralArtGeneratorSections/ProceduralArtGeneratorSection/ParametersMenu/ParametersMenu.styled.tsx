@@ -8,7 +8,7 @@ import { BsArrowCounterclockwise } from "react-icons/bs";
 import { BsDownload } from "react-icons/bs";
 import { BsLink45Deg } from "react-icons/bs";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $variant?: string }>`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -22,11 +22,24 @@ export const Container = styled.div`
     height: 100%;
     gap: 16px;
 
-    @media (max-width: ${({ theme }) => theme.screen.small}) {
-        margin: ${({ theme }) => theme.margin.small} 0;
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        margin: 0;
         width: 100%;
         max-width: none;
+        border-radius: 0;
+        box-shadow: none;
     }
+
+    ${({ $variant }) =>
+        $variant === "buttons-only" &&
+        `
+        background: transparent;
+        box-shadow: none;
+        margin-left: 0;
+        padding: 0;
+        max-width: none;
+        width: 100%;
+    `}
 `;
 
 export const MenusContainer = styled.div`
@@ -38,6 +51,16 @@ export const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+    }
+
+    @media (max-width: ${({ theme }) => theme.screen.small}) {
+        grid-template-columns: 1fr 1fr;
+    }
 `;
 
 export const HorizontalButtonsContainer = styled.div`
@@ -46,14 +69,8 @@ export const HorizontalButtonsContainer = styled.div`
     justify-content: space-between;
     gap: 8px;
 
-    @media (max-width: ${({ theme }) => theme.screen.small}) {
-        flex-direction: column;
-        align-items: center;
-
-        button {
-            width: 100%;
-            margin-bottom: ${({ theme }) => theme.margin.small};
-        }
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: contents;
     }
 `;
 
@@ -64,7 +81,7 @@ export const ControlButton = styled(ButtonClassic)`
     justify-content: center;
     align-items: center;
     font-size: 1rem;
-    @media (max-width: ${({ theme }) => theme.screen.small}) {
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
         width: 100%;
     }
 `;
@@ -140,4 +157,43 @@ export const DownloadIcon = styled(BsDownload)`
 export const LinkIcon = styled(BsLink45Deg)`
     font-size: 1.3rem;
     color: ${({ theme }) => theme.colors.text.secondary};
+`;
+
+export const InputErrorWrapper = styled.div`
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        grid-column: 1 / -1;
+    }
+`;
+
+export const ProgressContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        grid-column: 1 / -1;
+    }
+`;
+
+export const ProgressText = styled.span`
+    font-size: 0.8rem;
+    color: ${({ theme }) => theme.colors.text.muted};
+    text-align: right;
+`;
+
+export const ProgressBarTrack = styled.div`
+    width: 100%;
+    height: 6px;
+    background: ${({ theme }) => theme.colors.surface.secondary_shade.light_1};
+    border-radius: 3px;
+    overflow: hidden;
+`;
+
+export const ProgressBarFill = styled.div<{ $progress: number }>`
+    height: 100%;
+    width: ${({ $progress }) => `${$progress * 100}%`};
+    background: linear-gradient(90deg, ${({ theme }) => theme.colors.green}, #10b981);
+    border-radius: 3px;
+
 `;

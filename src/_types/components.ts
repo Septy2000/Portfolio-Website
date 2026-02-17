@@ -7,6 +7,7 @@ export interface LabelledInputProps {
         e: React.ChangeEvent<HTMLInputElement>,
         color?: "r" | "g" | "b"
     ) => void;
+    tooltip?: string;
 }
 
 export interface LabelledSelectProps {
@@ -15,4 +16,5 @@ export interface LabelledSelectProps {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     children: React.ReactNode;
+    tooltip?: string;
 }

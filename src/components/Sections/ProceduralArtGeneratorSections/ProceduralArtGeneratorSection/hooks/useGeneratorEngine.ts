@@ -31,6 +31,7 @@ export function useGeneratorEngine({
     resetZoomHistoryRef: MutableRefObject<() => void>;
 }) {
     const [isImageGenerated, setIsImageGenerated] = useState(true);
+    const [progress, setProgress] = useState(0);
     const isGeneratingRef = useRef(false);
     const workersRef = useRef<Worker[]>([]);
     const activeWorkersRef = useRef(0);
@@ -38,6 +39,9 @@ export function useGeneratorEngine({
     const randomColorsRef = useRef<number[]>([]);
     const imageDataRef = useRef<ImageData | null>(null);
     const scalingFactorRef = useRef(1);
+    const totalColumnsRef = useRef(0);
+    const completedColumnsRef = useRef(0);
+    const lastProgressUpdateRef = useRef(0);
 
     const { parameters, setParameters, typedParameters, typedColorModeParameters } =
         useParameters();
@@ -111,8 +115,20 @@ export function useGeneratorEngine({
         };
     }
 
+    function updateProgress() {
+        if (totalColumnsRef.current <= 0) return;
+        const value = completedColumnsRef.current / totalColumnsRef.current;
+        const now = performance.now();
+        if (value >= 1 || now - lastProgressUpdateRef.current > 50) {
+            lastProgressUpdateRef.current = now;
+            setProgress(value);
+        }
+    }
+
     function drawFractalColumn(worker: Worker, column: number, columnValues: number[], rootIndices: number[] | null) {
         if (!canvasRef.current || !isGeneratingRef.current) return;
+
+        completedColumnsRef.current++;
 
         const nextColumn = columnIndicesRef.current.pop();
         if (nextColumn !== undefined) {
@@ -124,6 +140,8 @@ export function useGeneratorEngine({
                 isGeneratingRef.current = false;
             }
         }
+
+        updateProgress();
 
         const imageData = imageDataRef.current;
         if (!imageData) return;
@@ -152,8 +170,12 @@ export function useGeneratorEngine({
         workersRef.current.forEach((w) => w.terminate());
         workersRef.current = [];
 
+        const width = localTypedParametersRef.current.width;
+        totalColumnsRef.current = width;
+        completedColumnsRef.current = 0;
+
         columnIndicesRef.current = Array.from(
-            { length: localTypedParametersRef.current.width },
+            { length: width },
             (_, i) => i
         ).reverse();
 
@@ -184,6 +206,9 @@ export function useGeneratorEngine({
         const numberOfRowsAfterScale = Math.floor(
             localTypedParametersRef.current.height / localTypedParametersRef.current.scale
         );
+
+        totalColumnsRef.current = numberOfColumnsAfterScale;
+        completedColumnsRef.current = 0;
 
         columnIndicesRef.current = Array.from(
             { length: numberOfColumnsAfterScale },
@@ -227,6 +252,8 @@ export function useGeneratorEngine({
     ) {
         if (!canvasRef.current || !isGeneratingRef.current) return;
 
+        completedColumnsRef.current++;
+
         const nextColumn = columnIndicesRef.current.pop();
         if (nextColumn !== undefined) {
             worker.postMessage({
@@ -242,6 +269,8 @@ export function useGeneratorEngine({
                 isGeneratingRef.current = false;
             }
         }
+
+        updateProgress();
 
         for (let rowIndex = 0; rowIndex < numberOfRowsAfterScale; rowIndex++) {
             drawPerlinPixel(columnIndex, rowIndex, columnValues[rowIndex]);
@@ -286,6 +315,8 @@ export function useGeneratorEngine({
         const numWorkers = Math.min(navigator.hardwareConcurrency || 4, MAX_WORKERS);
         const batchSize = Math.ceil(buddhabrotSamples / numWorkers);
         activeWorkersRef.current = numWorkers;
+        totalColumnsRef.current = numWorkers;
+        completedColumnsRef.current = 0;
 
         for (let i = 0; i < numWorkers; i++) {
             const worker = createBuddhabrotWorker();
@@ -297,6 +328,8 @@ export function useGeneratorEngine({
                 }
 
                 activeWorkersRef.current--;
+                completedColumnsRef.current++;
+                updateProgress();
                 if (activeWorkersRef.current === 0) {
                     // Normalize and render
                     let maxDensity = 0;
@@ -367,6 +400,7 @@ export function useGeneratorEngine({
 
     function generateImage() {
         setIsImageGenerated(false);
+        setProgress(0);
         isGeneratingRef.current = true;
 
         if (contextRef.current && canvasRef.current) {
@@ -410,11 +444,13 @@ export function useGeneratorEngine({
         workersRef.current.forEach((w) => w.terminate());
         workersRef.current = [];
         setIsImageGenerated(true);
+        setProgress(0);
         isGeneratingRef.current = false;
     }
 
     return {
         isImageGenerated,
+        progress,
         isGeneratingRef,
         localTypedParametersRef,
         scalingFactorRef,

@@ -31,8 +31,14 @@ export const Select = styled.select`
     }
 `;
 
+export const LabelRow = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+`;
+
 export const Label = styled.label`
     color: ${({ theme }) => theme.colors.text.secondary};
     font-size: 1.1rem;
-    margin-bottom: 2px;
 `;

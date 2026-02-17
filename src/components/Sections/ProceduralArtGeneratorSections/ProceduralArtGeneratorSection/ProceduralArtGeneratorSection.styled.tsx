@@ -1,5 +1,5 @@
 "use client";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -16,7 +16,6 @@ export const GeneratorContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap;
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         flex-direction: column;
@@ -28,21 +27,34 @@ export const MenuContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: none;
+    }
 `;
 export const CanvasWrapper = styled.div`
     position: relative;
+    flex: 1;
+    min-width: 0;
+    max-width: 800px;
+`;
+
+export const MobileButtonsContainer = styled.div`
+    display: none;
+    width: 100%;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: block;
+        margin-top: ${({ theme }) => theme.margin.small};
+    }
 `;
 
 export const Canvas = styled.canvas`
-    width: 800px;
-    height: 600px;
+    width: 100%;
+    height: auto;
     border-radius: ${({ theme }) => theme.borderRadius.small};
     border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
-
-    @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        width: 100%;
-        height: auto;
-    }
 `;
 
 export const CoordinateOverlay = styled.div`
@@ -57,4 +69,107 @@ export const CoordinateOverlay = styled.div`
     border-radius: 8px;
     pointer-events: none;
     user-select: none;
+`;
+
+const slideUp = keyframes`
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+`;
+
+export const MobileMenuToggle = styled.button`
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: flex;
+    }
+`;
+
+export const BottomSheetOverlay = styled.div`
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: block;
+    }
+`;
+
+export const BottomSheetContainer = styled.div`
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 100;
+    background: ${({ theme }) => theme.colors.surface.secondary};
+    border-radius: ${({ theme }) => theme.borderRadius.medium} ${({ theme }) => theme.borderRadius.medium} 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    animation: ${slideUp} 0.3s ease;
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: block;
+    }
+`;
+
+export const BottomSheetHeader = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.surface.secondary_shade.light_2};
+`;
+
+export const BottomSheetTitle = styled.span`
+    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 1rem;
+    font-weight: 600;
+`;
+
+export const BottomSheetClose = styled.button`
+    background: none;
+    border: none;
+    color: ${({ theme }) => theme.colors.text.muted};
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+
+    &:hover {
+        color: ${({ theme }) => theme.colors.text.secondary};
+    }
 `;

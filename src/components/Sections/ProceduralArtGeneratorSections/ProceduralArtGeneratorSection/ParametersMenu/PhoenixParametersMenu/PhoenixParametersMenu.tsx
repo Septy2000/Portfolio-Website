@@ -12,6 +12,7 @@ export default function PhoenixParametersMenu() {
                 label="Max Iterations:"
                 type="number"
                 value={parameters.maxIterations}
+                tooltip="Higher values reveal more detail but take longer to render"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,
@@ -24,6 +25,7 @@ export default function PhoenixParametersMenu() {
                 label="P (real):"
                 type="number"
                 value={parameters.phoenixP}
+                tooltip="Real perturbation parameter for the Phoenix formula"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,
@@ -36,6 +38,7 @@ export default function PhoenixParametersMenu() {
                 label="Q (imaginary):"
                 type="number"
                 value={parameters.phoenixQ}
+                tooltip="Imaginary perturbation parameter for the Phoenix formula"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,

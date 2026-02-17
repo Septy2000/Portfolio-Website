@@ -12,6 +12,7 @@ export default function MandelbrotParametersMenu() {
                 label="Max Iterations:"
                 type="number"
                 value={parameters.maxIterations}
+                tooltip="Higher values reveal more detail but take longer to render"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,
