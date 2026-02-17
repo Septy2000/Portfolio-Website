@@ -199,11 +199,22 @@ export function useCanvasZoom({
         zoomHistory.current = [];
     }
 
+    function getZoomHistory() {
+        return zoomHistory.current;
+    }
+
+    function loadZoomState(boundaries: ComplexPlaneBoundary, history: ComplexPlaneBoundary[]) {
+        complexPlaneBoundariesRef.current = boundaries;
+        zoomHistory.current = history;
+    }
+
     return {
         undoZoom,
         resetZoom,
         resetHistory,
         zoomHistoryLength: zoomHistory.current.length,
         hoverCoords,
+        getZoomHistory,
+        loadZoomState,
     };
 }

@@ -1,6 +1,6 @@
 "use client";
 import * as Styled from "./ProceduralArtGeneratorSection.styled";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { ComplexPlaneBoundary } from "@/_types/math";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import GeneratorInformationSection from "@/components/Sections/ProceduralArtGeneratorSections/GeneratorInformationSection/GeneratorInformationSection";
@@ -35,7 +35,7 @@ export default function ProceduralArtGeneratorSection() {
         resetZoomHistoryRef,
     });
 
-    const { undoZoom, resetZoom, resetHistory, zoomHistoryLength, hoverCoords } = useCanvasZoom({
+    const { undoZoom, resetZoom, resetHistory, zoomHistoryLength, hoverCoords, getZoomHistory, loadZoomState } = useCanvasZoom({
         canvasRef,
         contextRef,
         scalingFactorRef,
@@ -48,7 +48,33 @@ export default function ProceduralArtGeneratorSection() {
     generateImageRef.current = generateImage;
     resetZoomHistoryRef.current = resetHistory;
 
-    const { typedParameters } = useParameters();
+    const { parameters, colorModeParameters, typedParameters } = useParameters();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const boundsJson = searchParams.get("bounds");
+        if (boundsJson) {
+            try {
+                const bounds = JSON.parse(boundsJson);
+                const history = searchParams.get("history");
+                loadZoomState(bounds, history ? JSON.parse(history) : []);
+                generateImage();
+            } catch {}
+        }
+    }, []);
+
+    function handleCopyLink() {
+        const url = new URL(window.location.href.split("?")[0]);
+        url.searchParams.set("params", JSON.stringify(parameters));
+        url.searchParams.set("colors", JSON.stringify(colorModeParameters));
+        url.searchParams.set("bounds", JSON.stringify(complexPlaneBoundariesRef.current));
+        const history = getZoomHistory();
+        if (history.length > 0) {
+            url.searchParams.set("history", JSON.stringify(history));
+        }
+        navigator.clipboard.writeText(url.toString());
+    }
 
     function handleSave() {
         const canvas = canvasRef.current;
@@ -85,6 +111,7 @@ export default function ProceduralArtGeneratorSection() {
                         resetZoom={resetZoom}
                         areZoomButtonsDisabled={zoomHistoryLength === 0}
                         onSave={handleSave}
+                        onCopyLink={handleCopyLink}
                     />
                 </Styled.MenuContainer>
             </Styled.GeneratorContainer>

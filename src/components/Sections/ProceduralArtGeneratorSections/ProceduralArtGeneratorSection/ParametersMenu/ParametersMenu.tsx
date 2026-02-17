@@ -7,7 +7,7 @@ import PerlinNoiseParametersMenu from "./PerlinNoiseParametersMenu/PerlinNoisePa
 import ColorModeMenu from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
 import { isParametersMenuInputValid } from "@/utils/parametersValidation";
 import InputError from "./InputError";
-import React from "react";
+import React, { useState } from "react";
 
 export default function ParametersMenu({
     generate,
@@ -17,6 +17,7 @@ export default function ParametersMenu({
     resetZoom,
     areZoomButtonsDisabled,
     onSave,
+    onCopyLink,
 }: {
     generate: () => void;
     isImageGenerated: boolean;
@@ -25,8 +26,10 @@ export default function ParametersMenu({
     resetZoom: () => void;
     areZoomButtonsDisabled: boolean;
     onSave: () => void;
+    onCopyLink: () => void;
 }) {
     const { typedColorModeParameters, typedParameters } = useParameters();
+    const [linkCopied, setLinkCopied] = useState(false);
 
     return (
         <Styled.Container>
@@ -77,10 +80,22 @@ export default function ParametersMenu({
                         <Styled.StopIcon />
                     </Styled.ControlButton>
                 </Styled.HorizontalButtonsContainer>
-                <Styled.FullWidthButton onClick={onSave} disabled={!isImageGenerated}>
-                    save as PNG
-                    <Styled.DownloadIcon />
-                </Styled.FullWidthButton>
+                <Styled.HorizontalButtonsContainer>
+                    <Styled.ControlButton onClick={onSave} disabled={!isImageGenerated}>
+                        save PNG
+                        <Styled.DownloadIcon />
+                    </Styled.ControlButton>
+                    <Styled.ControlButton
+                        onClick={() => {
+                            onCopyLink();
+                            setLinkCopied(true);
+                            setTimeout(() => setLinkCopied(false), 2000);
+                        }}
+                    >
+                        {linkCopied ? "copied!" : "copy link"}
+                        <Styled.LinkIcon />
+                    </Styled.ControlButton>
+                </Styled.HorizontalButtonsContainer>
             </Styled.ButtonsContainer>
         </Styled.Container>
     );

@@ -6,6 +6,7 @@ import { BsFillStopFill } from "react-icons/bs";
 import { BsArrow90DegLeft } from "react-icons/bs";
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import { BsDownload } from "react-icons/bs";
+import { BsLink45Deg } from "react-icons/bs";
 
 export const Container = styled.div`
     display: flex;
@@ -93,6 +94,11 @@ export const FullWidthButton = styled(ButtonClassic)`
 `;
 
 export const DownloadIcon = styled(BsDownload)`
+    font-size: 1.3rem;
+    color: ${({ theme }) => theme.colors.text.secondary};
+`;
+
+export const LinkIcon = styled(BsLink45Deg)`
     font-size: 1.3rem;
     color: ${({ theme }) => theme.colors.text.secondary};
 `;
