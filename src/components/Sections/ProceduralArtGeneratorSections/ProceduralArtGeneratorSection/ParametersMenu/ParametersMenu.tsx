@@ -16,7 +16,6 @@ import React, { useState } from "react";
 export interface ParametersMenuProps {
     generate: () => void;
     isImageGenerated: boolean;
-    progress: number;
     stopGeneration: () => void;
     undoZoom: () => void;
     resetZoom: () => void;
@@ -29,7 +28,6 @@ export interface ParametersMenuProps {
 export default function ParametersMenu({
     generate,
     isImageGenerated,
-    progress,
     stopGeneration,
     undoZoom,
     resetZoom,
@@ -59,14 +57,6 @@ export default function ParametersMenu({
 
     const buttonsContent = (
         <Styled.ButtonsContainer>
-            <Styled.ProgressContainer>
-                <Styled.ProgressText>
-                    {!isImageGenerated ? `${Math.round(progress * 100)}%` : "ready"}
-                </Styled.ProgressText>
-                <Styled.ProgressBarTrack>
-                    <Styled.ProgressBarFill $progress={isImageGenerated ? 1 : progress} />
-                </Styled.ProgressBarTrack>
-            </Styled.ProgressContainer>
             <Styled.InputErrorWrapper>
                 <InputError />
             </Styled.InputErrorWrapper>

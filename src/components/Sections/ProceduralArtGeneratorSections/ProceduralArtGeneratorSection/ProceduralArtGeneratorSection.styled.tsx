@@ -1,14 +1,17 @@
 "use client";
 import styled, { keyframes } from "styled-components";
+
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: ${({ theme }) => theme.margin.medium};
+    margin-bottom: 0;
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         margin: ${({ theme }) => theme.margin.small};
+        margin-bottom: 0;
     }
 `;
 
@@ -56,91 +59,76 @@ export const CoordinateOverlay = styled.div`
     user-select: none;
 `;
 
-export const SidePanelToggle = styled.button`
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translate(100%, -50%);
-    width: 36px;
-    height: 72px;
-    border: none;
-    border-radius: 0 ${({ theme }) => theme.borderRadius.small} ${({ theme }) => theme.borderRadius.small} 0;
-    background: ${({ theme }) => theme.colors.surface.secondary};
-    color: ${({ theme }) => theme.colors.text.secondary};
-    font-size: 1.1rem;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
-    transition: background 0.2s ease;
+// --- Desktop Sidebar ---
 
-    &:hover {
-        background: ${({ theme }) => theme.colors.surface.secondary_shade.light_1};
-    }
-
-    @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        display: none;
-    }
-`;
-
-const slideInFromRight = keyframes`
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-`;
-
-export const SidePanelOverlay = styled.div`
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 49;
-
-    @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        display: none;
-    }
-`;
-
-export const SidePanelContainer = styled.div`
+export const Sidebar = styled.div<{ $isOpen: boolean }>`
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 320px;
-    background: ${({ theme }) => theme.colors.surface.secondary};
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    padding-top: var(--navbar-height, 62px);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: ${({ theme }) => theme.colors.text.secondary};
     z-index: 50;
-    overflow-y: auto;
-    animation: ${slideInFromRight} 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "100%")});
+    transition: transform 0.3s ease;
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         display: none;
     }
 `;
 
-export const SidePanelHeader = styled.div`
+export const SidebarHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 16px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.surface.secondary_shade.light_2};
+    padding: 12px ${({ theme }) => theme.padding.small};
+    flex-shrink: 0;
 `;
 
-export const SidePanelTitle = styled.span`
+export const SidebarContent = styled.div`
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 ${({ theme }) => theme.padding.small};
+    padding-bottom: ${({ theme }) => theme.padding.small};
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.35);
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+`;
+
+export const SidebarTitle = styled.span`
     color: ${({ theme }) => theme.colors.text.secondary};
     font-size: 1rem;
     font-weight: 600;
 `;
 
-export const SidePanelClose = styled.button`
+export const SidebarToggle = styled.button`
     background: none;
     border: none;
     color: ${({ theme }) => theme.colors.text.muted};
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
     padding: 4px;
     display: flex;
@@ -152,6 +140,38 @@ export const SidePanelClose = styled.button`
         color: ${({ theme }) => theme.colors.text.secondary};
     }
 `;
+
+export const SidebarOpenTab = styled.button<{ $isOpen: boolean }>`
+    position: fixed;
+    top: 50%;
+    right: ${({ $isOpen }) => ($isOpen ? "300px" : "0")};
+    transform: translateY(-50%);
+    width: 32px;
+    height: 64px;
+    border: none;
+    border-radius: ${({ theme }) => theme.borderRadius.small} 0 0 ${({ theme }) => theme.borderRadius.small};
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 51;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: right 0.3s ease, background 0.2s ease;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    @media (max-width: ${({ theme }) => theme.screen.medium}) {
+        display: none;
+    }
+`;
+
+// --- Mobile Bottom Sheet ---
 
 const slideUp = keyframes`
     from {

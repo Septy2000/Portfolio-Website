@@ -176,35 +176,3 @@ export const InputErrorWrapper = styled.div`
     }
 `;
 
-export const ProgressContainer = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        grid-column: 1 / -1;
-    }
-`;
-
-export const ProgressText = styled.span`
-    font-size: 0.8rem;
-    color: ${({ theme }) => theme.colors.text.muted};
-    text-align: right;
-`;
-
-export const ProgressBarTrack = styled.div`
-    width: 100%;
-    height: 6px;
-    background: ${({ theme }) => theme.colors.surface.secondary_shade.light_1};
-    border-radius: 3px;
-    overflow: hidden;
-`;
-
-export const ProgressBarFill = styled.div<{ $progress: number }>`
-    height: 100%;
-    width: ${({ $progress }) => `${$progress * 100}%`};
-    background: linear-gradient(90deg, ${({ theme }) => theme.colors.green}, #10b981);
-    border-radius: 3px;
-
-`;

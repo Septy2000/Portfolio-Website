@@ -1,7 +1,7 @@
 "use client";
 import * as Styled from "./ProceduralArtGeneratorSection.styled";
 import React, { useRef, useEffect, useState } from "react";
-import { BsGearFill, BsXLg } from "react-icons/bs";
+import { BsGearFill, BsXLg, BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { ComplexPlaneBoundary } from "@/_types/math";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import GeneratorInformationSection from "@/components/Sections/ProceduralArtGeneratorSections/GeneratorInformationSection/GeneratorInformationSection";
@@ -11,21 +11,39 @@ import { useParameters } from "./ParametersProvider/ParametersProvider";
 import { convertParameters, convertColorModeParameters } from "@/utils/parametersTypeConversion";
 
 export default function ProceduralArtGeneratorSection() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
-        if (isMenuOpen) {
+        if (isMobileMenuOpen) {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "";
         }
-        return () => { document.body.style.overflow = ""; };
-    }, [isMenuOpen]);
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isMobileMenuOpen]);
+
+    useEffect(() => {
+        function updateNavbarHeight() {
+            const header = document.querySelector("header");
+            if (header) {
+                document.documentElement.style.setProperty(
+                    "--navbar-height",
+                    `${header.offsetHeight}px`,
+                );
+            }
+        }
+        updateNavbarHeight();
+        window.addEventListener("resize", updateNavbarHeight);
+        return () => window.removeEventListener("resize", updateNavbarHeight);
+    }, []);
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
     const complexPlaneBoundariesRef = useRef<ComplexPlaneBoundary>(
-        DEFAULT_COMPLEX_PLANE_BOUNDARIES
+        DEFAULT_COMPLEX_PLANE_BOUNDARIES,
     );
 
     // Ref indirection to break the circular dependency between hooks:
@@ -35,7 +53,6 @@ export default function ProceduralArtGeneratorSection() {
 
     const {
         isImageGenerated,
-        progress,
         isGeneratingRef,
         localTypedParametersRef,
         scalingFactorRef,
@@ -50,7 +67,15 @@ export default function ProceduralArtGeneratorSection() {
         resetZoomHistoryRef,
     });
 
-    const { undoZoom, resetZoom, resetHistory, zoomHistoryLength, hoverCoords, getZoomHistory, loadZoomState } = useCanvasZoom({
+    const {
+        undoZoom,
+        resetZoom,
+        resetHistory,
+        zoomHistoryLength,
+        hoverCoords,
+        getZoomHistory,
+        loadZoomState,
+    } = useCanvasZoom({
         canvasRef,
         contextRef,
         scalingFactorRef,
@@ -125,7 +150,6 @@ export default function ProceduralArtGeneratorSection() {
         generate: generateImageFromButton,
         stopGeneration: stopImageGeneration,
         isImageGenerated,
-        progress,
         undoZoom,
         resetZoom,
         areZoomButtonsDisabled: zoomHistoryLength === 0,
@@ -141,12 +165,9 @@ export default function ProceduralArtGeneratorSection() {
                     <Styled.Canvas ref={canvasRef} />
                     {hoverCoords && (
                         <Styled.CoordinateOverlay>
-                            Re: {hoverCoords.re.toFixed(6)} Im: {hoverCoords.im.toFixed(6)}i
+                            Re: {hoverCoords.re} Im: {hoverCoords.im}i
                         </Styled.CoordinateOverlay>
                     )}
-                    <Styled.SidePanelToggle onClick={() => setIsMenuOpen(true)}>
-                        <BsGearFill />
-                    </Styled.SidePanelToggle>
                 </Styled.CanvasWrapper>
             </Styled.GeneratorContainer>
 
@@ -154,32 +175,37 @@ export default function ProceduralArtGeneratorSection() {
                 <ParametersMenu {...menuProps} variant="buttons-only" />
             </Styled.ButtonsUnderCanvas>
 
-            {isMenuOpen && (
-                <React.Fragment>
-                    <Styled.SidePanelOverlay onClick={() => setIsMenuOpen(false)} />
-                    <Styled.SidePanelContainer>
-                        <Styled.SidePanelHeader>
-                            <Styled.SidePanelTitle>Parameters</Styled.SidePanelTitle>
-                            <Styled.SidePanelClose onClick={() => setIsMenuOpen(false)}>
-                                <BsXLg />
-                            </Styled.SidePanelClose>
-                        </Styled.SidePanelHeader>
-                        <ParametersMenu {...menuProps} variant="menus-only" />
-                    </Styled.SidePanelContainer>
-                </React.Fragment>
-            )}
+            {/* Desktop: persistent sidebar */}
+            <Styled.SidebarOpenTab
+                $isOpen={isSidebarOpen}
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            >
+                {isSidebarOpen ? <BsChevronRight /> : <BsChevronLeft />}
+            </Styled.SidebarOpenTab>
+            <Styled.Sidebar $isOpen={isSidebarOpen}>
+                <Styled.SidebarHeader>
+                    <Styled.SidebarTitle>Parameters</Styled.SidebarTitle>
+                    <Styled.SidebarToggle onClick={() => setIsSidebarOpen(false)}>
+                        <BsChevronRight />
+                    </Styled.SidebarToggle>
+                </Styled.SidebarHeader>
+                <Styled.SidebarContent>
+                    <ParametersMenu {...menuProps} variant="menus-only" />
+                </Styled.SidebarContent>
+            </Styled.Sidebar>
 
-            <Styled.MobileMenuToggle onClick={() => setIsMenuOpen(true)}>
+            {/* Mobile: gear FAB + bottom sheet */}
+            <Styled.MobileMenuToggle onClick={() => setIsMobileMenuOpen(true)}>
                 <BsGearFill />
             </Styled.MobileMenuToggle>
 
-            {isMenuOpen && (
+            {isMobileMenuOpen && (
                 <React.Fragment>
-                    <Styled.BottomSheetOverlay onClick={() => setIsMenuOpen(false)} />
+                    <Styled.BottomSheetOverlay onClick={() => setIsMobileMenuOpen(false)} />
                     <Styled.BottomSheetContainer>
                         <Styled.BottomSheetHeader>
                             <Styled.BottomSheetTitle>Parameters</Styled.BottomSheetTitle>
-                            <Styled.BottomSheetClose onClick={() => setIsMenuOpen(false)}>
+                            <Styled.BottomSheetClose onClick={() => setIsMobileMenuOpen(false)}>
                                 <BsXLg />
                             </Styled.BottomSheetClose>
                         </Styled.BottomSheetHeader>
