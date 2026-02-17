@@ -35,9 +35,9 @@ export default function ColorModeMenu() {
                 onChange={handleColorModeChange}
             >
                 <option value="smooth">Smooth</option>
+                {parameters.algorithm !== "perlin" && <option value="palette">Palette</option>}
                 <option value="rgb">RGB</option>
                 {parameters.algorithm !== "perlin" && <option value="random">Random</option>}
-                {parameters.algorithm !== "perlin" && <option value="palette">Palette</option>}
             </LabelledSelect>
             {parameters.algorithm !== "perlin" && (
                 <Styled.CheckboxRow>
