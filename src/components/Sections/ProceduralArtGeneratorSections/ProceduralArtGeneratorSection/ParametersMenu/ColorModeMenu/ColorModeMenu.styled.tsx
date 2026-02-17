@@ -21,7 +21,7 @@ export const CheckboxRow = styled.label`
     gap: 6px;
     cursor: pointer;
     font-size: 1.1rem;
-    color: ${({ theme }) => theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 export const Checkbox = styled.input`

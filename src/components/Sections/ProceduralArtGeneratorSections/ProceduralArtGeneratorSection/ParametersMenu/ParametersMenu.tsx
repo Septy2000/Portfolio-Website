@@ -71,7 +71,7 @@ export default function ParametersMenu({
                     )}
                 </Styled.HorizontalButtonsContainer>
                 <Styled.HorizontalButtonsContainer>
-                    <Styled.ControlButton
+                    <Styled.GenerateButton
                         onClick={generate}
                         disabled={
                             !isParametersMenuInputValid(
@@ -82,18 +82,18 @@ export default function ParametersMenu({
                     >
                         generate
                         <Styled.PlayIcon />
-                    </Styled.ControlButton>
-                    <Styled.ControlButton onClick={stopGeneration} disabled={isImageGenerated}>
+                    </Styled.GenerateButton>
+                    <Styled.StopButton onClick={stopGeneration} disabled={isImageGenerated}>
                         stop
                         <Styled.StopIcon />
-                    </Styled.ControlButton>
+                    </Styled.StopButton>
                 </Styled.HorizontalButtonsContainer>
                 <Styled.HorizontalButtonsContainer>
-                    <Styled.ControlButton onClick={onSave} disabled={!isImageGenerated}>
+                    <Styled.SaveButton onClick={onSave} disabled={!isImageGenerated}>
                         save PNG
                         <Styled.DownloadIcon />
-                    </Styled.ControlButton>
-                    <Styled.ControlButton
+                    </Styled.SaveButton>
+                    <Styled.SaveButton
                         onClick={() => {
                             onCopyLink();
                             setLinkCopied(true);
@@ -102,7 +102,7 @@ export default function ParametersMenu({
                     >
                         {linkCopied ? "copied!" : "copy link"}
                         <Styled.LinkIcon />
-                    </Styled.ControlButton>
+                    </Styled.SaveButton>
                 </Styled.HorizontalButtonsContainer>
             </Styled.ButtonsContainer>
         </Styled.Container>

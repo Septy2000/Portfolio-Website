@@ -13,10 +13,14 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
     margin-left: ${({ theme }) => theme.margin.medium};
-    background: ${({ theme }) => theme.colors.surface.primary};
+    background: ${({ theme }) => theme.colors.surface.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
     border-radius: ${({ theme }) => theme.borderRadius.small};
+    box-shadow: ${({ theme }) => theme.shadows.medium};
+    padding: ${({ theme }) => theme.padding.small};
     max-width: 300px;
     height: 100%;
+    gap: 16px;
 
     @media (max-width: ${({ theme }) => theme.screen.small}) {
         margin: ${({ theme }) => theme.margin.small} 0;
@@ -40,6 +44,7 @@ export const HorizontalButtonsContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 8px;
 
     @media (max-width: ${({ theme }) => theme.screen.small}) {
         flex-direction: column;
@@ -61,6 +66,36 @@ export const ControlButton = styled(ButtonClassic)`
     font-size: 1rem;
     @media (max-width: ${({ theme }) => theme.screen.small}) {
         width: 100%;
+    }
+`;
+
+export const GenerateButton = styled(ControlButton)`
+    background-color: #1a3a2a;
+    &:not(:disabled):hover {
+        background-color: ${({ theme }) => theme.colors.green};
+    }
+    &:not(:disabled):active {
+        background-color: ${({ theme }) => theme.colors.green};
+    }
+`;
+
+export const StopButton = styled(ControlButton)`
+    background-color: #3a1a1a;
+    &:not(:disabled):hover {
+        background-color: ${({ theme }) => theme.colors.error};
+    }
+    &:not(:disabled):active {
+        background-color: ${({ theme }) => theme.colors.error};
+    }
+`;
+
+export const SaveButton = styled(ControlButton)`
+    background-color: #3a2a1a;
+    &:not(:disabled):hover {
+        background-color: ${({ theme }) => theme.colors.orange};
+    }
+    &:not(:disabled):active {
+        background-color: ${({ theme }) => theme.colors.orange};
     }
 `;
 
@@ -95,10 +130,10 @@ export const FullWidthButton = styled(ButtonClassic)`
 
 export const DownloadIcon = styled(BsDownload)`
     font-size: 1.3rem;
-    color: ${({ theme }) => theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.orange};
 `;
 
 export const LinkIcon = styled(BsLink45Deg)`
     font-size: 1.3rem;
-    color: ${({ theme }) => theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.orange};
 `;

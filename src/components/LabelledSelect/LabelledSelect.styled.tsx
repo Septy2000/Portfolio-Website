@@ -12,13 +12,13 @@ export const Container = styled.div`
 
 export const Select = styled.select`
     width: 100%;
-    padding: 2px;
+    padding: 4px 6px;
     font-size: 1.1rem;
-    border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
+    border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary_shade.light_3}`};
     border-radius: 4px;
-    background-color: ${({ theme }) => theme.colors.surface.primary};
-    color: ${({ theme }) => theme.colors.text.primary};
-    transition: border-color 0.5s;
+    background-color: ${({ theme }) => theme.colors.surface.secondary_shade.light_1};
+    color: ${({ theme }) => theme.colors.text.secondary};
+    transition: border-color 0.3s;
     outline: none;
     &:focus {
         border-color: ${({ theme }) => theme.colors.orange};
@@ -26,17 +26,13 @@ export const Select = styled.select`
 
     option {
         font-size: 1.2rem;
-        background-color: ${({ theme }) => theme.colors.surface.primary};
-        color: ${({ theme }) => theme.colors.text.primary};
-        transition: background-color 0.5s;
-        &:hover {
-            background-color: ${({ theme }) => theme.colors.orange};
-        }
+        background-color: ${({ theme }) => theme.colors.surface.secondary_shade.light_1};
+        color: ${({ theme }) => theme.colors.text.secondary};
     }
 `;
 
 export const Label = styled.label`
-    color: ${({ theme }) => theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.secondary};
     font-size: 1.1rem;
     margin-bottom: 2px;
 `;

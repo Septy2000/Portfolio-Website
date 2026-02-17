@@ -9,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const PseudoLabel = styled.p`
-    color: ${({ theme }) => theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.secondary};
     font-size: 1.1rem;
     margin-bottom: 2px;
 `;
