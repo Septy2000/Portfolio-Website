@@ -1,4 +1,14 @@
 export type RGBA = [number, number, number, number];
+export type ColorPalette = [number, number, number][];
+
+export const PALETTES: Record<string, ColorPalette> = {
+    fire: [[0, 0, 0], [128, 0, 0], [255, 0, 0], [255, 128, 0], [255, 255, 0], [255, 255, 255]],
+    ocean: [[0, 0, 32], [0, 0, 128], [0, 64, 255], [0, 200, 255], [200, 255, 255]],
+    sunset: [[32, 0, 64], [128, 0, 128], [255, 0, 64], [255, 128, 0], [255, 255, 0]],
+    neon: [[255, 0, 128], [0, 255, 128], [128, 0, 255], [255, 255, 0], [0, 255, 255]],
+    electric: [[0, 0, 0], [0, 0, 255], [128, 0, 255], [255, 255, 255]],
+    grayscale: [[0, 0, 0], [255, 255, 255]],
+};
 
 /**
  * Converts an HSL hue (with fixed s=100%, l=50%) to RGB values (0-255).
@@ -30,7 +40,7 @@ export function getHSLColorRGBA(
     maxIterations: number,
     colorIntensity: number
 ): RGBA {
-    if (iterations === maxIterations) return [0, 0, 0, 255];
+    if (iterations >= maxIterations) return [0, 0, 0, 255];
     const hue = colorIntensity * 360 * (iterations / maxIterations);
     const [r, g, b] = hslToRgb(hue);
     return [r, g, b, 255];
@@ -57,10 +67,30 @@ export function getRandomHSLColorRGBA(
     maxIterations: number,
     colors: number[]
 ): RGBA {
-    if (iterations === maxIterations) return [0, 0, 0, 255];
-    const hue = colors[iterations % colors.length];
+    if (iterations >= maxIterations) return [0, 0, 0, 255];
+    const hue = colors[Math.floor(iterations) % colors.length];
     const [r, g, b] = hslToRgb(hue);
     return [r, g, b, 255];
+}
+
+export function getPaletteColorRGBA(
+    iterations: number,
+    maxIterations: number,
+    palette: ColorPalette
+): RGBA {
+    if (iterations >= maxIterations) return [0, 0, 0, 255];
+    const t = iterations / maxIterations;
+    const pos = t * (palette.length - 1);
+    const index = Math.min(Math.floor(pos), palette.length - 2);
+    const frac = pos - index;
+    const c1 = palette[index];
+    const c2 = palette[index + 1];
+    return [
+        Math.round(c1[0] + (c2[0] - c1[0]) * frac),
+        Math.round(c1[1] + (c2[1] - c1[1]) * frac),
+        Math.round(c1[2] + (c2[2] - c1[2]) * frac),
+        255,
+    ];
 }
 
 /**

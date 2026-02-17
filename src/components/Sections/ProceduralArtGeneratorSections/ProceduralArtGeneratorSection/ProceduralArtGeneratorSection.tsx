@@ -7,6 +7,7 @@ import GeneratorInformationSection from "@/components/Sections/ProceduralArtGene
 import { useCanvasZoom, DEFAULT_COMPLEX_PLANE_BOUNDARIES } from "./hooks/useCanvasZoom";
 import { useGeneratorEngine } from "./hooks/useGeneratorEngine";
 import { useParameters } from "./ParametersProvider/ParametersProvider";
+import { convertParameters, convertColorModeParameters } from "@/utils/parametersTypeConversion";
 
 export default function ProceduralArtGeneratorSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -27,6 +28,7 @@ export default function ProceduralArtGeneratorSection() {
         scalingFactorRef,
         generateImage,
         generateImageFromButton,
+        generateFromURLParams,
         stopImageGeneration,
     } = useGeneratorEngine({
         canvasRef,
@@ -53,8 +55,24 @@ export default function ProceduralArtGeneratorSection() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
+        const paramsJson = searchParams.get("params");
+        const colorsJson = searchParams.get("colors");
         const boundsJson = searchParams.get("bounds");
-        if (boundsJson) {
+
+        if (paramsJson && colorsJson) {
+            try {
+                const typedParams = convertParameters(JSON.parse(paramsJson));
+                const typedColors = convertColorModeParameters(JSON.parse(colorsJson));
+
+                if (boundsJson) {
+                    const bounds = JSON.parse(boundsJson);
+                    const history = searchParams.get("history");
+                    loadZoomState(bounds, history ? JSON.parse(history) : []);
+                }
+
+                generateFromURLParams(typedParams, typedColors);
+            } catch {}
+        } else if (boundsJson) {
             try {
                 const bounds = JSON.parse(boundsJson);
                 const history = searchParams.get("history");

@@ -29,9 +29,11 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
 
     const [colorModeParameters, setColorModeParameters] = useState<ColorModeParameters>({
         colorMode: "smooth",
+        smoothColoring: true,
         colorIntensity: "1",
         rgbWeights: { r: "1", g: "1", b: "1" },
         numberOfRandomColors: "16",
+        palette: "fire",
     });
 
     const [typedParameters, setTypedParameters] = useState<TypedParameters>(

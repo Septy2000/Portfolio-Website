@@ -27,6 +27,7 @@ export function convertColorModeParameters(
 ): TypedColorModeParameters {
     return {
         colorMode: params.colorMode,
+        smoothColoring: params.smoothColoring,
         colorIntensity: parseFloat(params.colorIntensity),
         rgbWeights: {
             r: parseFloat(params.rgbWeights.r),
@@ -34,5 +35,6 @@ export function convertColorModeParameters(
             b: parseFloat(params.rgbWeights.b),
         },
         numberOfRandomColors: parseInt(params.numberOfRandomColors),
+        palette: params.palette,
     };
 }
