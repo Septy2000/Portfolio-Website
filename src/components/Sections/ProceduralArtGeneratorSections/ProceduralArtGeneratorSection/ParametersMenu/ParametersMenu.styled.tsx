@@ -75,6 +75,7 @@ export const GenerateButton = styled(ControlButton)`
         background-color: ${({ theme }) => theme.colors.green};
     }
     &:not(:disabled):active {
+        box-shadow: inset 5px 5px 5px -1px #064d3a, inset -5px -5px 5px -1px ${({ theme }) => theme.colors.green};
         background-color: ${({ theme }) => theme.colors.green};
     }
 `;
@@ -85,6 +86,7 @@ export const StopButton = styled(ControlButton)`
         background-color: ${({ theme }) => theme.colors.error};
     }
     &:not(:disabled):active {
+        box-shadow: inset 5px 5px 5px -1px #991111, inset -5px -5px 5px -1px ${({ theme }) => theme.colors.error};
         background-color: ${({ theme }) => theme.colors.error};
     }
 `;
@@ -95,6 +97,8 @@ export const SaveButton = styled(ControlButton)`
         background-color: ${({ theme }) => theme.colors.orange};
     }
     &:not(:disabled):active {
+        box-shadow: ${({ theme }) =>
+            `inset 5px 5px 5px -1px ${theme.colors.orange_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.orange}`};
         background-color: ${({ theme }) => theme.colors.orange};
     }
 `;
@@ -130,10 +134,10 @@ export const FullWidthButton = styled(ButtonClassic)`
 
 export const DownloadIcon = styled(BsDownload)`
     font-size: 1.3rem;
-    color: ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 export const LinkIcon = styled(BsLink45Deg)`
     font-size: 1.3rem;
-    color: ${({ theme }) => theme.colors.orange};
+    color: ${({ theme }) => theme.colors.text.secondary};
 `;
