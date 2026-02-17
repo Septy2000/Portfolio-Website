@@ -1,7 +1,7 @@
 import { ComplexNumber } from "./math";
 
 export interface Parameters {
-    algorithm: "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "perlin";
+    algorithm: "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "phoenix" | "magnet" | "buddhabrot" | "perlin";
     width: string;
     height: string;
     maxIterations: string;
@@ -11,6 +11,9 @@ export interface Parameters {
     customCValueSelected: boolean;
     newtonDegree: string;
     lyapunovSequence: string;
+    phoenixP: string;
+    phoenixQ: string;
+    buddhabrotSamples: string;
     scale: string;
     zoomOut: string;
     customSeed: string;
@@ -18,7 +21,7 @@ export interface Parameters {
 }
 
 export interface TypedParameters {
-    algorithm: "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "perlin";
+    algorithm: "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "phoenix" | "magnet" | "buddhabrot" | "perlin";
     width: number;
     height: number;
     maxIterations: number;
@@ -28,6 +31,9 @@ export interface TypedParameters {
     customCValueSelected: boolean;
     newtonDegree: number;
     lyapunovSequence: string;
+    phoenixP: number;
+    phoenixQ: number;
+    buddhabrotSamples: number;
     scale: number;
     zoomOut: number;
     customSeed: number;

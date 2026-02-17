@@ -13,7 +13,7 @@ import {
     type RGBA,
 } from "@/utils/color";
 import { randomWithinBounds } from "@/utils/random";
-import { createFractalWorker, createPerlinWorker } from "@/utils/workers/workers";
+import { createFractalWorker, createPerlinWorker, createBuddhabrotWorker } from "@/utils/workers/workers";
 import { useParameters } from "../ParametersProvider/ParametersProvider";
 import { DEFAULT_COMPLEX_PLANE_BOUNDARIES, LYAPUNOV_DEFAULT_BOUNDARIES } from "./useCanvasZoom";
 
@@ -106,6 +106,8 @@ export function useGeneratorEngine({
                     : null,
             newtonDegree: params.newtonDegree,
             lyapunovSequence: params.lyapunovSequence,
+            phoenixP: params.phoenixP,
+            phoenixQ: params.phoenixQ,
         };
     }
 
@@ -273,6 +275,67 @@ export function useGeneratorEngine({
         ctx.stroke();
     }
 
+    function generateBuddhabrot() {
+        workersRef.current.forEach((w) => w.terminate());
+        workersRef.current = [];
+
+        const params = localTypedParametersRef.current;
+        const { width, height, maxIterations, buddhabrotSamples } = params;
+
+        const masterDensity = new Float64Array(width * height);
+        const numWorkers = Math.min(navigator.hardwareConcurrency || 4, MAX_WORKERS);
+        const batchSize = Math.ceil(buddhabrotSamples / numWorkers);
+        activeWorkersRef.current = numWorkers;
+
+        for (let i = 0; i < numWorkers; i++) {
+            const worker = createBuddhabrotWorker();
+            workersRef.current.push(worker);
+            worker.onmessage = (event: MessageEvent) => {
+                const workerDensity: number[] = event.data.densityBuffer;
+                for (let j = 0; j < workerDensity.length; j++) {
+                    masterDensity[j] += workerDensity[j];
+                }
+
+                activeWorkersRef.current--;
+                if (activeWorkersRef.current === 0) {
+                    // Normalize and render
+                    let maxDensity = 0;
+                    for (let j = 0; j < masterDensity.length; j++) {
+                        if (masterDensity[j] > maxDensity) maxDensity = masterDensity[j];
+                    }
+
+                    if (maxDensity > 0) {
+                        const imageData = imageDataRef.current;
+                        if (imageData) {
+                            const data = imageData.data;
+                            for (let j = 0; j < masterDensity.length; j++) {
+                                // Map density to iteration count for existing color pipeline
+                                const normalized = (masterDensity[j] / maxDensity) * (maxIterations - 1);
+                                const rgba = getFractalPixelRGBA(normalized);
+                                const idx = j * 4;
+                                data[idx] = rgba[0];
+                                data[idx + 1] = rgba[1];
+                                data[idx + 2] = rgba[2];
+                                data[idx + 3] = rgba[3];
+                            }
+                            contextRef.current?.putImageData(imageData, 0, 0);
+                        }
+                    }
+
+                    setIsImageGenerated(true);
+                    isGeneratingRef.current = false;
+                }
+            };
+            worker.postMessage({
+                batchSize,
+                boundaries: complexPlaneBoundariesRef.current,
+                width,
+                height,
+                maxIterations,
+            });
+        }
+    }
+
     function generateImageFromButton() {
         localTypedParametersRef.current = typedParameters;
         localTypedColorModeParametersRef.current = typedColorModeParameters;
@@ -315,16 +378,21 @@ export function useGeneratorEngine({
             );
         }
 
-        if (localTypedParametersRef.current.algorithm !== "perlin") {
+        const algo = localTypedParametersRef.current.algorithm;
+        if (algo === "perlin") {
+            generatePerlinNoise();
+        } else {
             const { width, height } = localTypedParametersRef.current;
             imageDataRef.current = contextRef.current?.createImageData(width, height) || null;
             randomColorsRef.current = Array.from(
                 { length: localTypedColorModeParametersRef.current.numberOfRandomColors },
                 () => randomWithinBounds(0, 360)
             );
-            generateFractal();
-        } else {
-            generatePerlinNoise();
+            if (algo === "buddhabrot") {
+                generateBuddhabrot();
+            } else {
+                generateFractal();
+            }
         }
     }
 

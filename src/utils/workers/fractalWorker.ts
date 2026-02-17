@@ -4,13 +4,15 @@ import burningShipIterationCalculator from "@/utils/algorithms/burningShipFuncti
 import tricornIterationCalculator from "@/utils/algorithms/tricornFunction";
 import newtonIterationCalculator from "@/utils/algorithms/newtonFunction";
 import lyapunovExponentCalculator from "@/utils/algorithms/lyapunovFunction";
+import phoenixIterationCalculator from "@/utils/algorithms/phoenixFunction";
+import magnetIterationCalculator from "@/utils/algorithms/magnetFunction";
 import { complexPlanePoint } from "@/utils/complexNumbers";
 
 self.onmessage = (event) => {
     const {
         column, boundaries, width, height, maxIterations,
         algorithm, selectedComplexNumber, smoothColoring, bailoutSq,
-        newtonDegree, lyapunovSequence,
+        newtonDegree, lyapunovSequence, phoenixP, phoenixQ,
     } = event.data;
     const columnValues: number[] = [];
     const rootIndices: number[] | null = algorithm === "newton" ? [] : null;
@@ -40,12 +42,15 @@ self.onmessage = (event) => {
                     ? juliaIterationCalculator(complexPoint, selectedComplexNumber, maxIterations, bailoutSq)
                     : algorithm === "burning-ship"
                     ? burningShipIterationCalculator(complexPoint, maxIterations, bailoutSq)
-                    : tricornIterationCalculator(complexPoint, maxIterations, bailoutSq);
+                    : algorithm === "tricorn"
+                    ? tricornIterationCalculator(complexPoint, maxIterations, bailoutSq)
+                    : algorithm === "phoenix"
+                    ? phoenixIterationCalculator(complexPoint, phoenixP, phoenixQ, maxIterations, bailoutSq)
+                    : magnetIterationCalculator(complexPoint, maxIterations, Math.max(bailoutSq, 10000));
 
             if (smoothColoring && result.iterations < maxIterations) {
-                columnValues.push(
-                    result.iterations + 1 - Math.log2(Math.log2(result.zMagnitudeSq))
-                );
+                const smooth = result.iterations + 1 - Math.log2(Math.log2(result.zMagnitudeSq));
+                columnValues.push(Number.isFinite(smooth) && smooth >= 0 ? smooth : result.iterations);
             } else {
                 columnValues.push(result.iterations);
             }

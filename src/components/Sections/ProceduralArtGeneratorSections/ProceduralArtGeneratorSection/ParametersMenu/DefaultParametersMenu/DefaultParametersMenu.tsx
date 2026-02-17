@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
+import type { Parameters as AppParameters } from "@/_types/common";
 import * as Styled from "./DefaultParametersMenu.styled";
 import { HorizontalLabelledInputsContainer } from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput.styled";
 import HorizontalLabelledInput from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput";
@@ -18,9 +19,9 @@ export default function DefaultParametersMenu() {
     const [selectedPreset, setSelectedPreset] = useState("800x600");
 
     const handleAlgorithmChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const algorithm = e.target.value as "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "perlin";
+        const algorithm = e.target.value as AppParameters["algorithm"];
         setParameters({ ...parameters, algorithm });
-        if (algorithm === "perlin" || algorithm === "lyapunov") {
+        if (algorithm === "perlin" || algorithm === "lyapunov" || algorithm === "buddhabrot") {
             setColorModeParameters({
                 colorMode: "smooth",
                 smoothColoring: false,
@@ -64,6 +65,9 @@ export default function DefaultParametersMenu() {
                 <option value="tricorn">Tricorn</option>
                 <option value="newton">Newton Fractal</option>
                 <option value="lyapunov">Lyapunov Fractal</option>
+                <option value="phoenix">Phoenix Fractal</option>
+                <option value="magnet">Magnet Fractal</option>
+                <option value="buddhabrot">Buddhabrot</option>
                 <option value="perlin">Perlin Noise</option>
             </LabelledSelect>
             <Styled.PseudoLabel>Resolution:</Styled.PseudoLabel>

@@ -70,6 +70,7 @@ export function useCanvasZoom({
         if (
             !canvasRef.current ||
             localTypedParametersRef.current.algorithm === "perlin" ||
+            localTypedParametersRef.current.algorithm === "buddhabrot" ||
             isGeneratingRef.current
         )
             return;
@@ -105,7 +106,7 @@ export function useCanvasZoom({
         const xMouse = (clientX - rect.left) * scalingFactorRef.current;
         const yMouse = (clientY - rect.top) * scalingFactorRef.current;
 
-        if (localTypedParametersRef.current.algorithm !== "perlin") {
+        if (localTypedParametersRef.current.algorithm !== "perlin" && localTypedParametersRef.current.algorithm !== "buddhabrot") {
             setHoverCoords({
                 re: reComplexPlanePoint(xMouse),
                 im: imComplexPlanePoint(yMouse),

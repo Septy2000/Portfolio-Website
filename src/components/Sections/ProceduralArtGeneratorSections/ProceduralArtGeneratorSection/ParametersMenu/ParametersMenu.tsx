@@ -6,6 +6,8 @@ import JuliaParametersMenu from "./JuliaParametersMenu/JuliaParametersMenu";
 import PerlinNoiseParametersMenu from "./PerlinNoiseParametersMenu/PerlinNoiseParametersMenu";
 import NewtonParametersMenu from "./NewtonParametersMenu/NewtonParametersMenu";
 import LyapunovParametersMenu from "./LyapunovParametersMenu/LyapunovParametersMenu";
+import PhoenixParametersMenu from "./PhoenixParametersMenu/PhoenixParametersMenu";
+import BuddhabrotParametersMenu from "./BuddhabrotParametersMenu/BuddhabrotParametersMenu";
 import ColorModeMenu from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersMenu/ColorModeMenu/ColorModeMenu";
 import { isParametersMenuInputValid } from "@/utils/parametersValidation";
 import InputError from "./InputError";
@@ -38,16 +40,18 @@ export default function ParametersMenu({
             <Styled.MenusContainer>
                 <DefaultParametersMenu />
                 {typedParameters.algorithm !== "newton" && <ColorModeMenu />}
-                {(typedParameters.algorithm === "mandelbrot" || typedParameters.algorithm === "burning-ship" || typedParameters.algorithm === "tricorn") && <MandelbrotParametersMenu />}
+                {(typedParameters.algorithm === "mandelbrot" || typedParameters.algorithm === "burning-ship" || typedParameters.algorithm === "tricorn" || typedParameters.algorithm === "magnet") && <MandelbrotParametersMenu />}
                 {typedParameters.algorithm === "julia" && <JuliaParametersMenu />}
                 {typedParameters.algorithm === "newton" && <NewtonParametersMenu />}
                 {typedParameters.algorithm === "lyapunov" && <LyapunovParametersMenu />}
+                {typedParameters.algorithm === "phoenix" && <PhoenixParametersMenu />}
+                {typedParameters.algorithm === "buddhabrot" && <BuddhabrotParametersMenu />}
                 {typedParameters.algorithm === "perlin" && <PerlinNoiseParametersMenu />}
             </Styled.MenusContainer>
             <Styled.ButtonsContainer>
                 <InputError />
                 <Styled.HorizontalButtonsContainer>
-                    {typedParameters.algorithm !== "perlin" && (
+                    {typedParameters.algorithm !== "perlin" && typedParameters.algorithm !== "buddhabrot" && (
                         <React.Fragment>
                             <Styled.ControlButton
                                 onClick={undoZoom}
