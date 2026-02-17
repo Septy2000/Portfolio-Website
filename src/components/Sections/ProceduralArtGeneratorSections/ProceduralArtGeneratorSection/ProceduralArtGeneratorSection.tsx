@@ -35,7 +35,7 @@ export default function ProceduralArtGeneratorSection() {
         resetZoomHistoryRef,
     });
 
-    const { undoZoom, resetZoom, resetHistory, zoomHistoryLength } = useCanvasZoom({
+    const { undoZoom, resetZoom, resetHistory, zoomHistoryLength, hoverCoords } = useCanvasZoom({
         canvasRef,
         contextRef,
         scalingFactorRef,
@@ -68,7 +68,14 @@ export default function ProceduralArtGeneratorSection() {
         <Styled.Container>
             <GeneratorInformationSection />
             <Styled.GeneratorContainer>
-                <Styled.Canvas ref={canvasRef} />
+                <Styled.CanvasWrapper>
+                    <Styled.Canvas ref={canvasRef} />
+                    {hoverCoords && (
+                        <Styled.CoordinateOverlay>
+                            Re: {hoverCoords.re.toFixed(6)} Im: {hoverCoords.im.toFixed(6)}i
+                        </Styled.CoordinateOverlay>
+                    )}
+                </Styled.CanvasWrapper>
                 <Styled.MenuContainer>
                     <ParametersMenu
                         generate={generateImageFromButton}
