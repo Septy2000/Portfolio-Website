@@ -128,6 +128,14 @@ export default function ColorModeMenu() {
                     <option value="neon">Neon</option>
                     <option value="electric">Electric</option>
                     <option value="grayscale">Grayscale</option>
+                    <option value="forest">Forest</option>
+                    <option value="aurora">Aurora</option>
+                    <option value="plasma">Plasma</option>
+                    <option value="candy">Candy</option>
+                    <option value="inferno">Inferno</option>
+                    <option value="toxic">Toxic</option>
+                    <option value="frost">Frost</option>
+                    <option value="vintage">Vintage</option>
                 </LabelledSelect>
             )}
         </Styled.Container>
