@@ -1,3 +1,68 @@
+export type RGBA = [number, number, number, number];
+
+/**
+ * Converts an HSL hue (with fixed s=100%, l=50%) to RGB values (0-255).
+ */
+function hslToRgb(hue: number): [number, number, number] {
+    const h = ((hue % 360) + 360) % 360;
+    const x = 1 - Math.abs(((h / 60) % 2) - 1);
+
+    let r: number, g: number, b: number;
+    if (h < 60) {
+        r = 1; g = x; b = 0;
+    } else if (h < 120) {
+        r = x; g = 1; b = 0;
+    } else if (h < 180) {
+        r = 0; g = 1; b = x;
+    } else if (h < 240) {
+        r = 0; g = x; b = 1;
+    } else if (h < 300) {
+        r = x; g = 0; b = 1;
+    } else {
+        r = 1; g = 0; b = x;
+    }
+
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+export function getHSLColorRGBA(
+    iterations: number,
+    maxIterations: number,
+    colorIntensity: number
+): RGBA {
+    if (iterations === maxIterations) return [0, 0, 0, 255];
+    const hue = colorIntensity * 360 * (iterations / maxIterations);
+    const [r, g, b] = hslToRgb(hue);
+    return [r, g, b, 255];
+}
+
+export function getRGBColorRGBA(
+    iterations: number,
+    maxIterations: number,
+    redWeight: number,
+    greenWeight: number,
+    blueWeight: number
+): RGBA {
+    const colorValue = 255 * (iterations / maxIterations);
+    return [
+        Math.floor(colorValue * redWeight),
+        Math.floor(colorValue * greenWeight),
+        Math.floor(colorValue * blueWeight),
+        255,
+    ];
+}
+
+export function getRandomHSLColorRGBA(
+    iterations: number,
+    maxIterations: number,
+    colors: number[]
+): RGBA {
+    if (iterations === maxIterations) return [0, 0, 0, 255];
+    const hue = colors[iterations % colors.length];
+    const [r, g, b] = hslToRgb(hue);
+    return [r, g, b, 255];
+}
+
 /**
  * Returns an HSL color based on the number of iterations.
  * @param {number} iterations - The number of iterations for the point.
