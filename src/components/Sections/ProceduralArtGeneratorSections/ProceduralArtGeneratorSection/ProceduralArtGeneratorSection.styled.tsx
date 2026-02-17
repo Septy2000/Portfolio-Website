@@ -6,12 +6,15 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: ${({ theme }) => theme.margin.medium};
-    margin-bottom: 0;
+    padding: ${({ theme }) => theme.padding.medium};
+    padding-top: ${({ theme }) => theme.padding.small};
+    padding-bottom: 0;
+    position: relative;
+    z-index: 1;
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
-        margin: ${({ theme }) => theme.margin.small};
-        margin-bottom: 0;
+        padding: ${({ theme }) => theme.padding.small};
+        padding-bottom: 0;
     }
 `;
 
@@ -42,19 +45,22 @@ export const Canvas = styled.canvas`
     width: 100%;
     height: auto;
     border-radius: ${({ theme }) => theme.borderRadius.small};
-    border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
+    background: #0d0e14;
 `;
 
 export const CoordinateOverlay = styled.div`
     position: absolute;
     top: 8px;
     left: 8px;
-    background: rgba(0, 0, 0, 0.65);
-    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.85);
     font-family: monospace;
     font-size: 0.75rem;
-    padding: 4px 8px;
-    border-radius: 8px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     pointer-events: none;
     user-select: none;
 `;
@@ -68,9 +74,10 @@ export const Sidebar = styled.div<{ $isOpen: boolean }>`
     bottom: 0;
     width: 300px;
     padding-top: var(--navbar-height, 62px);
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(13, 14, 20, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
     color: ${({ theme }) => theme.colors.text.secondary};
     z-index: 50;
     display: flex;
@@ -89,6 +96,7 @@ export const SidebarHeader = styled.div`
     justify-content: space-between;
     padding: 12px ${({ theme }) => theme.padding.small};
     flex-shrink: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 `;
 
 export const SidebarContent = styled.div`
@@ -106,28 +114,30 @@ export const SidebarContent = styled.div`
     }
 
     &::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.12);
         border-radius: 3px;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.25);
     }
 
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
 `;
 
 export const SidebarTitle = styled.span`
-    color: ${({ theme }) => theme.colors.text.secondary};
-    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 `;
 
 export const SidebarToggle = styled.button`
     background: none;
     border: none;
-    color: ${({ theme }) => theme.colors.text.muted};
+    color: rgba(255, 255, 255, 0.35);
     font-size: 1.2rem;
     cursor: pointer;
     padding: 4px;
@@ -135,9 +145,10 @@ export const SidebarToggle = styled.button`
     align-items: center;
     justify-content: center;
     border-radius: 4px;
+    transition: color 0.2s ease;
 
     &:hover {
-        color: ${({ theme }) => theme.colors.text.secondary};
+        color: rgba(255, 255, 255, 0.7);
     }
 `;
 
@@ -146,24 +157,28 @@ export const SidebarOpenTab = styled.button<{ $isOpen: boolean }>`
     top: 50%;
     right: ${({ $isOpen }) => ($isOpen ? "300px" : "0")};
     transform: translateY(-50%);
-    width: 32px;
-    height: 64px;
+    width: 28px;
+    height: 56px;
     border: none;
-    border-radius: ${({ theme }) => theme.borderRadius.small} 0 0 ${({ theme }) => theme.borderRadius.small};
-    background: rgba(0, 0, 0, 0.65);
+    border-radius: 8px 0 0 8px;
+    background: rgba(13, 14, 20, 0.7);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    color: ${({ theme }) => theme.colors.text.secondary};
-    font-size: 1rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
     cursor: pointer;
     z-index: 51;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: right 0.3s ease, background 0.2s ease;
+    transition: right 0.3s ease, color 0.2s ease, background 0.2s ease;
 
     &:hover {
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(13, 14, 20, 0.9);
+        color: rgba(255, 255, 255, 0.7);
     }
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
@@ -187,22 +202,25 @@ export const MobileMenuToggle = styled.button`
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    border: none;
-    background: ${({ theme }) => theme.colors.orange};
-    color: ${({ theme }) => theme.colors.text.secondary};
-    font-size: 1.5rem;
+    border: 1px solid rgba(255, 149, 0, 0.3);
+    background: rgba(13, 14, 20, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: ${({ theme }) => theme.colors.orange};
+    font-size: 1.3rem;
     cursor: pointer;
     z-index: 100;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 149, 0, 0.1);
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
         transform: scale(1.05);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 149, 0, 0.15);
     }
 
     &:active {
@@ -218,7 +236,7 @@ export const BottomSheetOverlay = styled.div`
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 99;
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
@@ -235,9 +253,10 @@ export const BottomSheetContainer = styled.div`
     max-height: 80vh;
     overflow-y: auto;
     z-index: 100;
-    background: ${({ theme }) => theme.colors.surface.secondary};
+    background: #13141c;
     border-radius: ${({ theme }) => theme.borderRadius.medium} ${({ theme }) => theme.borderRadius.medium} 0 0;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.5);
     animation: ${slideUp} 0.3s ease;
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
@@ -250,19 +269,21 @@ export const BottomSheetHeader = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.surface.secondary_shade.light_2};
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 `;
 
 export const BottomSheetTitle = styled.span`
-    color: ${({ theme }) => theme.colors.text.secondary};
-    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 `;
 
 export const BottomSheetClose = styled.button`
     background: none;
     border: none;
-    color: ${({ theme }) => theme.colors.text.muted};
+    color: rgba(255, 255, 255, 0.35);
     font-size: 1.5rem;
     cursor: pointer;
     padding: 4px;
@@ -270,8 +291,9 @@ export const BottomSheetClose = styled.button`
     align-items: center;
     justify-content: center;
     border-radius: 4px;
+    transition: color 0.2s ease;
 
     &:hover {
-        color: ${({ theme }) => theme.colors.text.secondary};
+        color: rgba(255, 255, 255, 0.7);
     }
 `;

@@ -34,6 +34,7 @@ export function convertColorModeParameters(
         colorMode: params.colorMode,
         smoothColoring: params.smoothColoring,
         cyclicColoring: params.cyclicColoring,
+        logarithmicColoring: params.logarithmicColoring,
         colorIntensity: parseFloat(params.colorIntensity),
         rgbWeights: {
             r: parseFloat(params.rgbWeights.r),

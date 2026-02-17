@@ -1,6 +1,5 @@
 "use client";
 import styled from "styled-components";
-import { ButtonClassic } from "@/components/Button/Button.styled";
 import { BsFillPlayFill } from "react-icons/bs";
 import { BsFillStopFill } from "react-icons/bs";
 import { BsArrow90DegLeft } from "react-icons/bs";
@@ -85,89 +84,109 @@ export const HorizontalButtonsContainer = styled.div`
     }
 `;
 
-export const ControlButton = styled(ButtonClassic)`
+export const ControlButton = styled.button`
     width: 48%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1rem;
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    padding: 10px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: ${({ theme }) => theme.borderRadius.xsmall};
+    background: rgba(255, 255, 255, 0.04);
+    color: ${({ theme }) => theme.colors.text.secondary};
+    cursor: pointer;
+    gap: 4px;
+    transition: all 0.2s ease;
+
+    &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    &:not(:disabled):active {
+        transform: scale(0.97);
+    }
+
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         width: 100%;
     }
 `;
 
 export const GenerateButton = styled(ControlButton)`
-    background-color: #1a3a2a;
+    border-color: rgba(13, 146, 118, 0.3);
+    background: rgba(13, 146, 118, 0.1);
+
     &:not(:disabled):hover {
-        background-color: ${({ theme }) => theme.colors.green};
-    }
-    &:not(:disabled):active {
-        box-shadow: inset 5px 5px 5px -1px #064d3a, inset -5px -5px 5px -1px ${({ theme }) => theme.colors.green};
-        background-color: ${({ theme }) => theme.colors.green};
+        background: rgba(13, 146, 118, 0.2);
+        border-color: rgba(13, 146, 118, 0.5);
+        box-shadow: 0 0 16px rgba(13, 146, 118, 0.15);
     }
 `;
 
 export const StopButton = styled(ControlButton)`
-    background-color: #3a1a1a;
+    border-color: rgba(255, 68, 68, 0.3);
+    background: rgba(255, 68, 68, 0.08);
+
     &:not(:disabled):hover {
-        background-color: ${({ theme }) => theme.colors.error};
-    }
-    &:not(:disabled):active {
-        box-shadow: inset 5px 5px 5px -1px #991111, inset -5px -5px 5px -1px ${({ theme }) => theme.colors.error};
-        background-color: ${({ theme }) => theme.colors.error};
+        background: rgba(255, 68, 68, 0.15);
+        border-color: rgba(255, 68, 68, 0.5);
+        box-shadow: 0 0 16px rgba(255, 68, 68, 0.1);
     }
 `;
 
 export const SaveButton = styled(ControlButton)`
-    background-color: #3a2a1a;
+    border-color: rgba(255, 149, 0, 0.25);
+    background: rgba(255, 149, 0, 0.06);
+
     &:not(:disabled):hover {
-        background-color: ${({ theme }) => theme.colors.orange};
-    }
-    &:not(:disabled):active {
-        box-shadow: ${({ theme }) =>
-            `inset 5px 5px 5px -1px ${theme.colors.orange_shade.dark_3}, inset -5px -5px 5px -1px ${theme.colors.orange}`};
-        background-color: ${({ theme }) => theme.colors.orange};
+        background: rgba(255, 149, 0, 0.12);
+        border-color: rgba(255, 149, 0, 0.4);
+        box-shadow: 0 0 16px rgba(255, 149, 0, 0.1);
     }
 `;
 
 export const PlayIcon = styled(BsFillPlayFill)`
-    font-size: 1.3rem;
-    color: limegreen;
+    font-size: 1.2rem;
+    color: ${({ theme }) => theme.colors.green};
 `;
 
 export const StopIcon = styled(BsFillStopFill)`
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: ${({ theme }) => theme.colors.error};
 `;
 
 export const UndoZoomIcon = styled(BsArrow90DegLeft)`
-    font-size: 1.3rem;
-    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
 `;
 
 export const ResetZoomIcon = styled(BsArrowCounterclockwise)`
-    font-size: 1.3rem;
-    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
 `;
 
-export const FullWidthButton = styled(ButtonClassic)`
+export const FullWidthButton = styled(ControlButton)`
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
 `;
 
 export const DownloadIcon = styled(BsDownload)`
-    font-size: 1.3rem;
-    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
 `;
 
 export const LinkIcon = styled(BsLink45Deg)`
-    font-size: 1.3rem;
-    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.5);
 `;
 
 export const InputErrorWrapper = styled.div`
@@ -175,4 +194,3 @@ export const InputErrorWrapper = styled.div`
         grid-column: 1 / -1;
     }
 `;
-

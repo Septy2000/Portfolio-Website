@@ -20,8 +20,8 @@ export const CheckboxRow = styled.label`
     align-items: center;
     gap: 6px;
     cursor: pointer;
-    font-size: 1.1rem;
-    color: ${({ theme }) => theme.colors.text.secondary};
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
 `;
 
 export const Checkbox = styled.input`

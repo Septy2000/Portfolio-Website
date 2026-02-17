@@ -71,6 +71,21 @@ export default function ColorModeMenu() {
                         Cyclic
                     </Styled.CheckboxRow>
                 )}
+                {parameters.algorithm !== "perlin" && (
+                    <Styled.CheckboxRow>
+                        <Styled.Checkbox
+                            type="checkbox"
+                            checked={colorModeParameters.logarithmicColoring}
+                            onChange={(e) =>
+                                setColorModeParameters({
+                                    ...colorModeParameters,
+                                    logarithmicColoring: e.target.checked,
+                                })
+                            }
+                        />
+                        Log
+                    </Styled.CheckboxRow>
+                )}
             </Styled.CheckboxGroup>
             {colorModeParameters.colorMode === "smooth" && (
                 <LabelledInput
@@ -156,6 +171,7 @@ export default function ColorModeMenu() {
                     <option value="toxic">Toxic</option>
                     <option value="frost">Frost</option>
                     <option value="vintage">Vintage</option>
+                    <option value="cosmic">Cosmic</option>
                 </LabelledSelect>
             )}
         </Styled.Container>

@@ -63,17 +63,19 @@ export function useGeneratorEngine({
     function getFractalPixelRGBA(iterations: number): RGBA {
         const params = localTypedParametersRef.current;
         const colorParams = localTypedColorModeParametersRef.current;
+        const log = colorParams.logarithmicColoring;
 
         switch (colorParams.colorMode) {
             case "smooth":
-                return getHSLColorRGBA(iterations, params.maxIterations, colorParams.colorIntensity, colorParams.cyclicColoring);
+                return getHSLColorRGBA(iterations, params.maxIterations, colorParams.colorIntensity, colorParams.cyclicColoring, log);
             case "rgb":
                 return getRGBColorRGBA(
                     iterations,
                     params.maxIterations,
                     colorParams.rgbWeights.r,
                     colorParams.rgbWeights.g,
-                    colorParams.rgbWeights.b
+                    colorParams.rgbWeights.b,
+                    log
                 );
             case "random":
                 return getRandomHSLColorRGBA(iterations, params.maxIterations, randomColorsRef.current);
@@ -81,7 +83,8 @@ export function useGeneratorEngine({
                 return getPaletteColorRGBA(
                     iterations,
                     params.maxIterations,
-                    PALETTES[colorParams.palette] || PALETTES.fire
+                    PALETTES[colorParams.palette] || PALETTES.fire,
+                    log
                 );
         }
     }

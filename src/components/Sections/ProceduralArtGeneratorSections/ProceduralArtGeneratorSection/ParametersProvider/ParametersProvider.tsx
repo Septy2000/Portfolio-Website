@@ -36,6 +36,7 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
         colorMode: "smooth",
         smoothColoring: true,
         cyclicColoring: false,
+        logarithmicColoring: false,
         colorIntensity: "1",
         rgbWeights: { r: "1", g: "1", b: "1" },
         numberOfRandomColors: "16",

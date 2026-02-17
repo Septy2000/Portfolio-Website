@@ -163,9 +163,20 @@ export default function ProceduralArtGeneratorSection() {
             <Styled.GeneratorContainer>
                 <Styled.CanvasWrapper>
                     <Styled.Canvas ref={canvasRef} />
-                    {hoverCoords && (
+                    {typedParameters.algorithm !== "perlin" && typedParameters.algorithm !== "buddhabrot" && (
                         <Styled.CoordinateOverlay>
-                            Re: {hoverCoords.re} Im: {hoverCoords.im}i
+                            {(() => {
+                                const b = complexPlaneBoundariesRef.current;
+                                const defaultWidth = typedParameters.algorithm === "lyapunov" ? 2 : 4;
+                                const zoom = defaultWidth / (b.RE_MAX - b.RE_MIN);
+                                return `${zoom > 1 ? zoom.toFixed(1) : "1"}x`;
+                            })()}
+                            {hoverCoords && (
+                                <>
+                                    {" · "}
+                                    {hoverCoords.re}, {hoverCoords.im}i
+                                </>
+                            )}
                         </Styled.CoordinateOverlay>
                     )}
                 </Styled.CanvasWrapper>

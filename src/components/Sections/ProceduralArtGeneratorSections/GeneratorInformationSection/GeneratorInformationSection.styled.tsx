@@ -7,23 +7,27 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    margin: ${({ theme }) => theme.margin.medium};
+    margin-bottom: ${({ theme }) => theme.margin.small};
+    width: 100%;
+    max-width: 800px;
 `;
 
 export const InfoIcon = styled(BsFillInfoCircleFill)`
-    color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.4rem;
-    margin-right: 4px;
+    color: rgba(255, 149, 0, 0.5);
+    font-size: 1rem;
+    margin-right: 8px;
+    margin-top: 2px;
+    flex-shrink: 0;
 `;
 
 export const InfoContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    margin-bottom: ${({ theme }) => theme.margin.small};
 `;
 
 export const InfoText = styled.p`
-    color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+    line-height: 1.4;
 `;

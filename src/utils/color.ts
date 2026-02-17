@@ -1,6 +1,17 @@
 export type RGBA = [number, number, number, number];
 export type ColorPalette = [number, number, number][];
 
+// Page background color — used for "in-set" pixels so fractals blend with the page
+const BG: RGBA = [0, 0, 0, 255];
+
+/**
+ * Logarithmic color mapping — spreads detail at low iteration counts
+ * instead of wasting the gradient on high counts nobody sees.
+ */
+function logMap(iterations: number, maxIterations: number): number {
+    return Math.log(1 + iterations) / Math.log(1 + maxIterations);
+}
+
 export const PALETTES: Record<string, ColorPalette> = {
     fire: [[0, 0, 0], [128, 0, 0], [255, 0, 0], [255, 128, 0], [255, 255, 0], [255, 255, 255]],
     ocean: [[0, 0, 32], [0, 0, 128], [0, 64, 255], [0, 200, 255], [200, 255, 255]],
@@ -16,6 +27,7 @@ export const PALETTES: Record<string, ColorPalette> = {
     toxic: [[0, 0, 0], [0, 80, 0], [0, 255, 0], [180, 255, 0]],
     frost: [[255, 255, 255], [160, 210, 255], [0, 80, 255], [0, 0, 128]],
     vintage: [[40, 20, 10], [160, 60, 20], [200, 160, 100], [255, 235, 205]],
+    cosmic: [[13, 8, 35], [75, 20, 105], [180, 40, 120], [255, 120, 100], [255, 220, 150], [255, 255, 255]],
 };
 
 export function getNewtonColorRGBA(
@@ -64,12 +76,14 @@ export function getHSLColorRGBA(
     iterations: number,
     maxIterations: number,
     colorIntensity: number,
-    cyclic: boolean = false
+    cyclic: boolean = false,
+    logarithmic: boolean = false
 ): RGBA {
-    if (iterations >= maxIterations) return [0, 0, 0, 255];
+    if (iterations >= maxIterations) return BG;
+    const t = logarithmic ? logMap(iterations, maxIterations) : iterations / maxIterations;
     const hue = cyclic
         ? (iterations * colorIntensity * 10) % 360
-        : colorIntensity * 360 * (iterations / maxIterations);
+        : colorIntensity * 360 * t;
     const [r, g, b] = hslToRgb(hue);
     return [r, g, b, 255];
 }
@@ -79,9 +93,12 @@ export function getRGBColorRGBA(
     maxIterations: number,
     redWeight: number,
     greenWeight: number,
-    blueWeight: number
+    blueWeight: number,
+    logarithmic: boolean = false
 ): RGBA {
-    const colorValue = 255 * (iterations / maxIterations);
+    if (iterations >= maxIterations) return BG;
+    const t = logarithmic ? logMap(iterations, maxIterations) : iterations / maxIterations;
+    const colorValue = 255 * t;
     return [
         Math.floor(colorValue * redWeight),
         Math.floor(colorValue * greenWeight),
@@ -95,7 +112,7 @@ export function getRandomHSLColorRGBA(
     maxIterations: number,
     colors: number[]
 ): RGBA {
-    if (iterations >= maxIterations) return [0, 0, 0, 255];
+    if (iterations >= maxIterations) return BG;
     const hue = colors[Math.floor(iterations) % colors.length];
     const [r, g, b] = hslToRgb(hue);
     return [r, g, b, 255];
@@ -104,10 +121,11 @@ export function getRandomHSLColorRGBA(
 export function getPaletteColorRGBA(
     iterations: number,
     maxIterations: number,
-    palette: ColorPalette
+    palette: ColorPalette,
+    logarithmic: boolean = false
 ): RGBA {
-    if (iterations >= maxIterations) return [0, 0, 0, 255];
-    const t = iterations / maxIterations;
+    if (iterations >= maxIterations) return BG;
+    const t = logarithmic ? logMap(iterations, maxIterations) : iterations / maxIterations;
     const pos = t * (palette.length - 1);
     const index = Math.min(Math.floor(pos), palette.length - 2);
     const frac = pos - index;
