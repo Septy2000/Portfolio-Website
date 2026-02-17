@@ -43,6 +43,7 @@ export interface TypedParameters {
 export interface ColorModeParameters {
     colorMode: "smooth" | "rgb" | "random" | "palette";
     smoothColoring: boolean;
+    cyclicColoring: boolean;
     colorIntensity: string;
     rgbWeights: { r: string; g: string; b: string };
     numberOfRandomColors: string;
@@ -52,6 +53,7 @@ export interface ColorModeParameters {
 export interface TypedColorModeParameters {
     colorMode: "smooth" | "rgb" | "random" | "palette";
     smoothColoring: boolean;
+    cyclicColoring: boolean;
     colorIntensity: number;
     rgbWeights: { r: number; g: number; b: number };
     numberOfRandomColors: number;

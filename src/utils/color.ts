@@ -63,10 +63,13 @@ function hslToRgb(hue: number): [number, number, number] {
 export function getHSLColorRGBA(
     iterations: number,
     maxIterations: number,
-    colorIntensity: number
+    colorIntensity: number,
+    cyclic: boolean = false
 ): RGBA {
     if (iterations >= maxIterations) return [0, 0, 0, 255];
-    const hue = colorIntensity * 360 * (iterations / maxIterations);
+    const hue = cyclic
+        ? (iterations * colorIntensity * 10) % 360
+        : colorIntensity * 360 * (iterations / maxIterations);
     const [r, g, b] = hslToRgb(hue);
     return [r, g, b, 255];
 }

@@ -33,6 +33,7 @@ export function convertColorModeParameters(
     return {
         colorMode: params.colorMode,
         smoothColoring: params.smoothColoring,
+        cyclicColoring: params.cyclicColoring,
         colorIntensity: parseFloat(params.colorIntensity),
         rgbWeights: {
             r: parseFloat(params.rgbWeights.r),

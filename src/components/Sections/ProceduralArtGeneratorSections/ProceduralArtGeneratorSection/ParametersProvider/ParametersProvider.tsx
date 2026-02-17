@@ -35,6 +35,7 @@ export const ParametersProvider = ({ children }: { children: ReactNode }) => {
     const [colorModeParameters, setColorModeParameters] = useState<ColorModeParameters>({
         colorMode: "smooth",
         smoothColoring: true,
+        cyclicColoring: false,
         colorIntensity: "1",
         rgbWeights: { r: "1", g: "1", b: "1" },
         numberOfRandomColors: "16",

@@ -66,7 +66,7 @@ export function useGeneratorEngine({
 
         switch (colorParams.colorMode) {
             case "smooth":
-                return getHSLColorRGBA(iterations, params.maxIterations, colorParams.colorIntensity);
+                return getHSLColorRGBA(iterations, params.maxIterations, colorParams.colorIntensity, colorParams.cyclicColoring);
             case "rgb":
                 return getRGBColorRGBA(
                     iterations,

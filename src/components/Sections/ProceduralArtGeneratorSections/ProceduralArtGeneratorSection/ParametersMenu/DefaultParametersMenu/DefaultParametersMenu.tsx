@@ -25,6 +25,7 @@ export default function DefaultParametersMenu() {
             setColorModeParameters({
                 colorMode: "smooth",
                 smoothColoring: false,
+                cyclicColoring: false,
                 colorIntensity: "3",
                 rgbWeights: { r: "1", g: "1", b: "1" },
                 numberOfRandomColors: "10",
@@ -34,6 +35,7 @@ export default function DefaultParametersMenu() {
             setColorModeParameters({
                 colorMode: "smooth",
                 smoothColoring: true,
+                cyclicColoring: false,
                 colorIntensity: "1",
                 rgbWeights: { r: "1", g: "1", b: "1" },
                 numberOfRandomColors: "10",
