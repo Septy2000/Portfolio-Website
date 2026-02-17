@@ -16,6 +16,7 @@ export default function ParametersMenu({
     undoZoom,
     resetZoom,
     areZoomButtonsDisabled,
+    onSave,
 }: {
     generate: () => void;
     isImageGenerated: boolean;
@@ -23,6 +24,7 @@ export default function ParametersMenu({
     undoZoom: () => void;
     resetZoom: () => void;
     areZoomButtonsDisabled: boolean;
+    onSave: () => void;
 }) {
     const { typedColorModeParameters, typedParameters } = useParameters();
 
@@ -75,6 +77,10 @@ export default function ParametersMenu({
                         <Styled.StopIcon />
                     </Styled.ControlButton>
                 </Styled.HorizontalButtonsContainer>
+                <Styled.FullWidthButton onClick={onSave} disabled={!isImageGenerated}>
+                    save as PNG
+                    <Styled.DownloadIcon />
+                </Styled.FullWidthButton>
             </Styled.ButtonsContainer>
         </Styled.Container>
     );

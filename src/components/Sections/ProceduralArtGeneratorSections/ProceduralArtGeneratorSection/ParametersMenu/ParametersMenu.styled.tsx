@@ -5,6 +5,7 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { BsFillStopFill } from "react-icons/bs";
 import { BsArrow90DegLeft } from "react-icons/bs";
 import { BsArrowCounterclockwise } from "react-icons/bs";
+import { BsDownload } from "react-icons/bs";
 
 export const Container = styled.div`
     display: flex;
@@ -78,6 +79,20 @@ export const UndoZoomIcon = styled(BsArrow90DegLeft)`
 `;
 
 export const ResetZoomIcon = styled(BsArrowCounterclockwise)`
+    font-size: 1.3rem;
+    color: ${({ theme }) => theme.colors.text.secondary};
+`;
+
+export const FullWidthButton = styled(ButtonClassic)`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+`;
+
+export const DownloadIcon = styled(BsDownload)`
     font-size: 1.3rem;
     color: ${({ theme }) => theme.colors.text.secondary};
 `;

@@ -6,6 +6,7 @@ import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import GeneratorInformationSection from "@/components/Sections/ProceduralArtGeneratorSections/GeneratorInformationSection/GeneratorInformationSection";
 import { useCanvasZoom, DEFAULT_COMPLEX_PLANE_BOUNDARIES } from "./hooks/useCanvasZoom";
 import { useGeneratorEngine } from "./hooks/useGeneratorEngine";
+import { useParameters } from "./ParametersProvider/ParametersProvider";
 
 export default function ProceduralArtGeneratorSection() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -47,6 +48,22 @@ export default function ProceduralArtGeneratorSection() {
     generateImageRef.current = generateImage;
     resetZoomHistoryRef.current = resetHistory;
 
+    const { typedParameters } = useParameters();
+
+    function handleSave() {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        canvas.toBlob((blob) => {
+            if (!blob) return;
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${typedParameters.algorithm}-${Date.now()}.png`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    }
+
     return (
         <Styled.Container>
             <GeneratorInformationSection />
@@ -60,6 +77,7 @@ export default function ProceduralArtGeneratorSection() {
                         undoZoom={undoZoom}
                         resetZoom={resetZoom}
                         areZoomButtonsDisabled={zoomHistoryLength === 0}
+                        onSave={handleSave}
                     />
                 </Styled.MenuContainer>
             </Styled.GeneratorContainer>
