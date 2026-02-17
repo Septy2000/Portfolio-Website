@@ -14,14 +14,31 @@ const RESOLUTION_PRESETS: Record<string, { width: string; height: string }> = {
 };
 
 export default function DefaultParametersMenu() {
-    const { parameters, setParameters } = useParameters();
+    const { parameters, setParameters, setColorModeParameters } = useParameters();
     const [selectedPreset, setSelectedPreset] = useState("800x600");
 
     const handleAlgorithmChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setParameters({
-            ...parameters,
-            algorithm: e.target.value as "mandelbrot" | "julia" | "perlin",
-        });
+        const algorithm = e.target.value as "mandelbrot" | "julia" | "perlin";
+        setParameters({ ...parameters, algorithm });
+        if (algorithm === "perlin") {
+            setColorModeParameters({
+                colorMode: "smooth",
+                smoothColoring: false,
+                colorIntensity: "3",
+                rgbWeights: { r: "1", g: "1", b: "1" },
+                numberOfRandomColors: "10",
+                palette: "fire",
+            });
+        } else {
+            setColorModeParameters({
+                colorMode: "smooth",
+                smoothColoring: true,
+                colorIntensity: "1",
+                rgbWeights: { r: "1", g: "1", b: "1" },
+                numberOfRandomColors: "10",
+                palette: "fire",
+            });
+        }
     };
 
     const handlePresetChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

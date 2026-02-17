@@ -1,10 +1,12 @@
 import { useRef, useState, useEffect, MutableRefObject, RefObject } from "react";
 import { ComplexPlaneBoundary } from "@/_types/math";
-import { TypedParameters } from "@/_types/common";
+import { TypedParameters, TypedColorModeParameters } from "@/_types/common";
 import {
     getHSLColorRGBA,
     getRGBColorRGBA,
     getRandomHSLColorRGBA,
+    getPaletteColorRGBA,
+    PALETTES,
     getNoiseHSLColor,
     getNoiseRGBColor,
     type RGBA,
@@ -74,11 +76,18 @@ export function useGeneratorEngine({
                 );
             case "random":
                 return getRandomHSLColorRGBA(iterations, params.maxIterations, randomColorsRef.current);
+            case "palette":
+                return getPaletteColorRGBA(
+                    iterations,
+                    params.maxIterations,
+                    PALETTES[colorParams.palette] || PALETTES.fire
+                );
         }
     }
 
     function buildFractalWorkerMessage(column: number) {
         const params = localTypedParametersRef.current;
+        const colorParams = localTypedColorModeParametersRef.current;
         return {
             column,
             algorithm: params.algorithm,
@@ -86,6 +95,8 @@ export function useGeneratorEngine({
             width: params.width,
             height: params.height,
             maxIterations: params.maxIterations,
+            smoothColoring: colorParams.smoothColoring,
+            bailoutSq: colorParams.smoothColoring ? 65536 : 4,
             selectedComplexNumber:
                 params.algorithm === "julia"
                     ? params.customCValueSelected
@@ -307,6 +318,16 @@ export function useGeneratorEngine({
         }
     }
 
+    function generateFromURLParams(params: TypedParameters, colorParams: TypedColorModeParameters) {
+        localTypedParametersRef.current = params;
+        localTypedColorModeParametersRef.current = colorParams;
+        initializeCanvas();
+        scalingFactorRef.current = canvasRef.current
+            ? params.width / canvasRef.current.getBoundingClientRect().width
+            : 1;
+        generateImage();
+    }
+
     function stopImageGeneration() {
         workersRef.current.forEach((w) => w.terminate());
         workersRef.current = [];
@@ -321,6 +342,7 @@ export function useGeneratorEngine({
         scalingFactorRef,
         generateImage,
         generateImageFromButton,
+        generateFromURLParams,
         stopImageGeneration,
     };
 }

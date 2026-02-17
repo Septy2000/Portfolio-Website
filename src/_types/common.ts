@@ -31,17 +31,21 @@ export interface TypedParameters {
 }
 
 export interface ColorModeParameters {
-    colorMode: "smooth" | "rgb" | "random";
+    colorMode: "smooth" | "rgb" | "random" | "palette";
+    smoothColoring: boolean;
     colorIntensity: string;
     rgbWeights: { r: string; g: string; b: string };
     numberOfRandomColors: string;
+    palette: string;
 }
 
 export interface TypedColorModeParameters {
-    colorMode: "smooth" | "rgb" | "random";
+    colorMode: "smooth" | "rgb" | "random" | "palette";
+    smoothColoring: boolean;
     colorIntensity: number;
     rgbWeights: { r: number; g: number; b: number };
     numberOfRandomColors: number;
+    palette: string;
 }
 
 export interface ParametersContextType {

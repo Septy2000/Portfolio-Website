@@ -1,6 +1,6 @@
 "use client";
 import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
-import React, { useEffect } from "react";
+import React from "react";
 import * as Styled from "./ColorModeMenu.styled";
 import LabelledInput from "@/components/LabelledInput/LabelledInput";
 import HorizontalLabelledInput from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput";
@@ -12,7 +12,7 @@ export default function ColorModeMenu() {
     const handleColorModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setColorModeParameters({
             ...colorModeParameters,
-            colorMode: e.target.value as "smooth" | "rgb" | "random",
+            colorMode: e.target.value as "smooth" | "rgb" | "random" | "palette",
         });
     };
 
@@ -26,25 +26,6 @@ export default function ColorModeMenu() {
         });
     };
 
-    // Set color mode params to default when algorithm changes
-    useEffect(() => {
-        if (parameters.algorithm === "perlin") {
-            setColorModeParameters({
-                colorMode: "smooth",
-                colorIntensity: "3",
-                rgbWeights: { r: "1", g: "1", b: "1" },
-                numberOfRandomColors: "10",
-            });
-        } else {
-            setColorModeParameters({
-                colorMode: "smooth",
-                colorIntensity: "1",
-                rgbWeights: { r: "1", g: "1", b: "1" },
-                numberOfRandomColors: "10",
-            });
-        }
-    }, [parameters.algorithm, setColorModeParameters]);
-
     return (
         <Styled.Container>
             <LabelledSelect
@@ -54,9 +35,25 @@ export default function ColorModeMenu() {
                 onChange={handleColorModeChange}
             >
                 <option value="smooth">Smooth</option>
+                {parameters.algorithm !== "perlin" && <option value="palette">Palette</option>}
                 <option value="rgb">RGB</option>
                 {parameters.algorithm !== "perlin" && <option value="random">Random</option>}
             </LabelledSelect>
+            {parameters.algorithm !== "perlin" && (
+                <Styled.CheckboxRow>
+                    <Styled.Checkbox
+                        type="checkbox"
+                        checked={colorModeParameters.smoothColoring}
+                        onChange={(e) =>
+                            setColorModeParameters({
+                                ...colorModeParameters,
+                                smoothColoring: e.target.checked,
+                            })
+                        }
+                    />
+                    Smooth Coloring
+                </Styled.CheckboxRow>
+            )}
             {colorModeParameters.colorMode === "smooth" && (
                 <LabelledInput
                     id="intensity"
@@ -111,6 +108,35 @@ export default function ColorModeMenu() {
                         })
                     }
                 />
+            )}
+
+            {colorModeParameters.colorMode === "palette" && (
+                <LabelledSelect
+                    id="palette"
+                    label="Palette:"
+                    value={colorModeParameters.palette}
+                    onChange={(e) =>
+                        setColorModeParameters({
+                            ...colorModeParameters,
+                            palette: e.target.value,
+                        })
+                    }
+                >
+                    <option value="fire">Fire</option>
+                    <option value="ocean">Ocean</option>
+                    <option value="sunset">Sunset</option>
+                    <option value="neon">Neon</option>
+                    <option value="electric">Electric</option>
+                    <option value="grayscale">Grayscale</option>
+                    <option value="forest">Forest</option>
+                    <option value="aurora">Aurora</option>
+                    <option value="plasma">Plasma</option>
+                    <option value="candy">Candy</option>
+                    <option value="inferno">Inferno</option>
+                    <option value="toxic">Toxic</option>
+                    <option value="frost">Frost</option>
+                    <option value="vintage">Vintage</option>
+                </LabelledSelect>
             )}
         </Styled.Container>
     );
