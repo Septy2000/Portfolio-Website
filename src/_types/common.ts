@@ -1,7 +1,7 @@
 import { ComplexNumber } from "./math";
 
 export interface Parameters {
-    algorithm: "mandelbrot" | "julia" | "perlin";
+    algorithm: "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "phoenix" | "magnet" | "buddhabrot" | "perlin";
     width: string;
     height: string;
     maxIterations: string;
@@ -9,6 +9,11 @@ export interface Parameters {
     customCRealValue: string;
     customCImaginaryValue: string;
     customCValueSelected: boolean;
+    newtonDegree: string;
+    lyapunovSequence: string;
+    phoenixP: string;
+    phoenixQ: string;
+    buddhabrotSamples: string;
     scale: string;
     zoomOut: string;
     customSeed: string;
@@ -16,7 +21,7 @@ export interface Parameters {
 }
 
 export interface TypedParameters {
-    algorithm: "mandelbrot" | "julia" | "perlin";
+    algorithm: "mandelbrot" | "julia" | "burning-ship" | "tricorn" | "newton" | "lyapunov" | "phoenix" | "magnet" | "buddhabrot" | "perlin";
     width: number;
     height: number;
     maxIterations: number;
@@ -24,6 +29,11 @@ export interface TypedParameters {
     customCRealValue: number;
     customCImaginaryValue: number;
     customCValueSelected: boolean;
+    newtonDegree: number;
+    lyapunovSequence: string;
+    phoenixP: number;
+    phoenixQ: number;
+    buddhabrotSamples: number;
     scale: number;
     zoomOut: number;
     customSeed: number;
@@ -33,6 +43,7 @@ export interface TypedParameters {
 export interface ColorModeParameters {
     colorMode: "smooth" | "rgb" | "random" | "palette";
     smoothColoring: boolean;
+    cyclicColoring: boolean;
     colorIntensity: string;
     rgbWeights: { r: string; g: string; b: string };
     numberOfRandomColors: string;
@@ -42,6 +53,7 @@ export interface ColorModeParameters {
 export interface TypedColorModeParameters {
     colorMode: "smooth" | "rgb" | "random" | "palette";
     smoothColoring: boolean;
+    cyclicColoring: boolean;
     colorIntensity: number;
     rgbWeights: { r: number; g: number; b: number };
     numberOfRandomColors: number;

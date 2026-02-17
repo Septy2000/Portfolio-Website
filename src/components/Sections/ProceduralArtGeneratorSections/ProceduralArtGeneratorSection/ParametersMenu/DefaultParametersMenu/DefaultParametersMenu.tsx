@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParameters } from "@/components/Sections/ProceduralArtGeneratorSections/ProceduralArtGeneratorSection/ParametersProvider/ParametersProvider";
+import type { Parameters as AppParameters } from "@/_types/common";
 import * as Styled from "./DefaultParametersMenu.styled";
 import { HorizontalLabelledInputsContainer } from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput.styled";
 import HorizontalLabelledInput from "@/components/LabelledInput/HorizontalLabelledInput/HorizontalLabelledInput";
@@ -18,12 +19,13 @@ export default function DefaultParametersMenu() {
     const [selectedPreset, setSelectedPreset] = useState("800x600");
 
     const handleAlgorithmChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const algorithm = e.target.value as "mandelbrot" | "julia" | "perlin";
+        const algorithm = e.target.value as AppParameters["algorithm"];
         setParameters({ ...parameters, algorithm });
-        if (algorithm === "perlin") {
+        if (algorithm === "perlin" || algorithm === "lyapunov" || algorithm === "buddhabrot") {
             setColorModeParameters({
                 colorMode: "smooth",
                 smoothColoring: false,
+                cyclicColoring: false,
                 colorIntensity: "3",
                 rgbWeights: { r: "1", g: "1", b: "1" },
                 numberOfRandomColors: "10",
@@ -33,6 +35,7 @@ export default function DefaultParametersMenu() {
             setColorModeParameters({
                 colorMode: "smooth",
                 smoothColoring: true,
+                cyclicColoring: false,
                 colorIntensity: "1",
                 rgbWeights: { r: "1", g: "1", b: "1" },
                 numberOfRandomColors: "10",
@@ -60,6 +63,13 @@ export default function DefaultParametersMenu() {
             >
                 <option value="mandelbrot">Mandelbrot Set</option>
                 <option value="julia">Julia Set</option>
+                <option value="burning-ship">Burning Ship</option>
+                <option value="tricorn">Tricorn</option>
+                <option value="newton">Newton Fractal</option>
+                <option value="lyapunov">Lyapunov Fractal</option>
+                <option value="phoenix">Phoenix Fractal</option>
+                <option value="magnet">Magnet Fractal</option>
+                <option value="buddhabrot">Buddhabrot</option>
                 <option value="perlin">Perlin Noise</option>
             </LabelledSelect>
             <Styled.PseudoLabel>Resolution:</Styled.PseudoLabel>

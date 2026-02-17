@@ -39,21 +39,38 @@ export default function ColorModeMenu() {
                 <option value="rgb">RGB</option>
                 {parameters.algorithm !== "perlin" && <option value="random">Random</option>}
             </LabelledSelect>
-            {parameters.algorithm !== "perlin" && (
-                <Styled.CheckboxRow>
-                    <Styled.Checkbox
-                        type="checkbox"
-                        checked={colorModeParameters.smoothColoring}
-                        onChange={(e) =>
-                            setColorModeParameters({
-                                ...colorModeParameters,
-                                smoothColoring: e.target.checked,
-                            })
-                        }
-                    />
-                    Smooth Coloring
-                </Styled.CheckboxRow>
-            )}
+            <Styled.CheckboxGroup>
+                {parameters.algorithm !== "perlin" && parameters.algorithm !== "lyapunov" && parameters.algorithm !== "buddhabrot" && (
+                    <Styled.CheckboxRow>
+                        <Styled.Checkbox
+                            type="checkbox"
+                            checked={colorModeParameters.smoothColoring}
+                            onChange={(e) =>
+                                setColorModeParameters({
+                                    ...colorModeParameters,
+                                    smoothColoring: e.target.checked,
+                                })
+                            }
+                        />
+                        Smooth
+                    </Styled.CheckboxRow>
+                )}
+                {colorModeParameters.colorMode === "smooth" && parameters.algorithm !== "perlin" && (
+                    <Styled.CheckboxRow>
+                        <Styled.Checkbox
+                            type="checkbox"
+                            checked={colorModeParameters.cyclicColoring}
+                            onChange={(e) =>
+                                setColorModeParameters({
+                                    ...colorModeParameters,
+                                    cyclicColoring: e.target.checked,
+                                })
+                            }
+                        />
+                        Cyclic
+                    </Styled.CheckboxRow>
+                )}
+            </Styled.CheckboxGroup>
             {colorModeParameters.colorMode === "smooth" && (
                 <LabelledInput
                     id="intensity"

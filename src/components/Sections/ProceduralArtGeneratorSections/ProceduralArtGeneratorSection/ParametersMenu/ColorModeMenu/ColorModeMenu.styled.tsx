@@ -8,11 +8,17 @@ export const Container = styled.div`
     justify-content: center;
 `;
 
+export const CheckboxGroup = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 8px 0;
+`;
+
 export const CheckboxRow = styled.label`
     display: flex;
     align-items: center;
     gap: 6px;
-    margin: 8px 0;
     cursor: pointer;
     font-size: 1.1rem;
     color: ${({ theme }) => theme.colors.text.primary};

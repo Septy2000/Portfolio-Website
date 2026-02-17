@@ -15,6 +15,11 @@ export function convertParameters(params: Parameters): TypedParameters {
         customCRealValue: parseFloat(params.customCRealValue),
         customCImaginaryValue: parseFloat(params.customCImaginaryValue),
         customCValueSelected: params.customCValueSelected,
+        newtonDegree: parseInt(params.newtonDegree),
+        lyapunovSequence: params.lyapunovSequence,
+        phoenixP: parseFloat(params.phoenixP),
+        phoenixQ: parseFloat(params.phoenixQ),
+        buddhabrotSamples: parseInt(params.buddhabrotSamples),
         scale: parseFloat(params.scale),
         zoomOut: parseFloat(params.zoomOut),
         customSeed: parseInt(params.customSeed),
@@ -28,6 +33,7 @@ export function convertColorModeParameters(
     return {
         colorMode: params.colorMode,
         smoothColoring: params.smoothColoring,
+        cyclicColoring: params.cyclicColoring,
         colorIntensity: parseFloat(params.colorIntensity),
         rgbWeights: {
             r: parseFloat(params.rgbWeights.r),
