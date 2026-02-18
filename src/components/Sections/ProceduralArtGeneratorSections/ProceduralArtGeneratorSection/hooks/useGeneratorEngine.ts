@@ -84,7 +84,8 @@ export function useGeneratorEngine({
                     iterations,
                     params.maxIterations,
                     PALETTES[colorParams.palette] || PALETTES.fire,
-                    log
+                    log,
+                    colorParams.colorIntensity
                 );
         }
     }

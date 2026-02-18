@@ -87,7 +87,7 @@ export default function ColorModeMenu() {
                     </Styled.CheckboxRow>
                 )}
             </Styled.CheckboxGroup>
-            {colorModeParameters.colorMode === "smooth" && (
+            {(colorModeParameters.colorMode === "smooth" || colorModeParameters.colorMode === "palette") && (
                 <LabelledInput
                     id="intensity"
                     label="Intensity:"

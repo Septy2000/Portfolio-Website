@@ -122,10 +122,12 @@ export function getPaletteColorRGBA(
     iterations: number,
     maxIterations: number,
     palette: ColorPalette,
-    logarithmic: boolean = false
+    logarithmic: boolean = false,
+    colorIntensity: number = 1
 ): RGBA {
     if (iterations >= maxIterations) return BG;
-    const t = logarithmic ? logMap(iterations, maxIterations) : iterations / maxIterations;
+    const raw = logarithmic ? logMap(iterations, maxIterations) : iterations / maxIterations;
+    const t = colorIntensity === 1 ? raw : (((raw * colorIntensity) % 1) + 1) % 1;
     const pos = t * (palette.length - 1);
     const index = Math.min(Math.floor(pos), palette.length - 2);
     const frac = pos - index;
