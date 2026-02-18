@@ -102,6 +102,7 @@ export const NavButton = styled.button<{ $position: "left" | "right" }>`
     color: ${({ theme, disabled }) =>
         disabled ? theme.colors.surface.primary_shade.dark_3 : theme.colors.text.secondary};
     font-size: 1.3rem;
+    line-height: 1;
     cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
     display: flex;
     align-items: center;
