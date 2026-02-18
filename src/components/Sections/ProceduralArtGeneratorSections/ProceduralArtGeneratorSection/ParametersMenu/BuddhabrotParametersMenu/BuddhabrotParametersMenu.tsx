@@ -12,6 +12,7 @@ export default function BuddhabrotParametersMenu() {
                 label="Max Iterations:"
                 type="number"
                 value={parameters.maxIterations}
+                tooltip="Higher values reveal more detail but take longer to render"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,
@@ -24,6 +25,7 @@ export default function BuddhabrotParametersMenu() {
                 label="Samples:"
                 type="number"
                 value={parameters.buddhabrotSamples}
+                tooltip="Number of random sample points to test for escaping orbits"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,

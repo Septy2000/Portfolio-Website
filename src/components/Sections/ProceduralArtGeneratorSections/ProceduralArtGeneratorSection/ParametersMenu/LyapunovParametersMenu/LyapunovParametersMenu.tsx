@@ -12,6 +12,7 @@ export default function LyapunovParametersMenu() {
                 label="Max Iterations:"
                 type="number"
                 value={parameters.maxIterations}
+                tooltip="Higher values reveal more detail but take longer to render"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,
@@ -24,6 +25,7 @@ export default function LyapunovParametersMenu() {
                 label="Sequence (A/B):"
                 type="text"
                 value={parameters.lyapunovSequence}
+                tooltip="A/B pattern controlling parameter switching (e.g. AABB)"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,

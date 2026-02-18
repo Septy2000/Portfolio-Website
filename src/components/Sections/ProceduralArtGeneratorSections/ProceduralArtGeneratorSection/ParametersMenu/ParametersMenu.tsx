@@ -13,6 +13,18 @@ import { isParametersMenuInputValid } from "@/utils/parametersValidation";
 import InputError from "./InputError";
 import React, { useState } from "react";
 
+export interface ParametersMenuProps {
+    generate: () => void;
+    isImageGenerated: boolean;
+    stopGeneration: () => void;
+    undoZoom: () => void;
+    resetZoom: () => void;
+    areZoomButtonsDisabled: boolean;
+    onSave: () => void;
+    onCopyLink: () => void;
+    variant?: "full" | "menus-only" | "buttons-only";
+}
+
 export default function ParametersMenu({
     generate,
     isImageGenerated,
@@ -22,89 +34,101 @@ export default function ParametersMenu({
     areZoomButtonsDisabled,
     onSave,
     onCopyLink,
-}: {
-    generate: () => void;
-    isImageGenerated: boolean;
-    stopGeneration: () => void;
-    undoZoom: () => void;
-    resetZoom: () => void;
-    areZoomButtonsDisabled: boolean;
-    onSave: () => void;
-    onCopyLink: () => void;
-}) {
+    variant = "full",
+}: ParametersMenuProps) {
     const { typedColorModeParameters, typedParameters } = useParameters();
     const [linkCopied, setLinkCopied] = useState(false);
 
+    const showZoomButtons = typedParameters.algorithm !== "perlin" && typedParameters.algorithm !== "buddhabrot";
+
+    const menusContent = (
+        <Styled.MenusContainer>
+            <DefaultParametersMenu />
+            {typedParameters.algorithm !== "newton" && <ColorModeMenu />}
+            {(typedParameters.algorithm === "mandelbrot" || typedParameters.algorithm === "burning-ship" || typedParameters.algorithm === "tricorn" || typedParameters.algorithm === "magnet") && <MandelbrotParametersMenu />}
+            {typedParameters.algorithm === "julia" && <JuliaParametersMenu />}
+            {typedParameters.algorithm === "newton" && <NewtonParametersMenu />}
+            {typedParameters.algorithm === "lyapunov" && <LyapunovParametersMenu />}
+            {typedParameters.algorithm === "phoenix" && <PhoenixParametersMenu />}
+            {typedParameters.algorithm === "buddhabrot" && <BuddhabrotParametersMenu />}
+            {typedParameters.algorithm === "perlin" && <PerlinNoiseParametersMenu />}
+        </Styled.MenusContainer>
+    );
+
+    const buttonsContent = (
+        <Styled.ButtonsContainer>
+            <Styled.InputErrorWrapper>
+                <InputError />
+            </Styled.InputErrorWrapper>
+            <Styled.HorizontalButtonsContainer>
+                <Styled.GenerateButton
+                    onClick={generate}
+                    disabled={
+                        !isParametersMenuInputValid(
+                            typedParameters,
+                            typedColorModeParameters
+                        ) || !isImageGenerated
+                    }
+                >
+                    generate
+                    <Styled.PlayIcon />
+                </Styled.GenerateButton>
+                {showZoomButtons && (
+                    <Styled.ControlButton
+                        onClick={resetZoom}
+                        disabled={areZoomButtonsDisabled}
+                    >
+                        reset zoom
+                        <Styled.ResetZoomIcon />
+                    </Styled.ControlButton>
+                )}
+            </Styled.HorizontalButtonsContainer>
+            <Styled.HorizontalButtonsContainer>
+                {showZoomButtons && (
+                    <Styled.ControlButton
+                        onClick={undoZoom}
+                        disabled={areZoomButtonsDisabled}
+                    >
+                        undo zoom
+                        <Styled.UndoZoomIcon />
+                    </Styled.ControlButton>
+                )}
+                <Styled.StopButton onClick={stopGeneration} disabled={isImageGenerated}>
+                    stop
+                    <Styled.StopIcon />
+                </Styled.StopButton>
+            </Styled.HorizontalButtonsContainer>
+            <Styled.HorizontalButtonsContainer>
+                <Styled.SaveButton onClick={onSave} disabled={!isImageGenerated}>
+                    save PNG
+                    <Styled.DownloadIcon />
+                </Styled.SaveButton>
+                <Styled.SaveButton
+                    onClick={() => {
+                        onCopyLink();
+                        setLinkCopied(true);
+                        setTimeout(() => setLinkCopied(false), 2000);
+                    }}
+                >
+                    {linkCopied ? "copied!" : "copy link"}
+                    <Styled.LinkIcon />
+                </Styled.SaveButton>
+            </Styled.HorizontalButtonsContainer>
+        </Styled.ButtonsContainer>
+    );
+
+    if (variant === "menus-only") {
+        return <Styled.Container $variant={variant}>{menusContent}</Styled.Container>;
+    }
+
+    if (variant === "buttons-only") {
+        return <Styled.Container $variant={variant}>{buttonsContent}</Styled.Container>;
+    }
+
     return (
         <Styled.Container>
-            <Styled.MenusContainer>
-                <DefaultParametersMenu />
-                {typedParameters.algorithm !== "newton" && <ColorModeMenu />}
-                {(typedParameters.algorithm === "mandelbrot" || typedParameters.algorithm === "burning-ship" || typedParameters.algorithm === "tricorn" || typedParameters.algorithm === "magnet") && <MandelbrotParametersMenu />}
-                {typedParameters.algorithm === "julia" && <JuliaParametersMenu />}
-                {typedParameters.algorithm === "newton" && <NewtonParametersMenu />}
-                {typedParameters.algorithm === "lyapunov" && <LyapunovParametersMenu />}
-                {typedParameters.algorithm === "phoenix" && <PhoenixParametersMenu />}
-                {typedParameters.algorithm === "buddhabrot" && <BuddhabrotParametersMenu />}
-                {typedParameters.algorithm === "perlin" && <PerlinNoiseParametersMenu />}
-            </Styled.MenusContainer>
-            <Styled.ButtonsContainer>
-                <InputError />
-                <Styled.HorizontalButtonsContainer>
-                    {typedParameters.algorithm !== "perlin" && typedParameters.algorithm !== "buddhabrot" && (
-                        <React.Fragment>
-                            <Styled.ControlButton
-                                onClick={undoZoom}
-                                disabled={areZoomButtonsDisabled}
-                            >
-                                undo zoom
-                                <Styled.UndoZoomIcon />
-                            </Styled.ControlButton>
-                            <Styled.ControlButton
-                                onClick={resetZoom}
-                                disabled={areZoomButtonsDisabled}
-                            >
-                                reset zoom
-                                <Styled.ResetZoomIcon />
-                            </Styled.ControlButton>
-                        </React.Fragment>
-                    )}
-                </Styled.HorizontalButtonsContainer>
-                <Styled.HorizontalButtonsContainer>
-                    <Styled.ControlButton
-                        onClick={generate}
-                        disabled={
-                            !isParametersMenuInputValid(
-                                typedParameters,
-                                typedColorModeParameters
-                            ) || !isImageGenerated
-                        }
-                    >
-                        generate
-                        <Styled.PlayIcon />
-                    </Styled.ControlButton>
-                    <Styled.ControlButton onClick={stopGeneration} disabled={isImageGenerated}>
-                        stop
-                        <Styled.StopIcon />
-                    </Styled.ControlButton>
-                </Styled.HorizontalButtonsContainer>
-                <Styled.HorizontalButtonsContainer>
-                    <Styled.ControlButton onClick={onSave} disabled={!isImageGenerated}>
-                        save PNG
-                        <Styled.DownloadIcon />
-                    </Styled.ControlButton>
-                    <Styled.ControlButton
-                        onClick={() => {
-                            onCopyLink();
-                            setLinkCopied(true);
-                            setTimeout(() => setLinkCopied(false), 2000);
-                        }}
-                    >
-                        {linkCopied ? "copied!" : "copy link"}
-                        <Styled.LinkIcon />
-                    </Styled.ControlButton>
-                </Styled.HorizontalButtonsContainer>
-            </Styled.ButtonsContainer>
+            {menusContent}
+            {buttonsContent}
         </Styled.Container>
     );
 }

@@ -12,6 +12,7 @@ export default function PerlinNoiseParametersMenu() {
                 label="Scale:"
                 type="number"
                 value={parameters.scale}
+                tooltip="Size of each noise cell in pixels"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,
@@ -24,6 +25,7 @@ export default function PerlinNoiseParametersMenu() {
                 label="Zoom:"
                 type="number"
                 value={parameters.zoomOut}
+                tooltip="How far out to view the noise field"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,

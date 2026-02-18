@@ -9,9 +9,10 @@ export const Container = styled.div`
 `;
 
 export const PseudoLabel = styled.p`
-    color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.1rem;
-    margin-bottom: 2px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 3px;
 `;
 
 export const HorizontalLabelledInputsContainer = styled.div`

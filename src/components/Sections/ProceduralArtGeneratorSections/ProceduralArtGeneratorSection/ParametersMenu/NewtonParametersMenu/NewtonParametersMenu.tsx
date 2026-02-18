@@ -13,6 +13,7 @@ export default function NewtonParametersMenu() {
                 label="Max Iterations:"
                 type="number"
                 value={parameters.maxIterations}
+                tooltip="Higher values reveal more detail but take longer to render"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,
@@ -24,6 +25,7 @@ export default function NewtonParametersMenu() {
                 id="newtonDegree"
                 label="Polynomial Degree (z^n - 1):"
                 value={parameters.newtonDegree}
+                tooltip="Higher degrees create more roots and symmetry in the fractal"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,

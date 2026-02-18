@@ -33,6 +33,7 @@ export default function ColorModeMenu() {
                 label="Color Mode:"
                 value={colorModeParameters.colorMode}
                 onChange={handleColorModeChange}
+                tooltip="How iteration counts are mapped to colors"
             >
                 <option value="smooth">Smooth</option>
                 {parameters.algorithm !== "perlin" && <option value="palette">Palette</option>}
@@ -40,43 +41,65 @@ export default function ColorModeMenu() {
                 {parameters.algorithm !== "perlin" && <option value="random">Random</option>}
             </LabelledSelect>
             <Styled.CheckboxGroup>
-                {parameters.algorithm !== "perlin" && parameters.algorithm !== "lyapunov" && parameters.algorithm !== "buddhabrot" && (
+                {parameters.algorithm !== "perlin" &&
+                    parameters.algorithm !== "lyapunov" &&
+                    parameters.algorithm !== "buddhabrot" && (
+                        <Styled.CheckboxRow>
+                            <Styled.Checkbox
+                                type="checkbox"
+                                checked={colorModeParameters.smoothColoring}
+                                onChange={(e) =>
+                                    setColorModeParameters({
+                                        ...colorModeParameters,
+                                        smoothColoring: e.target.checked,
+                                    })
+                                }
+                            />
+                            Smooth
+                        </Styled.CheckboxRow>
+                    )}
+                {colorModeParameters.colorMode === "smooth" &&
+                    parameters.algorithm !== "perlin" && (
+                        <Styled.CheckboxRow>
+                            <Styled.Checkbox
+                                type="checkbox"
+                                checked={colorModeParameters.cyclicColoring}
+                                onChange={(e) =>
+                                    setColorModeParameters({
+                                        ...colorModeParameters,
+                                        cyclicColoring: e.target.checked,
+                                    })
+                                }
+                            />
+                            Cyclic
+                        </Styled.CheckboxRow>
+                    )}
+                {parameters.algorithm !== "perlin" && (
                     <Styled.CheckboxRow>
                         <Styled.Checkbox
                             type="checkbox"
-                            checked={colorModeParameters.smoothColoring}
+                            checked={colorModeParameters.logarithmicColoring}
                             onChange={(e) =>
                                 setColorModeParameters({
                                     ...colorModeParameters,
-                                    smoothColoring: e.target.checked,
+                                    logarithmicColoring: e.target.checked,
                                 })
                             }
                         />
-                        Smooth
-                    </Styled.CheckboxRow>
-                )}
-                {colorModeParameters.colorMode === "smooth" && parameters.algorithm !== "perlin" && (
-                    <Styled.CheckboxRow>
-                        <Styled.Checkbox
-                            type="checkbox"
-                            checked={colorModeParameters.cyclicColoring}
-                            onChange={(e) =>
-                                setColorModeParameters({
-                                    ...colorModeParameters,
-                                    cyclicColoring: e.target.checked,
-                                })
-                            }
-                        />
-                        Cyclic
+                        Log
                     </Styled.CheckboxRow>
                 )}
             </Styled.CheckboxGroup>
-            {colorModeParameters.colorMode === "smooth" && (
+            {(colorModeParameters.colorMode === "smooth" ||
+                colorModeParameters.colorMode === "palette") && (
                 <LabelledInput
                     id="intensity"
                     label="Intensity:"
                     type="number"
                     value={colorModeParameters.colorIntensity}
+                    tooltip={
+                        "Controls how many color cycles appear across the fractal.\nUse a negative number to reverse the colors"
+                    }
                     onChange={(e) =>
                         setColorModeParameters({
                             ...colorModeParameters,
@@ -118,6 +141,7 @@ export default function ColorModeMenu() {
                     label="Number of Random Colors:"
                     type="number"
                     value={colorModeParameters.numberOfRandomColors}
+                    tooltip="Number of distinct random hues to use"
                     onChange={(e) =>
                         setColorModeParameters({
                             ...colorModeParameters,
@@ -153,6 +177,7 @@ export default function ColorModeMenu() {
                     <option value="toxic">Toxic</option>
                     <option value="frost">Frost</option>
                     <option value="vintage">Vintage</option>
+                    <option value="cosmic">Cosmic</option>
                 </LabelledSelect>
             )}
         </Styled.Container>

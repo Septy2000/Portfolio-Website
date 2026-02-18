@@ -1,6 +1,7 @@
 "use client";
 import * as Styled from "./ProceduralArtGeneratorSection.styled";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { BsGearFill, BsXLg, BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { ComplexPlaneBoundary } from "@/_types/math";
 import ParametersMenu from "./ParametersMenu/ParametersMenu";
 import GeneratorInformationSection from "@/components/Sections/ProceduralArtGeneratorSections/GeneratorInformationSection/GeneratorInformationSection";
@@ -10,10 +11,39 @@ import { useParameters } from "./ParametersProvider/ParametersProvider";
 import { convertParameters, convertColorModeParameters } from "@/utils/parametersTypeConversion";
 
 export default function ProceduralArtGeneratorSection() {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isMobileMenuOpen]);
+
+    useEffect(() => {
+        function updateNavbarHeight() {
+            const header = document.querySelector("header");
+            if (header) {
+                document.documentElement.style.setProperty(
+                    "--navbar-height",
+                    `${header.offsetHeight}px`,
+                );
+            }
+        }
+        updateNavbarHeight();
+        window.addEventListener("resize", updateNavbarHeight);
+        return () => window.removeEventListener("resize", updateNavbarHeight);
+    }, []);
+
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const contextRef = useRef<CanvasRenderingContext2D | null>(null);
     const complexPlaneBoundariesRef = useRef<ComplexPlaneBoundary>(
-        DEFAULT_COMPLEX_PLANE_BOUNDARIES
+        DEFAULT_COMPLEX_PLANE_BOUNDARIES,
     );
 
     // Ref indirection to break the circular dependency between hooks:
@@ -37,7 +67,15 @@ export default function ProceduralArtGeneratorSection() {
         resetZoomHistoryRef,
     });
 
-    const { undoZoom, resetZoom, resetHistory, zoomHistoryLength, hoverCoords, getZoomHistory, loadZoomState } = useCanvasZoom({
+    const {
+        undoZoom,
+        resetZoom,
+        resetHistory,
+        zoomHistoryLength,
+        hoverCoords,
+        getZoomHistory,
+        loadZoomState,
+    } = useCanvasZoom({
         canvasRef,
         contextRef,
         scalingFactorRef,
@@ -108,31 +146,84 @@ export default function ProceduralArtGeneratorSection() {
         });
     }
 
+    const menuProps = {
+        generate: generateImageFromButton,
+        stopGeneration: stopImageGeneration,
+        isImageGenerated,
+        undoZoom,
+        resetZoom,
+        areZoomButtonsDisabled: zoomHistoryLength === 0,
+        onSave: handleSave,
+        onCopyLink: handleCopyLink,
+    };
+
     return (
         <Styled.Container>
             <GeneratorInformationSection />
             <Styled.GeneratorContainer>
                 <Styled.CanvasWrapper>
                     <Styled.Canvas ref={canvasRef} />
-                    {hoverCoords && (
+                    {typedParameters.algorithm !== "perlin" && typedParameters.algorithm !== "buddhabrot" && (
                         <Styled.CoordinateOverlay>
-                            Re: {hoverCoords.re.toFixed(6)} Im: {hoverCoords.im.toFixed(6)}i
+                            {(() => {
+                                const b = complexPlaneBoundariesRef.current;
+                                const defaultWidth = typedParameters.algorithm === "lyapunov" ? 2 : 4;
+                                const zoom = defaultWidth / (b.RE_MAX - b.RE_MIN);
+                                return `${zoom > 1 ? zoom.toFixed(1) : "1"}x`;
+                            })()}
+                            {hoverCoords && (
+                                <>
+                                    {" · "}
+                                    {hoverCoords.re}, {hoverCoords.im}i
+                                </>
+                            )}
                         </Styled.CoordinateOverlay>
                     )}
                 </Styled.CanvasWrapper>
-                <Styled.MenuContainer>
-                    <ParametersMenu
-                        generate={generateImageFromButton}
-                        stopGeneration={stopImageGeneration}
-                        isImageGenerated={isImageGenerated}
-                        undoZoom={undoZoom}
-                        resetZoom={resetZoom}
-                        areZoomButtonsDisabled={zoomHistoryLength === 0}
-                        onSave={handleSave}
-                        onCopyLink={handleCopyLink}
-                    />
-                </Styled.MenuContainer>
             </Styled.GeneratorContainer>
+
+            <Styled.ButtonsUnderCanvas>
+                <ParametersMenu {...menuProps} variant="buttons-only" />
+            </Styled.ButtonsUnderCanvas>
+
+            {/* Desktop: persistent sidebar */}
+            <Styled.SidebarOpenTab
+                $isOpen={isSidebarOpen}
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            >
+                {isSidebarOpen ? <BsChevronRight /> : <BsChevronLeft />}
+            </Styled.SidebarOpenTab>
+            <Styled.Sidebar $isOpen={isSidebarOpen}>
+                <Styled.SidebarHeader>
+                    <Styled.SidebarTitle>Parameters</Styled.SidebarTitle>
+                    <Styled.SidebarToggle onClick={() => setIsSidebarOpen(false)}>
+                        <BsChevronRight />
+                    </Styled.SidebarToggle>
+                </Styled.SidebarHeader>
+                <Styled.SidebarContent>
+                    <ParametersMenu {...menuProps} variant="menus-only" />
+                </Styled.SidebarContent>
+            </Styled.Sidebar>
+
+            {/* Mobile: gear FAB + bottom sheet */}
+            <Styled.MobileMenuToggle onClick={() => setIsMobileMenuOpen(true)}>
+                <BsGearFill />
+            </Styled.MobileMenuToggle>
+
+            {isMobileMenuOpen && (
+                <React.Fragment>
+                    <Styled.BottomSheetOverlay onClick={() => setIsMobileMenuOpen(false)} />
+                    <Styled.BottomSheetContainer>
+                        <Styled.BottomSheetHeader>
+                            <Styled.BottomSheetTitle>Parameters</Styled.BottomSheetTitle>
+                            <Styled.BottomSheetClose onClick={() => setIsMobileMenuOpen(false)}>
+                                <BsXLg />
+                            </Styled.BottomSheetClose>
+                        </Styled.BottomSheetHeader>
+                        <ParametersMenu {...menuProps} variant="menus-only" />
+                    </Styled.BottomSheetContainer>
+                </React.Fragment>
+            )}
         </Styled.Container>
     );
 }

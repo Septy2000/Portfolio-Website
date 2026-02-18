@@ -12,21 +12,34 @@ export const Container = styled.div`
 
 export const Input = styled.input`
     width: 100%;
-    padding: 2px;
-    font-size: 1.2rem;
-    border: ${({ theme }) => `${theme.border.small} solid ${theme.colors.surface.secondary}`};
-    border-radius: 4px;
-    background-color: ${({ theme }) => theme.colors.surface.primary};
-    color: ${({ theme }) => theme.colors.text.primary};
-    transition: border-color 0.5s;
+    padding: 6px 8px;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: ${({ theme }) => theme.colors.text.secondary};
+    transition: border-color 0.2s ease, background 0.2s ease;
     outline: none;
+
     &:focus {
-        border-color: ${({ theme }) => theme.colors.orange};
+        border-color: rgba(255, 149, 0, 0.5);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.25);
     }
 `;
 
+export const LabelRow = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 3px;
+`;
+
 export const Label = styled.label`
-    color: ${({ theme }) => theme.colors.text.primary};
-    font-size: 1.1rem;
-    margin-bottom: 2px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    font-weight: 500;
 `;

@@ -52,6 +52,7 @@ export default function JuliaParametersMenu() {
                 label="Max Iterations:"
                 type="number"
                 value={parameters.maxIterations}
+                tooltip="Higher values reveal more detail but take longer to render"
                 onChange={(e) =>
                     setParameters({
                         ...parameters,
@@ -59,7 +60,7 @@ export default function JuliaParametersMenu() {
                     })
                 }
             />
-            <LabelledSelect id="c" label="C:" value={selectedCValue} onChange={handleCValueChange}>
+            <LabelledSelect id="c" label="C:" value={selectedCValue} onChange={handleCValueChange} tooltip="Complex constant that defines the Julia set shape">
                 {COMPLEX_LIST_OPTIONS_STRINGS.map((complexNumber, id) => (
                     <option key={id} value={complexNumber}>
                         {complexNumber}
