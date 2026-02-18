@@ -161,7 +161,7 @@ export const SidebarOpenTab = styled.button<{ $isOpen: boolean }>`
     height: 56px;
     border: none;
     border-radius: 8px 0 0 8px;
-    background: rgba(13, 14, 20, 0.7);
+    background: rgba(19, 20, 26, 0.7);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-left: 1px solid rgba(255, 255, 255, 0.06);
@@ -174,7 +174,10 @@ export const SidebarOpenTab = styled.button<{ $isOpen: boolean }>`
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: right 0.3s ease, color 0.2s ease, background 0.2s ease;
+    transition:
+        right 0.3s ease,
+        color 0.2s ease,
+        background 0.2s ease;
 
     &:hover {
         background: rgba(13, 14, 20, 0.9);
@@ -213,14 +216,20 @@ export const MobileMenuToggle = styled.button`
     font-size: 1.3rem;
     cursor: pointer;
     z-index: 100;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 149, 0, 0.1);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 149, 0, 0.1);
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 
     &:hover {
         transform: scale(1.05);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 149, 0, 0.15);
+        box-shadow:
+            0 4px 24px rgba(0, 0, 0, 0.5),
+            0 0 30px rgba(255, 149, 0, 0.15);
     }
 
     &:active {
@@ -256,7 +265,8 @@ export const BottomSheetContainer = styled.div`
     overscroll-behavior: contain;
     z-index: 100;
     background: #13141c;
-    border-radius: ${({ theme }) => theme.borderRadius.medium} ${({ theme }) => theme.borderRadius.medium} 0 0;
+    border-radius: ${({ theme }) => theme.borderRadius.medium}
+        ${({ theme }) => theme.borderRadius.medium} 0 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.5);
     animation: ${slideUp} 0.3s ease;
