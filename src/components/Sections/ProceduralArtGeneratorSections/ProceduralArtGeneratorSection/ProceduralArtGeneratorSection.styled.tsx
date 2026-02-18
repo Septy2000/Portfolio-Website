@@ -251,7 +251,9 @@ export const BottomSheetContainer = styled.div`
     left: 0;
     right: 0;
     max-height: 80vh;
+    max-height: 80dvh;
     overflow-y: auto;
+    overscroll-behavior: contain;
     z-index: 100;
     background: #13141c;
     border-radius: ${({ theme }) => theme.borderRadius.medium} ${({ theme }) => theme.borderRadius.medium} 0 0;
