@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useState } from "react";
+import React, { useState } from "react";
 import * as Styled from "./ProjectsSection.styled";
 import ProjectCard from "./ProjectCard/ProjectCard";
 import { mandelbrot_image_src, a_star_image_src, wpf_image_src } from "@/components/Images/Images";
@@ -15,14 +15,14 @@ export type Project = {
     code_url?: string;
 };
 
-const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) => {
+export default function ProjectsSection({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
     const projects: Project[] = [
         {
             title: "Procedural Art Generator",
             imagePath: mandelbrot_image_src,
-            description: `Create and explore mathematically generated images using different algorithms 
-                            such as the Mandelbrot set, Julia set and Perlin noise. 
-                            This project defines my starting point with web development as part 
+            description: `Create and explore mathematically generated images using different algorithms
+                            such as the Mandelbrot set, Julia set and Perlin noise.
+                            This project defines my starting point with web development as part
                             of the 3rd year individual project.`,
             note: "Note: for the best experience, use a desktop browser.",
             url: "procedural-art-generator",
@@ -30,7 +30,7 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
         {
             title: "Wild Poppy Films",
             imagePath: wpf_image_src,
-            description: `Wild Poppy Films is an independent production company dedicated to 
+            description: `Wild Poppy Films is an independent production company dedicated to
                 supporting emerging storytellers to develop conversation-sparking-question-raising films.`,
             url: "https://www.wildpoppyfilms.com",
             code_url: "https://github.com/Septy2000/Wild-Poppy-Films-Website",
@@ -48,8 +48,9 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
 
     const projectsSectionTitle = "projects";
 
-    const { ref, inView } = useInView({
-        threshold: 0.5,
+    const { ref: inViewRef, inView } = useInView({
+        threshold: 0.2,
+        triggerOnce: true,
     });
 
     function handleProjectItemClick(project: Project) {
@@ -57,9 +58,9 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
     }
 
     return (
-        <Styled.Container ref={ref} $inView={inView}>
+        <Styled.Container ref={inViewRef} $inView={inView}>
             <SpacerSmall />
-            <Styled.ProjectsContainer ref={projectsRef}>
+            <Styled.ProjectsContainer ref={ref} className="reveal reveal-delay-1">
                 <Styled.ProjectsList>
                     <Styled.ProjectsSectionTitle>
                         {projectsSectionTitle}
@@ -75,11 +76,9 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
                         </Styled.ProjectItemContainer>
                     ))}
                 </Styled.ProjectsList>
-                <ProjectCard project={selectedProject} inView={inView} />
+                <ProjectCard key={selectedProject.title} project={selectedProject} inView={inView} />
             </Styled.ProjectsContainer>
             <SpacerSmall />
         </Styled.Container>
     );
-});
-ProjectsSection.displayName = "ProjectsSection";
-export default ProjectsSection;
+}

@@ -1,5 +1,5 @@
 "use client";
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const fadeIn = keyframes`
     from {
@@ -31,15 +31,15 @@ export const Container = styled.section<{ $inView: boolean }>`
     padding: ${({ theme }) => `${theme.padding.xxlarge} ${theme.padding.medium}`};
     position: relative;
     transition: all 0.6s ease;
+    background: ${({ theme }) => theme.colors.surface.primary};
 
-    background: ${({ theme, $inView }) =>
-        $inView ? theme.colors.surface.primary : theme.colors.surface.primary_shade.dark_1};
-
-    ${({ $inView, theme }) =>
-        !$inView &&
-        css`
-            box-shadow: ${theme.shadows.neumorphic.inset};
-        `}
+    /* Scroll-reveal for direct children */
+    & > .reveal {
+        opacity: ${({ $inView }) => ($inView ? 1 : 0)};
+        transform: translateY(${({ $inView }) => ($inView ? "0" : "30px")});
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    & > .reveal-delay-1 { transition-delay: 0.2s; }
 
     /* Decorative elements */
     &::before {

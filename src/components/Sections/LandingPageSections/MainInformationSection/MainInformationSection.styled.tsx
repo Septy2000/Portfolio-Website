@@ -21,15 +21,6 @@ const float = keyframes`
     }
 `;
 
-const gradientShift = keyframes`
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-`;
-
 export const Container = styled.div<{ $inView: boolean }>`
     display: flex;
     flex-direction: column;
@@ -38,7 +29,6 @@ export const Container = styled.div<{ $inView: boolean }>`
     padding: ${({ theme }) => `${theme.padding.xlarge} ${theme.padding.medium}`};
     min-height: calc(100vh - 80px);
     position: relative;
-    overflow: hidden;
 
     /* Base background */
     background: ${({ theme }) => theme.colors.surface.primary};
@@ -52,36 +42,6 @@ export const Container = styled.div<{ $inView: boolean }>`
             background: ${theme.colors.surface.primary_shade.dark_1};
             box-shadow: ${theme.shadows.neumorphic.inset};
         `}
-
-    /* Decorative gradient orbs */
-    &::before,
-    &::after {
-        content: "";
-        position: absolute;
-        border-radius: 50%;
-        pointer-events: none;
-        filter: blur(80px);
-        opacity: 0.4;
-        transition: ${({ theme }) => theme.transitions.slow};
-    }
-
-    &::before {
-        width: 400px;
-        height: 400px;
-        background: ${({ theme }) => theme.colors.orange};
-        top: -100px;
-        right: -100px;
-        opacity: 0.15;
-    }
-
-    &::after {
-        width: 300px;
-        height: 300px;
-        background: ${({ theme }) => theme.colors.accent.cool};
-        bottom: -50px;
-        left: -50px;
-        opacity: 0.1;
-    }
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {
         min-height: auto;
