@@ -104,12 +104,7 @@ export const NavigationLink = styled.h2`
     }
 
     &:hover {
-        color: ${({ theme }) => theme.colors.surface.secondary};
-
-        &::before {
-            opacity: 1;
-            transform: scale(1);
-        }
+        color: ${({ theme }) => theme.colors.orange};
     }
 
     &:not(:hover)::after {

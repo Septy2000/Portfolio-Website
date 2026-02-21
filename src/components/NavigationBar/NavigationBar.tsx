@@ -3,7 +3,7 @@ import * as Styled from "./NavigationBar.styled";
 
 type Page = {
     name: string;
-    ref: React.RefObject<HTMLDivElement>;
+    ref: React.RefObject<HTMLDivElement | null>;
 };
 
 const NAVBAR_HEIGHT = 70; // Approximate height of the navbar
@@ -13,9 +13,9 @@ export default function NavigationBar({
     projectsRef,
     experienceRef,
 }: {
-    aboutRef: React.RefObject<HTMLDivElement>;
-    projectsRef: React.RefObject<HTMLDivElement>;
-    experienceRef: React.RefObject<HTMLDivElement>;
+    aboutRef: React.RefObject<HTMLDivElement | null>;
+    projectsRef: React.RefObject<HTMLDivElement | null>;
+    experienceRef: React.RefObject<HTMLDivElement | null>;
 }) {
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -60,7 +60,7 @@ export default function NavigationBar({
 
     const topLeftText = "me.";
 
-    const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
         if (ref.current) {
             const elementPosition = ref.current.getBoundingClientRect().top + window.scrollY;
             const offsetPosition = elementPosition - NAVBAR_HEIGHT;

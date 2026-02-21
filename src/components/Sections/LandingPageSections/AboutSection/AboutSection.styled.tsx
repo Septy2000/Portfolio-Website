@@ -39,7 +39,7 @@ export const Section = styled.div`
 
 export const SectionHeader = styled.h3`
     font-size: 1.8rem;
-    color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: ${({ theme }) => theme.margin.small};
 `;
 

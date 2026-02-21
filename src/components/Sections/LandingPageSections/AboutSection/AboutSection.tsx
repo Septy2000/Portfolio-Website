@@ -1,20 +1,19 @@
 "use client";
 import * as Styled from "./AboutSection.styled";
-import { forwardRef } from "react";
 import { useInView } from "react-intersection-observer";
 
-const AboutSection = forwardRef<HTMLDivElement>((props, aboutRef) => {
+export default function AboutSection() {
     const { ref, inView } = useInView({
         threshold: 0.5,
     });
 
     const description = `
-    I'm Septimiu-Iulian Călin, a dedicated junior software engineer based in London, UK. 
-    With a First-Class Honours degree in Computer Science from King’s College London, 
-    I have experience in both iOS and web development. At Go City, I contributed to the iOS app development, 
-    focusing on MVVM+C architecture, Agile methodologies, and cross-functional teamwork. 
-    My projects range from a waste management platform in partnership with AWS to a procedurally generated art gallery. 
-    I'm passionate about learning new technologies and constantly innovating. 
+    I'm Septimiu-Iulian Călin, a dedicated junior software engineer based in London, UK.
+    With a First-Class Honours degree in Computer Science from King's College London,
+    I have experience in both iOS and web development. At Go City, I contributed to the iOS app development,
+    focusing on MVVM+C architecture, Agile methodologies, and cross-functional teamwork.
+    My projects range from a waste management platform in partnership with AWS to a procedurally generated art gallery.
+    I'm passionate about learning new technologies and constantly innovating.
     Let's connect and collaborate on exciting projects!
     `;
 
@@ -40,7 +39,4 @@ const AboutSection = forwardRef<HTMLDivElement>((props, aboutRef) => {
             </Styled.Section>
         </Styled.Container>
     );
-});
-
-export default AboutSection;
-AboutSection.displayName = "AboutSection";
+}

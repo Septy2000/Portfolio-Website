@@ -1,6 +1,6 @@
 "use client";
 import * as Styled from "./ExperienceSection.styled";
-import React, { forwardRef, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
     gocity_icon_src,
     kcl_icon_src,
@@ -24,7 +24,7 @@ export type TimelineItemAttributes = {
 const CARD_WIDTH = 340;
 const GAP = 24;
 
-const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
+export default function ExperienceSection({ ref }: { ref?: React.Ref<HTMLDivElement> }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -107,7 +107,7 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
     };
 
     return (
-        <Styled.Container ref={experienceRef}>
+        <Styled.Container ref={ref}>
             <Styled.Header>
                 <Styled.Title>experience</Styled.Title>
                 <Styled.Subtitle>my professional journey</Styled.Subtitle>
@@ -212,7 +212,4 @@ const ExperienceSection = forwardRef<HTMLDivElement>((props, experienceRef) => {
             </Styled.DotsContainer>
         </Styled.Container>
     );
-});
-
-ExperienceSection.displayName = "ExperienceSection";
-export default ExperienceSection;
+}
