@@ -1,16 +1,5 @@
 "use client";
-import styled, { keyframes } from "styled-components";
-
-const fadeInUp = keyframes`
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-`;
+import styled from "styled-components";
 
 export const Container = styled.section`
     display: flex;
@@ -201,13 +190,14 @@ export const Card = styled.article`
     padding: ${({ theme }) => theme.padding.medium};
     box-shadow: ${({ theme }) => theme.shadows.neumorphic.raised};
     scroll-snap-align: center;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: ${({ theme }) => theme.transitions.normal};
     position: relative;
     overflow: hidden;
     border: ${({ theme }) => `${theme.border.medium} solid ${theme.colors.surface.secondary}`};
 
     &:hover {
         transform: translateY(-8px);
+        box-shadow: ${({ theme }) => theme.shadows.strong};
     }
 
     @media (max-width: ${({ theme }) => theme.screen.medium}) {

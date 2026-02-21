@@ -30,23 +30,6 @@ export const Header = styled.header`
         ${({ theme }) => theme.colors.surface.secondary_shade.light_1} 100%
     );
 
-    /* Bottom accent line */
-    &::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            ${({ theme }) => theme.colors.orange} 20%,
-            ${({ theme }) => theme.colors.orange} 80%,
-            transparent
-        );
-        opacity: 0.6;
-    }
 `;
 
 export const Name = styled.h2`

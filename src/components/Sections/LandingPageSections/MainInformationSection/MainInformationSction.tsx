@@ -5,12 +5,12 @@ import { PortraitImage } from "@/components/Images/Images.styled";
 import { portrait_src } from "@/components/Images/Images";
 import { useInView } from "react-intersection-observer";
 import { forwardRef } from "react";
-import React from "react";
 
 const MainInformationSection = forwardRef<HTMLDivElement>((props, aboutRef) => {
     const { ref, inView } = useInView({
         threshold: 0.5,
     });
+
     return (
         <Styled.Container ref={ref} $inView={inView}>
             <Styled.InfoFlexContainer ref={aboutRef}>

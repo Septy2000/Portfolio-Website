@@ -5,6 +5,7 @@ import MainInformationSection from "@/components/Sections/LandingPageSections/Ma
 // import AboutSection from "@/components/Sections/LandingPageSections/AboutSection/AboutSection";
 import ExperienceSection from "@/components/Sections/LandingPageSections/ExperienceSection/ExperienceSection";
 import ProjectsSection from "@/components/Sections/LandingPageSections/ProjectsSection/ProjectsSection";
+import Footer from "@/components/Footer/Footer";
 
 export default function AboutMePage() {
     const aboutRef = useRef<HTMLDivElement | null>(null);
@@ -21,7 +22,7 @@ export default function AboutMePage() {
             <MainInformationSection ref={aboutRef} />
             <ExperienceSection ref={experienceRef} />
             <ProjectsSection ref={projectsRef} />
-            {/* <AboutSection ref={aboutRef} /> */}
+            <Footer />
         </React.Fragment>
     );
 }

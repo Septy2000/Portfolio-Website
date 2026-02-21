@@ -49,7 +49,8 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
     const projectsSectionTitle = "projects";
 
     const { ref, inView } = useInView({
-        threshold: 0.5,
+        threshold: 0.2,
+        triggerOnce: true,
     });
 
     function handleProjectItemClick(project: Project) {
@@ -59,7 +60,7 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
     return (
         <Styled.Container ref={ref} $inView={inView}>
             <SpacerSmall />
-            <Styled.ProjectsContainer ref={projectsRef}>
+            <Styled.ProjectsContainer ref={projectsRef} className="reveal reveal-delay-1">
                 <Styled.ProjectsList>
                     <Styled.ProjectsSectionTitle>
                         {projectsSectionTitle}
@@ -75,7 +76,7 @@ const ProjectsSection = forwardRef<HTMLDivElement | null>((props, projectsRef) =
                         </Styled.ProjectItemContainer>
                     ))}
                 </Styled.ProjectsList>
-                <ProjectCard project={selectedProject} inView={inView} />
+                <ProjectCard key={selectedProject.title} project={selectedProject} inView={inView} />
             </Styled.ProjectsContainer>
             <SpacerSmall />
         </Styled.Container>
